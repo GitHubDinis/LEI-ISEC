@@ -1,6 +1,3 @@
-# Tecnologias Web
+# 1º ANO 
 
-
-### Objetivo:
-
- - O objetivo da unidade curricular é a familiarização dos alunos com os conceitos e tecnologias utilizados no desenvolvimento de aplicações centradas na Web.
+Started 2020/2021.
