@@ -1,5 +1,7 @@
 # 1º ANO 
 
+Primeiro ano do Curso Licenciatura em Engenharia Informática.
+
 ## 1º Semestre:
 
 Álgebra Linear (12 valores / 20 valores)
