@@ -6,27 +6,27 @@ Segundo ano do Curso Licenciatura em Engenharia Informática.
 
 Base de Dados (10 valores / 20 valores)
 
-Introdução à Inteligência Artificial
+Introdução à Inteligência Artificial (xx valores / 20 valores)
 
-Introdução às Redes de Comunicação
+Introdução às Redes de Comunicação (xx valores / 20 valores)
 
 Investigação Operacional (16 valores / 20 valores)
 
-Programação Orientada a Objetos
+Programação Orientada a Objetos (xx valores / 20 valores)
 
-Sistemas Operativos
+Sistemas Operativos (xx valores / 20 valores)
 
 ## 2º Semestre:
 
-Conhecimento e Raciocínio
+Conhecimento e Raciocínio (xx valores / 20 valores)
 	 	 	 	 
-Interação Pessoa-Máquina
+Interação Pessoa-Máquina (xx valores / 20 valores)
 
-Linguagens Script
+Linguagens Script (xx valores / 20 valores)
 
-Modelação e Design
+Modelação e Design (xx valores / 20 valores)
 
-Programação Avançada
+Programação Avançada (xx valores / 20 valores)
 
-Sistemas Operativos II
+Sistemas Operativos II (xx valores / 20 valores)
  	 	 
