@@ -1,0 +1,68 @@
+
+**** 04/06/21 12:11:49 *********** Evaluation PSpice (Nov 1999) **************
+
+ * C:\Users\Utilizador\Documents\Schematic1.sch
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+* Schematics Version 9.1 - Web Update 1
+* Tue Apr 06 12:11:27 2021
+
+
+
+** Analysis setup **
+.OP 
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "Schematic1.net"
+
+**** INCLUDING Schematic1.net ****
+* Schematics Netlist *
+
+
+
+V_V1         $N_0001 $N_0002   
+R_R1         $N_0001 $N_0003  1.123k  
+R_R2         $N_0002 $N_0003  1.280k  
+R_R3         $N_0004 $N_0003  1.425k  
+R_R4         $N_0002 $N_0003  1.026  
+V_V2         $N_0004 $N_0002 DC -10  
+
+**** RESUMING Schematic1.cir ****
+.INC "Schematic1.als"
+
+
+
+**** INCLUDING Schematic1.als ****
+* Schematics Aliases *
+
+.ALIASES
+V_V1            V1(+=$N_0001 -=$N_0002 )
+R_R1            R1(1=$N_0001 2=$N_0003 )
+R_R2            R2(1=$N_0002 2=$N_0003 )
+R_R3            R3(1=$N_0004 2=$N_0003 )
+R_R4            R4(1=$N_0002 2=$N_0003 )
+V_V2            V2(+=$N_0004 -=$N_0002 )
+.ENDALIASES
+
+
+**** RESUMING Schematic1.cir ****
+.probe
+
+
+.END
+
+ERROR -- Node $N_0001 is floating
+ERROR -- Node $N_0002 is floating
+ERROR -- Node $N_0003 is floating
+ERROR -- Node $N_0004 is floating
