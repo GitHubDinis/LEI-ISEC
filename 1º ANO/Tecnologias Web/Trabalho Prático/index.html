@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USF TWeb</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+  <a href="index.html">
+  <img  alt="USF" class="logo" src="logo.jpg">
+  </a>
+  <div class="dropdown">
+    <button style="font-size: 16px"class="dropbtn">Quem Somos
+    <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="Missao, Valores e Visao.html"style="font-size: 16px">Missão, Visão e Valores</a>
+      <a href="Horarios e localizaçao.html"style="font-size: 16px">Horário e Localização</a>
+      <a href="Equipa.html"style="font-size: 16px">Equipa</a>
+      <a href="Como entrar em contacto.html"style="font-size: 16px">Como entrar em contacto?</a>
+    </div>
+
+</div>
+  <a href="oquefazemos.html"style="font-size: 16px">O que fazemos</a>
+  <a href="indicadores.html"style="font-size: 16px">Indicadores</a>
+  <a href="recursos.html"style="font-size: 16px">Recursos</a>
+  <a href="apoio.html"style="font-size: 16px">Mais Apoio</a>
+  <div class="dropdown">
+  <button class="dropbtn"style="font-size: 16px">Login
+  <i class="fa fa-caret-down"></i>
+  </button>
+    <div class="dropdown-content">
+    <a href="justlogin.html"style="font-size: 16px">Login</a>
+    <a href="newlogin.html"style="font-size: 16px">Novo Utilizador</a>
+    </div>
+  </div> 
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+  <!-- <div class="weather"><a target="_blank" href="https://ibooked.com.br/weather/miranda-do-corvo-w544866"><img src="https://w.bookcdn.com/weather/picture/4_w544866_1_8_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=124&domid=&anc_id=47077"  alt="booked.net"/></a></div> -->
+  <div class="container">
+    <img src="miranda1.jpg" alt="miranda1" class="image">
+    <div class="overlay">
+      <div class="text">BEM-VINDO À USF - MIRANDA DO CORVO</div>
+    </div>
+    </div>
+</div>         
+<!-- <div class="texto">-->
+  <div class="flex-container">
+    <h1>Bem-vindo à Unidade de Saúde Familiar – Miranda do Corvo.</h1>
+    <br>
+    <p>Esta página web, criada pelos alunos David Seco e Dinis Falcão (estudantes do 1º ano do curso de Engenharia Informática no Instituo Superior de Engenharia de Coimbra), tem como objetivo proporcionar aos nossos utentes uma panorâmica geral da nossa prática clínica, das atividades desenvolvidas no âmbito da promoção da saúde e da prevenção da doença, bem como uma breve apresentação de quem representa esta Unidade, informações sobre áreas de interesse específicas e dos diversos serviços que oferecemos.</p>
+  </div>
+  <br>
+  <div class="flex-container">
+    <h1>Sua Saúde, Nossa Preocupação!</h1>
+    <br>
+    <p>Desde já, a nossa filosofia é de um atendimento  cuidadoso, preciso, minucioso e com exames imediatos quando necessário, para melhor cuidar de si. Contamos atualmente com bons equipamentos, seguindo o espírito de que somos imbuídos de realizar o melhor para a sua saúde. Assim, a sua saúde e bem-estar será sempre uma prioridade.</p>    
+  </div>
+
+<div class="slideshow-container">
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 5</div>
+    <img src="covid1.jpg" style="width:100%">
+    <div class="text"></div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 5</div>
+    <img src="covid2.jpg" style="width:100%">
+    <div class="text"></div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 5</div>
+    <img src="covid3.jpg" style="width:100%">
+    <div class="text"></div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">4 / 5</div>
+    <img src="covid4.jpg" style="width:100%">
+    <div class="text"></div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">5 / 5</div>
+    <img src="covid5.jpg" style="width:100%">
+    <div class="text"></div>
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+</div> 
+
+
+<script>
+  var slideIndex = 1;
+  showSlides(slideIndex);
+  
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+  
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+  
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}    
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+  }
+  </script>
+  <script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+}
+ </script>
+            <footer>
+              <div id="footer">
+                <div class="footer">
+                  <h2>Contacto</h2>
+                  <hr>
+                  <p>
+                    <br>
+                  USF MIRANDA DO CORVO
+                  </p>
+                  <p><i class="fa fa-envelope"></i><br>
+                  usf.trilhosdueca@arscentro.min-saude.pt
+                  </p>
+                  <br>
+                  <p><i class="fa fa-phone"></i>
+                  239 530 070
+                  </p>
+                  <br>
+                  <p><i class="fa fa-fax"></i>
+                  239 530 075
+                  </p>
+                  <br>
+                  <p><i class="fa fa-home"></i>
+                  Miranda do Corvo
+                  <br>
+                  Coimbra
+                  <br>
+                  Portugal
+                  </p>
+                </div>
+                <div class="footer">
+                  <h2>Navegação</h2>
+                  <hr>
+                  <div class="site-map">
+                    <ul>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="index.html"> Home</a>
+                      </li>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="#who"> Quem somos</a>
+                        <ol>
+                          <li> <a href="Missao, Valores e Visao.html">Missão, Visão e Valores</a>
+                          <li> <a href="Horarios e localizaçao.html">Horário e Localização</a></li>
+                          <li> <a href="Equipa.html">Equipa</a></li>
+                          <li> <a href="Como entrar em contacto.html">Como entrar em contacto</a></li>
+                        </ol>
+                      </li>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="oquefazemos.html"> O que fazemos?</a>
+                      </li>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="recursos.html"> Recursos</a>
+                      </li>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="apoio.html"> Mais Apoio</a>
+                      </li>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="justlogin.html"> Login</a>
+                      </li>
+                      <li>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="newlogin.html"> Registar</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="footer">
+                  <h2>Localização</h2>
+                  <hr>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3052.340109045152!2d-8.33102978415663!3d40.09012937940441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd22f18ba0b0aaa1%3A0xabfc5b5c2ee02d50!2sUCSP%20Mirando%20do%20Corvo!5e0!3m2!1spt-PT!2spt!4v1610331419171!5m2!1spt-PT!2spt" width="290" height="290" frameborder="0" style="border:0;" allowfullscreen="allowfullscreen" aria-hidden="false" tabindex="0">
+                  </iframe>              
+                </div>
+            </footer>
+</body>
+</html>

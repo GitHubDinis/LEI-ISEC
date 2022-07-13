@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos</title>
+    <link rel="stylesheet" href="quemsomos.css">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="index.html">
+        <img  alt="USF" class="logo" src="logo.jpg">
+        </a>
+        <div class="dropdown">
+          <button class="dropbtn">Quem Somos
+          <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="Missao, Valores e Visao.html">Missão, Visão e Valores</a>
+            <a href="Horarios e localizaçao.html">Horário e Localização</a>
+            <a href="Equipa.html">Equipa</a>
+            <a href="Como entrar em contacto.html">Como entrar em contacto?</a>
+          </div>
+      </div>
+        <a href="oquefazemos.html">O que fazemos</a>
+        <a href="indicadores.html">Indicadores</a>
+        <a href="recursos.html">Recursos</a>
+        <a href="apoio.html">Mais Apoio</a>
+        <div class="dropdown">
+        <button class="dropbtn">Login
+        <i class="fa fa-caret-down"></i>
+        </button>
+          <div class="dropdown-content">
+          <a href="justlogin.html">Login</a>
+          <a href="newlogin.html">Novo Utilizador</a>
+          </div>
+        </div> 
+        <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+      </div>
+      <br><br><br>
+    <div id="formulario">
+      <form>
+        <label for="fname">Primeiro nome:</label><br>
+        <input type="text" id="fname" name="fname" size="20" autofocus required placeholder="o teu nome..."><br>
+        <br>
+        <label for="lname">Ultimo nome:</label><br>
+        <input type="text" id="lname" name="lname" autofocus required><br>
+       <br>
+        <label for="email">@Email:</label><br>
+        <input type="email" name="em1" autofocus required/><br>
+        <br>
+        <label for="contactotele">Contacto Telefonico:</label><br>
+        <input type="text" id="contactotele" name="contactotele"><br>
+        <br>
+        <label for="idade">Idade:</label><br>
+        <input type="number" id="idade" name="idade"><br>
+        <br>
+      </div>
+<fieldset>
+  <legend>Genero</legend>
+      <input type="radio" id="male" name="gender" value="male">
+      <label for="male">Male</label><br>
+      <input type="radio" id="female" name="gender" value="female">
+      <label for="female">Female</label><br>
+      <input type="radio" id="other" name="gender" value="other">
+      <label for="other">Indeciso</label>
+    </fieldset>
+<br><br>
+      <input type="submit" value="Submeter Dados">
+ </div>
+      </form>
+      <script>
+          function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+              x.className += " responsive";
+              } else {
+                x.className = "topnav";
+              }
+          }
+           </script>
+      <footer>
+        <div id="footer">
+          <div class="footer">
+            <h2>Contacto</h2>
+                  <hr>
+                  <p>
+                    <br>
+                  USF MIRANDA DO CORVO
+                  </p>
+                  <p><i class="fa fa-envelope"></i><br>
+                  usf.trilhosdueca@arscentro.min-saude.pt
+                  </p>
+                  <br>
+                  <p><i class="fa fa-phone"></i>
+                  239 530 070
+                  </p>
+                  <br>
+                  <p><i class="fa fa-fax"></i>
+                  239 530 075
+                  </p>
+                  <br>
+                  <p><i class="fa fa-home"></i>
+                  Miranda do Corvo
+                  <br>
+                  Coimbra
+                  <br>
+                  Portugal
+                  </p>
+          </div>
+          <div class="footer">
+            <h2>Navegação</h2>
+            <hr>
+            <div class="site-map">
+              <ul>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="index.html"> Home</a>
+                </li>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#who"> Quem somos?</a>
+                  <ol>
+                    <li> <a href="Missao, Valores e Visao.html">Missão, Visão e Valores</a>
+                    <li> <a href="Horarios e localizaçao.html">Horário e Localização</a></li>
+                    <li> <a href="Equipa.html">Equipa</a></li>
+                    <li> <a href="Como entrar em contacto.html">Como entrar em contacto?</a></li>
+                  </ol>
+                </li>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="oquefazemos.html"> O que fazemos?</a>
+                </li>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="recursos.html"> Recursos</a>
+                </li>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="apoio.html"> Mais Apoio</a>
+                </li>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="justlogin.html"> Login</a>
+                </li>
+                <li>
+                  <i class="fa fa-angle-right"></i>
+                  <a href="newlogin.html"> Registar</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer">
+            <h2>Localização</h2>
+            <hr>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3052.340109045152!2d-8.33102978415663!3d40.09012937940441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd22f18ba0b0aaa1%3A0xabfc5b5c2ee02d50!2sUCSP%20Mirando%20do%20Corvo!5e0!3m2!1spt-PT!2spt!4v1610331419171!5m2!1spt-PT!2spt" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+            </iframe>              
+          </div>
+      </footer>
+</body>
+</html>

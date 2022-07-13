@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que fazemos</title>
+    <link rel="stylesheet" href="oquefazemos.css">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="index.html">
+        <img  alt="USF" class="logo" src="logo.jpg">
+        </a>
+        <div class="dropdown">
+          <button class="dropbtn">Quem Somos
+          <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="Missao, Valores e Visao.html">Missão, Visão e Valores</a>
+            <a href="Horarios e localizaçao.html">Horário e Localização</a>
+            <a href="Equipa.html">Equipa</a>
+            <a href="Como entrar em contacto.html">Como entrar em contacto?</a>
+          </div>
+      </div>
+        <a href="oquefazemos.html">O que fazemos</a>
+        <a href="indicadores.html">Indicadores</a>
+        <a href="recursos.html">Recursos</a>
+        <a href="apoio.html">Mais Apoio</a>
+        <div class="dropdown">
+        <button class="dropbtn">Login
+        <i class="fa fa-caret-down"></i>
+        </button>
+          <div class="dropdown-content">
+          <a href="justlogin.html">Login</a>
+          <a href="newlogin.html">Novo Utilizador</a>
+          </div>
+        </div> 
+        <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+      </div>
+    <div class="container">
+      <h1>O que fazemos?</h1>
+      <br>
+        <p>A USF – MC apresenta vários serviços, entre os quais, uma longa lista de vários tipos de consulta: Consulta Aberta; Consulta de intersubstituição; Consulta Programada de Vigilância de Saúde (Programa de Saúde do Adulto ou Idoso/Rastreio oncológico, Saúde Sexual e Reprodutiva, Saúde Materna, Saúde Infantil e Diabetes e/ou Hipertensão.); Consulta e Apoio Domiciliário; e Consultas e Cuidados de Enfermagem. Além disto, esta unidade também apresenta vários programas de Saúde Infanto-Juvenil (Sono e Obesidade nas Crianças, Vegetarianismo nas Crianças, Alimentação até aos 6 meses de idade, e dos 6 aos 12 meses); Saúde Materna (Toxoplasmose na Gravidez); Estilo de Vida Saudável (Consumo Excessivo de álcool, Consumo de Benzodiazepinas, Cuidados com o calor e exposição solar); Parentalidade (Direitos na Paternidade e Maternidade); Saúde da Mulher (Prevenção do cancro da mama); e Diabetes (Verdades e Mitos sobre Diabetes, Autovigilância da Diabetes Mellitus).</p>
+        <p>A nossa USF colabora ainda na formação pré e pós-graduadação dos cursos de medicina e enfermagem. Atualmente temos 4 médicos em formação específica de Medicina Geral e Familiar, que trabalham na Equipa em parceria com os seus orientadores de formação e 4 estudantes de Enfermagem.</p>    
+    </div>
+    <br>
+    <div class="antesformulario">
+      <h1>Formulário - Médico de Família</h1>
+      <br>
+      <a>O formulário abaixo apresentado destina-se à escolha e atribuição de um médico de família.</a>
+    </div> 
+    <div >
+      <div id="formulario">
+        <form>
+          <div class="formtext">
+          <label for="fname">Primeiro nome:</label><br>
+          <input type="text" id="fname" name="fname" size="20" required placeholder="PRIMEIRO NOME"><br>
+          <br>
+          <label for="lname">Último nome:</label><br>
+          <input type="text" id="lname" name="lname" placeholder="ÚLTIMO NOME" required><br>
+         <br>
+          <label for="email">@Email:</label><br>
+          <input type="email" name="em1" placeholder="example@gmail.com" required/><br>
+          <br>
+          <label for="contactotele">Contacto Telefónico:</label><br>
+          <input type="number" id="contactotele" name="contactotele" maxlength="9" required><br>
+          <br>
+          <label for="idade">Idade:</label><br>
+          <input type="number" id="idade" name="idade" required><br>
+          <br>
+          <label for="cc">Cartão de Identificação:</label><br>
+          <input type="number" id="cc" name="cc" required><br>
+          <br>
+          <label for="cc">Morada:</label><br>
+          <input type="text" id="morada" name="morada" required><br>
+        </div>
+  <fieldset>
+    <legend>Género:</legend>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Masculino</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Feminino</label><br>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Outro</label>
+      </fieldset>
+  <br><br>
+  <fieldset>
+    <legend>Escolha do Médico de Família:</legend>
+        <input type="radio" id="doc1" name="medico" value="doc1">
+        <label for="doc1">Marta Andrade</label><br>
+        <input type="radio" id="doc2" name="medico" value="doc2">
+        <label for="doc2">Rita Fernandes</label><br>
+        <input type="radio" id="doc3" name="medico" value="doc3">
+        <label for="doc3">Carla Serra</label><br>
+        <input type="radio" id="doc4" name="medico" value="doc4">
+        <label for="doc4">Marina Pires</label><br>
+        <input type="radio" id="doc5" name="medico" value="doc5">
+        <label for="doc5">Joana Maia</label><br>
+        <input type="radio" id="doc6" name="medico" value="doc6">
+        <label for="doc6">Joana Carvalho</label>
+      </fieldset>
+  <br><br>
+  <div class="submitarea">
+        <input type="submit" value="Submeter Dados">
+      </div>
+   </div>
+        </form>
+        <script>
+            function myFunction() {
+              var x = document.getElementById("myTopnav");
+              if (x.className === "topnav") {
+                x.className += " responsive";
+                } else {
+                  x.className = "topnav";
+                }
+            }
+             </script>
+        <footer>
+          <div id="footer">
+            <div class="footer">
+              <h2>Contacto</h2>
+                  <hr>
+                  <p>
+                    <br>
+                  USF MIRANDA DO CORVO
+                  </p>
+                  <p><i class="fa fa-envelope"></i><br>
+                  usf.trilhosdueca@arscentro.min-saude.pt
+                  </p>
+                  <br>
+                  <p><i class="fa fa-phone"></i>
+                  239 530 070
+                  </p>
+                  <br>
+                  <p><i class="fa fa-fax"></i>
+                  239 530 075
+                  </p>
+                  <br>
+                  <p><i class="fa fa-home"></i>
+                  Miranda do Corvo
+                  <br>
+                  Coimbra
+                  <br>
+                  Portugal
+                  </p>
+            </div>
+            <div class="footer">
+              <h2>Navegação</h2>
+              <hr>
+              <div class="site-map">
+                <ul>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="index.html"> Home</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#who"> Quem somos?</a>
+                    <ol>
+                      <li> <a href="Missao, Valores e Visao.html">Missão, Visão e Valores</a>
+                      <li> <a href="Horarios e localizaçao.html">Horário e Localização</a></li>
+                      <li> <a href="Equipa.html">Equipa</a></li>
+                      <li> <a href="Como entrar em contacto.html">Como entrar em contacto?</a></li>
+                    </ol>
+                  </li>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="oquefazemos.html"> O que fazemos?</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="recursos.html"> Recursos</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="apoio.html"> Mais Apoio</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="justlogin.html"> Login</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-angle-right"></i>
+                    <a href="newlogin.html"> Registar</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer">
+              <h2>Localização</h2>
+              <hr>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3052.340109045152!2d-8.33102978415663!3d40.09012937940441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd22f18ba0b0aaa1%3A0xabfc5b5c2ee02d50!2sUCSP%20Mirando%20do%20Corvo!5e0!3m2!1spt-PT!2spt!4v1610331419171!5m2!1spt-PT!2spt" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+              </iframe>              
+            </div>
+        </footer>
+</body>
+</html>
