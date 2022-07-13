@@ -1,1 +1,1 @@
-Nota Final: 12 valores / 20 valores
+Classificação: 13 valores / 20 valores
