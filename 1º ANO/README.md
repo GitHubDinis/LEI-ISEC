@@ -24,7 +24,7 @@ Eletrónica (12 valores / 20 valores)
 
 Fundamentos de Computação Gráfica	(xx valores / 20 valores)
 
-Métodos Estatísticos (xx valores / 20 valores)
+Métodos Estatísticos (11 valores / 20 valores)
 
 Programação	(xx valores / 20 valores)
 
