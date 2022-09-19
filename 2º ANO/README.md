@@ -18,7 +18,7 @@ Sistemas Operativos (xx valores / 20 valores)
 
 ## 2º Semestre:
 
-Conhecimento e Raciocínio (xx valores / 20 valores)
+Conhecimento e Raciocínio (10 valores / 20 valores)
 	 	 	 	 
 Interação Pessoa-Máquina (xx valores / 20 valores)
 
