@@ -1,0 +1,6 @@
+﻿  Cliente.c
+C:\Users\Utilizador\source\repos\Exercicío 3 (TCP)\Cliente\Cliente.c(65,55): warning C4013: 'inet_atoa' indefinido; assumindo extern retornando int
+C:\Users\Utilizador\source\repos\Exercicío 3 (TCP)\Cliente\Cliente.c(65,10): warning C4477: 'printf': a cadeia de formato '%s' requer um argumento do tipo 'char *', mas um argumento variadic 2 tem o tipo 'int'
+Cliente.obj : error LNK2019: símbolo externo não resolvido, _Abort, referenciado na função _main
+Cliente.obj : error LNK2019: símbolo externo não resolvido, _inet_atoa, referenciado na função _main
+C:\Users\Utilizador\source\repos\Exercicío 3 (TCP)\Debug\Cliente.exe : fatal error LNK1120: 2 externo não resolvidos
