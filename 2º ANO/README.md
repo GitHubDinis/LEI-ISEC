@@ -6,9 +6,9 @@ Segundo ano do Curso Licenciatura em Engenharia Informática.
 
 Base de Dados (10 valores / 20 valores)
 
-Introdução à Inteligência Artificial (xx valores / 20 valores)
+Introdução à Inteligência Artificial (12 valores / 20 valores)
 
-Introdução às Redes de Comunicação (xx valores / 20 valores)
+Introdução às Redes de Comunicação (12 valores / 20 valores)
 
 Investigação Operacional (16 valores / 20 valores)
 
