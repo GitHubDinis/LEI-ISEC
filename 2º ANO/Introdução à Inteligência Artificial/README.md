@@ -1,3 +1,3 @@
 # Introdução à Inteligência Artificial (2022/2023)
 
-Nota Final: xx valores / 20 valores
+Nota Final: 12 valores / 20 valores
