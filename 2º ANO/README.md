@@ -20,13 +20,11 @@ Sistemas Operativos (xx valores / 20 valores)
 
 Conhecimento e Raciocínio (10 valores / 20 valores)
 	 	 	 	 
-Interação Pessoa-Máquina (xx valores / 20 valores)
-
-Linguagens Script (xx valores / 20 valores)
+Arquitetura e Administração de Bases de Dados (xx valores / 20 valores)
 
 Modelação e Design (xx valores / 20 valores)
 
-Programação Avançada (xx valores / 20 valores)
+Integração de Dados (xx valores / 20 valores)
 
-Sistemas Operativos II (xx valores / 20 valores)
+Sistemas de Informação I (xx valores / 20 valores)
  	 	 
