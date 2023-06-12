@@ -1,0 +1,3 @@
+C:/Users/Utilizador/CLionProjects/workP/cmake-build-debug/CMakeFiles/workP.dir
+C:/Users/Utilizador/CLionProjects/workP/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Utilizador/CLionProjects/workP/cmake-build-debug/CMakeFiles/rebuild_cache.dir
