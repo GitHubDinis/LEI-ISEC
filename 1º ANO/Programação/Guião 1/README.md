@@ -1,5 +1,5 @@
 # Exercícios Feitos
-Exercício 1
+Exercício 1 \n
 Exercício 3
 Exercício 4
 Exercício 5
