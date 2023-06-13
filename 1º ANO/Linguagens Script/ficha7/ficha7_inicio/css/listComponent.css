@@ -1,0 +1,82 @@
+body {
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(229, 231, 235, 70%);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  max-width: 1024px;
+}
+.wrapper .logo {
+  width: 6rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(99, 102, 241, 10%);
+  flex-shrink: 0;
+  padding: 0.75rem 0;
+  margin-bottom: 1rem;
+}
+.wrapper .logo img {
+  width: 5rem;
+}
+.wrapper .text {
+  flex-grow: 1;
+  flex: 1;
+}
+.wrapper .text h2 {
+  color: rgba(17, 24, 39);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  margin: 0;
+}
+.wrapper .text p {
+  line-height: 1.625;
+  color: rgba(75, 85, 99);
+  max-height: 80px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: ltr;
+}
+.wrapper .text a {
+  color: blue;
+  text-decoration: none;
+}
+.wrapper .text a::after {
+  content: " \21E2";
+}
+.wrapper .text a:hover {
+  color: lightslategray;
+}
+@media (min-width: 640px) {
+  .wrapper {
+    flex-direction: row;
+  }
+  .wrapper .logo {
+    margin-right: 2rem;
+    margin-bottom: 0rem;
+  }
+  .wrapper .text {
+    flex-direction: column;
+  }
+}
+@media (min-width: 768px) {
+  .wrapper {
+    box-sizing: inherit;
+    width: calc(50% - 1rem);
+  }
+}
