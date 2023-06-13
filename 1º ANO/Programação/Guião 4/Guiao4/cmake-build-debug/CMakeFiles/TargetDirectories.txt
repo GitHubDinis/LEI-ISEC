@@ -1,0 +1,3 @@
+C:/Users/Utilizador/CLionProjects/Guiao4/cmake-build-debug/CMakeFiles/Guiao4.dir
+C:/Users/Utilizador/CLionProjects/Guiao4/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Utilizador/CLionProjects/Guiao4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
