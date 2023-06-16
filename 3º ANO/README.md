@@ -1,6 +1,6 @@
 # 3º ANO
 
-Segundo ano do Curso Licenciatura em Engenharia Informática.
+Terceiro ano do Curso Licenciatura em Engenharia Informática.
 
 ## 1º Semestre:
 
