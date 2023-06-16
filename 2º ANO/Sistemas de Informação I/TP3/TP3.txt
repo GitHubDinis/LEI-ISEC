@@ -1,0 +1,42 @@
+Ficha Prática 3
+
+Data de entrega: 11/06/2023
+Data de apresentação: 13/06/2023
+
+1 - 
+	- Se tiver CRM:
+	- CRM operacional ou se tem capacidade analítica?
+	- Funcionalidades:
+		- Descrever o que faz.
+	- Potencialidades:
+		- O que posso fazer com essas funcionalidades;
+		- Funcionalidade "avançada".
+	
+	- Caso contrário (se não tiver CRM):
+		- 
+	- Explique em que medida:
+		- Escolher um, ver funcionalidades e dizer se é bom ou não;
+		- Se tiver, descrevê-lo.
+
+2 - 
+	- ERP: 
+		 - programa que serve para gerir toda a empresa;
+		 - programa único que tem todas as potencialidades;
+		 - base de dados central com vários módulos;
+		 - sistema implatado na raíz, não tem bases de dados separadas;
+		 - sistema pesado tradicionalmente, mas isso já está em mudança.
+
+	- Caso tenha ERP:
+		- Dizer nos diferentes departamentos quem usa o ERP;
+		- Dizer o que faz;
+		  	- Organiza a produção, ajuda na contabilidade,...;
+		- Vantagens para a empresa daquele ERP;
+			- Quando registo um cliente, ele fica disponível nos vários departamentos;
+		- Melhorias:
+			- Obter mais um módulo;
+			- Meter a funcionar um que não esteja;
+			- Ter mais um ERP.
+	- Caso não tenha:
+		- Dava jeito;
+		- Discutir de forma profunda se é bom ou mau instalar um ERP;
+	

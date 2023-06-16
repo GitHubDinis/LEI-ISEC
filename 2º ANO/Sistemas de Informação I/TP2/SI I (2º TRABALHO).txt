@@ -1,0 +1,71 @@
+// 2º TRABALHO PRÁTICO
+
+Cotação de 3 valores.
+Entregar até dia 06/05/2023
+Apresentação no dia 09/05/2023
+
+O que fazer?
+
+Começar com uma introdução. Dizer o que é um TPS, MIS, DSS e ESS.
+
+Ponto 1
+
+Indicar o peso em termos de TPS, MIS, DSS e ESS;
+Dizer se é principalmente um TPS, MIS, DSS ou ESS;
+Olhar para os sistemas e caracterizá-los de acordo com esta topologia.
+
+ - topo da pirâmide:
+
+ESS (dão informação baseados nos outros sistemas para ajudar os gestores a ver como é que se encontra a empresa), (mostra mais dados)
+
+ - meio da pirâmide:
+
+MIS (Usam a informação da TPS e organizam, auxiliando os gestores da empresa),
+(fazem relatórios)
+
+DSS (Usados para ajudar o gestor a decidir a tomar decisões não pré-definidas),
+(Métodos de apoio à decisão para otimizar algo), (2 tipos: baseados em modelos e os baseados em dados)
+
+ - fundo da pirâmide:
+
+TPS (Regista atividades do dia a dia)
+
+
+Ponto 2
+
+Saber se o sistema de informação está de acordo com (dá suporte ou apoia) os objetivos estratégicos (metas que a empresa quer atingir, onde quer estar, o que quer ser) da empresa.
+
+
+Ponto 3
+
+Classificar o sistema de informação (infraestruturas são a base, o que sustém)
+Capítulo 5.1 do livro.
+Colocar as 7 caixas e, dentro delas, o que a empresa tem.
+
+
+Ponto 4
+
+Descrever mais pormenores das bases de dados.
+"Sistema de ficheiros" - exemplo de base de dados.
+Existe uma base de dados usada por...produzida por...
+
+Ponto 5
+
+Sugestões de melhorias
+
+_____________________________________________________________________________________
+
+Programa de Gestão de Stock -> Encomendas -> MIS
+
+Programa de Informática -> Clientes -> MIS
+
+Programa de Gestão de Stock -> Stock -> MIS
+
+Programa de Gestão de Trabalho -> Trabalhadores Manuais -> TPS
+
+Programa de Contabilidade -> Finanças -> ESS
+
+Programa de paginação -> Produção -> TPS
+
+Programa de Informática -> Vendas -> TPS
+

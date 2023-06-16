@@ -1,0 +1,49 @@
+Ficha de trabalho nº1
+
+Entregar até dia 25 de março
+Apresentar dia 28 de março
+
+Relatório em pdf
+Apresentação da ficha nº1 em ppt
+
+Cotação: 2,5 valores
+
+- 1 capítulo por tópico
+
+- 1º tópico: descrição interna além da descrição da sinopse
+		 como a empresa faz, coomo está organizada, quem faz o quê
+		 organograma é o conjunto de departamentos que constitui a empresa
+	 	 pequenas empresas - falamos de papeis, dono faz análise de dados, contabilidade,...
+		 hierarquia da empresa (normalmente em pirâmide), 3 níveis (mais baixo (operário) = operacional, médio (gestão) = gestão, coordena trabalhadores, mais alto (topo) = donos da empresa, diz aos gestores o que fazer)
+		 5 funções da empresa: recursos humanos, contabilidade, produção, marketing e finanças (são os diferentes departamentos) 
+		 
+
+- 2º tópico: depois de fazer o 1º tópico
+		 normalmente, organizadas em departamentos, fazer a sua descrição geral
+		 1º nivel (baixo) = TPS, sistema de processamento de transações (informações relativas ao funcionamento da empresa, registo do que acontece diariamente, horas de trabalho, linhas de código,...)
+		 2º nivel (médio) = MIS, sistemas de gestão, usam informação da TPS para gerir a empresa (produz ou não como deve, controlam o nível de baixo)
+		 3º nível (alto) = receber informação sob a forma gráfica, análise menos precisa e mais global, ESS 
+		 mais genérico, programas que existem,...
+		 
+- 3º tópico: mais complexo
+		 identificar os programas e descrevê-los
+		 módulos = programas que fazem qualquer coisa
+		 coleta, armazena, trata e disponibiliza dados necessários -> o que faz o sistema de informação
+		 para cada módulo dizer o que entra e sai, em alto nível
+		 módulo pode ser uma folha excell com dados e com base calcular os indicadores
+		
+- 4º tópico: para a empresa em especifico, porque é que é importante
+		 justificar com alguns exemplos
+		 "se não tivesse, não conseguia..."
+
+
+Fazer os dois primeiros tópicos para a próxima aula 
+
+
+AULA 2
+
+Sistema de informação é para a gestão da empresa.
+
+
+
+		 
