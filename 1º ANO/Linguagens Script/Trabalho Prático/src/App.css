@@ -1,0 +1,131 @@
+.square {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+}
+
+.status {
+  margin: 10px;
+  font-family: Stencil Std, fantasy;
+  text-align: center;
+}
+
+.ultimate-board {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  grid-template-rows: repeat(3, 90px);
+  gap: 10px;
+  margin: 0 auto;
+  width: 330px;
+  
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90px;
+  border: 1px solid black;
+}
+
+.board.active {
+  border: 2px solid red;
+}
+
+.board-row {
+  display: flex;
+  width: 90px;
+}
+
+.board.winner {
+  background-color: #f0f0f0;
+}
+
+.reset-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: Stencil Std, fantasy;	
+}
+
+.reset-button:hover {
+  background-color: #e0e0e0;
+}
+
+.reset-button:focus {
+  outline: none;
+}
+
+.reset-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.computer-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: Stencil Std, fantasy;
+}
+
+.computer-button:hover {
+  background-color: #e0e0e0;
+}
+
+.computer-button:focus {
+  outline: none;
+}
+
+.againstComputer-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.iniciarjogo-button{
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: Stencil Std, fantasy;
+}
+
+.iniciarjogo-button:hover {
+  background-color: #e0e0e0;
+}
+
+.iniciarjogo-button:focus {
+  outline: none;
+}
+
+.iniciar-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.timer{
+  font-family: Stencil Std, fantasy;
+}
+
+.timers{
+  border: 3px solid black;
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+}

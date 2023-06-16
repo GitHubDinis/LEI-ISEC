@@ -1,0 +1,59 @@
+#panel-control {
+    height: 175px;
+    align-self: center;
+    background-color: #f1f0f0;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    color: black;
+    width: 100%;
+    margin: 10px 0px;
+    border: 3px solid black;
+    text-align: center;
+}
+
+.title{
+    font-family: Stencil Std, fantasy;
+}
+
+.label1{
+    font-family: Stencil Std, fantasy;
+    text-align: center;
+}
+
+.label2{
+    font-family: Stencil Std, fantasy;
+    text-align: center;
+}
+
+.input {
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-color: #004080;
+    margin-top: 10px;
+    box-sizing: content-box;
+}
+
+.button #btPlay:hover {
+    background-color: #5e5858;
+    color: black;
+}
+
+#btPlay {
+    border: 1px solid #5e5858;
+    background-color: #5eac52;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
+    justify-self: end;
+    display: flexbox;
+    font-family: Stencil Std, fantasy;
+    margin-bottom: 10px;
+}
+
+#btPlay:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #751d1d;
+    background: black;
+}

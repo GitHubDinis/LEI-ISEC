@@ -1,0 +1,17 @@
+.title {
+  margin-top: 15px;
+  font-family: Stencil Std, fantasy;
+  font-size: 1.2rem;
+  text-align: center;
+  letter-spacing: 2px;
+  color: black;
+}
+
+.subtitle{
+  margin-bottom: 30px;
+  font-family: Stencil Std, fantasy;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 2px;
+  color: black;
+}
