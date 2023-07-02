@@ -22,7 +22,7 @@ Conhecimento e Raciocínio (10 valores / 20 valores)
 	 	 	 	 
 Arquitetura e Administração de Bases de Dados (xx valores / 20 valores)
 
-Modelação e Design (xx valores / 20 valores)
+Modelação e Design (14 valores / 20 valores)
 
 Integração de Dados (xx valores / 20 valores)
 
