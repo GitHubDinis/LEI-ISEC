@@ -26,5 +26,5 @@ Modelação e Design (14 valores / 20 valores)
 
 Integração de Dados (xx valores / 20 valores)
 
-Sistemas de Informação I (xx valores / 20 valores)
+Sistemas de Informação I (14 valores / 20 valores)
  	 	 
