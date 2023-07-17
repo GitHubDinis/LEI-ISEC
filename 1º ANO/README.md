@@ -26,7 +26,7 @@ Fundamentos de Computação Gráfica	(xx valores / 20 valores)
 
 Métodos Estatísticos (11 valores / 20 valores)
 
-Programação	(xx valores / 20 valores)
+Programação	(12 valores / 20 valores)
 
 Tecnologias e Arquiteturas de Computadores (xx valores / 20 valores)
 
