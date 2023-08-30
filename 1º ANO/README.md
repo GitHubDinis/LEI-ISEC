@@ -28,6 +28,6 @@ Métodos Estatísticos (11 valores / 20 valores)
 
 Programação	(12 valores / 20 valores)
 
-Tecnologias e Arquiteturas de Computadores (xx valores / 20 valores)
+Tecnologias e Arquiteturas de Computadores (10 valores / 20 valores)
 
 Linguagens Script (xx valores / 20 valores)
