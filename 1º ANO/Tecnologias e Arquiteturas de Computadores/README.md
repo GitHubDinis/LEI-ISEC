@@ -1,3 +1,3 @@
 # Tecnologias e Arquiteturas de Computadores (2022 / 2023)
 
-Nota Final: xx valores / 20 valores
+Nota Final: 10 valores / 20 valores
