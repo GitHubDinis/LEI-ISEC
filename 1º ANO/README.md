@@ -22,7 +22,7 @@ Análise Matemática II	(10 valores / 20 valores)
 
 Eletrónica (12 valores / 20 valores)
 
-Fundamentos de Computação Gráfica	(xx valores / 20 valores)
+Fundamentos de Computação Gráfica	(14 valores / 20 valores)
 
 Métodos Estatísticos (11 valores / 20 valores)
 
