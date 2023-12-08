@@ -1,0 +1,3 @@
+C:/Users/Utilizador/CLionProjects/oitava(1)/cmake-build-debug/CMakeFiles/oitava_1_.dir
+C:/Users/Utilizador/CLionProjects/oitava(1)/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Utilizador/CLionProjects/oitava(1)/cmake-build-debug/CMakeFiles/rebuild_cache.dir

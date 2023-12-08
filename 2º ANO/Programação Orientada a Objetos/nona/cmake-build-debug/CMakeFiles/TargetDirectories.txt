@@ -1,0 +1,3 @@
+C:/Users/Utilizador/CLionProjects/nona/cmake-build-debug/CMakeFiles/nona.dir
+C:/Users/Utilizador/CLionProjects/nona/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Utilizador/CLionProjects/nona/cmake-build-debug/CMakeFiles/rebuild_cache.dir
