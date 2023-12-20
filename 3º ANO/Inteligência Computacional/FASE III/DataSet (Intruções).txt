@@ -1,0 +1,11 @@
+https://www.kaggle.com/datasets/nitishabharathi/scene-classification
+
+Passo 1: Colocar todos os ficheiros na mesma pasta.
+
+Passo 2: Mudar nome da pasta "train" para "images".
+
+Passo 3: Eliminar ficheiro test.csv.
+
+Passo 4: Criar novo ficheiro teste.csv com alguns <image_name> e <label>.
+
+PS: Dataset superior a 100MB, não era permitida a submissão.
