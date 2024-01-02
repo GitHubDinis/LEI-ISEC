@@ -8,7 +8,7 @@ Estratégia Organizacional (xx valores / 20 valores)
 
 Inteligência Computacional (xx valores / 20 valores)
 
-Metodologias de Otimização e Apoio à Decisão (xx valores / 20 valores)
+Metodologias de Otimização e Apoio à Decisão (16 valores / 20 valores)
 
 Programação WEB (xx valores / 20 valores)
 
