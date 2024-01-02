@@ -1,0 +1,9 @@
+hnova 2 2
+znova 1 1
+znova 2 2
+cnovo 1 p liga
+cnovo 1 s luz
+cnovo 2 a aquecedor
+cnovo 1 a refrigerador
+zcomp 1
+zcomp 2
