@@ -1,0 +1,3 @@
+C:/Users/Utilizador/CLionProjects/decimaprimeira/cmake-build-debug/CMakeFiles/decimaprimeira.dir
+C:/Users/Utilizador/CLionProjects/decimaprimeira/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Utilizador/CLionProjects/decimaprimeira/cmake-build-debug/CMakeFiles/rebuild_cache.dir
