@@ -12,7 +12,7 @@ Introdução às Redes de Comunicação (12 valores / 20 valores)
 
 Investigação Operacional (16 valores / 20 valores)
 
-Programação Orientada a Objetos (xx valores / 20 valores)
+Programação Orientada a Objetos (14 valores / 20 valores)
 
 Sistemas Operativos (xx valores / 20 valores)
 
