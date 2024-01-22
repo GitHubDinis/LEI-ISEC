@@ -1,0 +1,26 @@
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (1, 'Golf', 'Porto', '4640-324', 'Movies', 1903, 'Tobey McMurray', 'Cruzeiro');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (2, 'Kingsford', 'Viseu', '3525-606', 'Jewelry', 1938, 'Farrand Gettings', 'Lapa do Lobo');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (3, 'Morningstar', 'Leiria', '2425-681', 'Tools', 1991, 'Etti Balderston', 'Lagoa');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (4, 'Macpherson', 'Leiria', '3250-104', 'Toys', 1953, 'Nicol Izat', 'Alvaiázere');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (5, 'Johnson', 'Braga', '4730-040', 'Books', 1949, 'Ileane Roskilly', 'Sobreiro');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (6, 'Wayridge', 'Viseu', '3525-405', 'Sports', 1966, 'Wendell Gonzalo', 'Carvalhal Redondo');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (7, 'Bluejay', 'Porto', '4485-367', 'Shoes', 1958, 'Dulcia Fleay', 'Mosteiró');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (8, 'Eastlawn', 'Santarém', '2070-510', 'Outdoors', 1988, 'Benson Harriott', 'Valada');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (9, 'Sutherland', 'Bragança', '5180-015', 'Music', 2017, 'Chaim Sharland', 'Fornos');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (10, 'Northfield', 'Aveiro', '3700-599', 'Sports', 1971, 'Norrie Gytesham', 'Souto da Costa');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (11, 'Clove', 'Aveiro', '4550-289', 'Toys', 1929, 'Lulu Standen', 'Real');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (12, 'Dapin', 'Braga', '4805-556', 'Industrial', 1962, 'Pacorro Armour', 'Sande Vila Nova');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (13, 'Muir', 'Beja', '7875-254', 'Books', 1934, 'Kelsey Jones', 'Santo Amador');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (14, 'Holmberg', 'Viana do Castelo', '4950-122', 'Clothing', 1995, 'Jessika Chooter', 'Boucinha');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (15, 'Mandrake', 'Braga', '4730-410', 'Books', 1909, 'Arvin Frayling', 'Quintas');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (16, 'Linden', 'Lisboa', '2670-335', 'Clothing', 1952, 'Justus Byrth', 'Loures');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (17, 'Hayes', 'Braga', '4805-583', 'Home', 1998, 'Pyotr Crush', 'Sande São Lourenço');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (18, 'Bartillon', 'Setúbal', '2860-343', 'Electronics', 1917, 'Antonina Sellek', 'Carvalhinho');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (19, 'Esker', 'Coimbra', '3090-748', 'Books', 2002, 'Marcy Lincoln', 'São Pedro');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (20, 'Transport', 'Viseu', '4690-667', 'Sports', 1934, 'Veriee Turley', 'Santo António');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (21, 'Warner', 'Santarém', '2200-785', 'Toys', 1928, 'Galven Chessil', 'Rio de Moinhos');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (22, 'Hagan', 'Portalegre', '7450-227', 'Home', 1976, 'Felisha Niven', 'Santo Aleixo');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (23, 'Moulton', 'Leiria', '2400-772', 'Baby', 1989, 'Nettie Kyberd', 'Amor');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (24, 'Wayridge', 'Lisboa', '2640-394', 'Automotive', 2006, 'Blythe Faiers', 'Mafra');
+insert into loja (id_loja, rua, distrito, cod_postal, departamento, ano_abertura, gerente, cidade) values (25, 'Scott', 'Viana do Castelo', '4960-180', 'Music', 1969, 'Saul Whitlaw', 'Sobreira');
+
