@@ -4,30 +4,30 @@ Primeiro ano do Curso Licenciatura em Engenharia Informática.
 
 ## 1º Semestre:
 
-Álgebra Linear (12 valores / 20 valores)
+Álgebra Linear 
 
-Análise Matemática I (13 valores / 20 valores)
+Análise Matemática I 
 
-Gestão (15 valores / 20 valores)
+Gestão
 
-Introdução à Programação (12 valores / 20 valores)
+Introdução à Programação
 
-Sistemas Digitais	(16 valores / 20 valores)
+Sistemas Digitais
 
-Tecnologias WEB	(12 valores / 20 valores)
+Tecnologias WEB	
 
 ## 2º Semestre:
 
-Análise Matemática II	(10 valores / 20 valores)
+Análise Matemática II
 
-Eletrónica (12 valores / 20 valores)
+Eletrónica
 
-Fundamentos de Computação Gráfica	(14 valores / 20 valores)
+Fundamentos de Computação Gráfica
 
-Métodos Estatísticos (11 valores / 20 valores)
+Métodos Estatísticos 
 
-Programação	(12 valores / 20 valores)
+Programação	
 
-Tecnologias e Arquiteturas de Computadores (10 valores / 20 valores)
+Tecnologias e Arquiteturas de Computadores 
 
-Linguagens Script (13 valores / 20 valores)
+Linguagens Script 
