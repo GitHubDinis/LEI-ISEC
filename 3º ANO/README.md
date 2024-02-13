@@ -4,19 +4,19 @@ Terceiro ano do Curso Licenciatura em Engenharia Informática.
 
 ## 1º Semestre:
 
-Estratégia Organizacional (16 valores / 20 valores)
+Estratégia Organizacional
 
-Inteligência Computacional (13 valores / 20 valores)
+Inteligência Computacional
 
-Metodologias de Otimização e Apoio à Decisão (16 valores / 20 valores)
+Metodologias de Otimização e Apoio à Decisão 
 
-Programação WEB (xx valores / 20 valores)
+Programação WEB
 
-Sistemas de Informação II (16 valores / 20 valores)
+Sistemas de Informação II 
 
 
 ## 2º Semestre:
 	 	 	 	 
-Ética e Deontologia (xx valores / 20 valores)
+Ética e Deontologia
 
-Projeto ou Estágio (xx valores / 20 valores)
+Projeto ou Estágio
