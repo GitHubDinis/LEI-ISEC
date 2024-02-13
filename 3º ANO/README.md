@@ -19,4 +19,4 @@ Sistemas de Informação II (16 valores / 20 valores)
 	 	 	 	 
 Ética e Deontologia (xx valores / 20 valores)
 
-Estágio (xx valores / 20 valores)
+Projeto ou Estágio (xx valores / 20 valores)
