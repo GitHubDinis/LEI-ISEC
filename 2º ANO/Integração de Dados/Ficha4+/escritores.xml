@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lista>
+     <escritor nome="Paulo Coelho">
+          <nome_completo>Paulo Coelho de Souza</nome_completo>
+          <nacionalidade>brasileiro</nacionalidade>
+          <nascimento>24 de agosto de 1947</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/a/a7/Paulo_Coelho_30102007.jpg</foto>
+          <ocupacoes>
+               <ocupacao>escritor</ocupacao>
+               <ocupacao>letrista</ocupacao>
+               <ocupacao>jornalista</ocupacao>
+               <ocupacao>compositor</ocupacao>
+          </ocupacoes>
+     </escritor>
+     <escritor nome="Mário Cesariny">
+          <nome_completo>Mário Cesariny de Vasconcelos</nome_completo>
+          <nacionalidade>Português</nacionalidade>
+          <nascimento>9 de agosto de 1923</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/3/3f/M%C3%A1rio_Cesariny.jpg</foto>
+          <ocupacoes>
+               <ocupacao>Poeta</ocupacao>
+               <ocupacao>pintor</ocupacao>
+          </ocupacoes>
+     </escritor>
+     <escritor nome="Eça de Queirós">
+          <nome_completo>q</nome_completo>
+          <nacionalidade>Português</nacionalidade>
+          <nascimento>25 de Novembro de 1845</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/d/d9/E%C3%A7a_de_Queir%C3%B3s_c._1882.jpg</foto>
+          <ocupacoes>
+               <ocupacao>diplomata</ocupacao>
+               <ocupacao>romancista</ocupacao>
+               <ocupacao>contista</ocupacao>
+          </ocupacoes>
+     </escritor>
+     <escritor nome="José Saramago">
+          <nome_completo>José de Sousa Saramago</nome_completo>
+          <nacionalidade>português</nacionalidade>
+          <nascimento>16 de novembro de 1922</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/5/5c/JSJoseSaramago.jpg</foto>
+          <ocupacoes>
+               <ocupacao>serralheiro</ocupacao>
+               <ocupacao>mecânico</ocupacao>
+               <ocupacao>funcionário público</ocupacao>
+               <ocupacao>técnico editorial</ocupacao>
+               <ocupacao>escritor</ocupacao>
+               <ocupacao>tradutor</ocupacao>
+               <ocupacao>jornalista</ocupacao>
+               <ocupacao>poeta</ocupacao>
+               <ocupacao>cronista</ocupacao>
+               <ocupacao>dramaturgo</ocupacao>
+               <ocupacao>contista</ocupacao>
+               <ocupacao>romancista</ocupacao>
+               <ocupacao>teatrólogo</ocupacao>
+               <ocupacao>argumentista</ocupacao>
+               <ocupacao>ensaísta</ocupacao>
+          </ocupacoes>
+     </escritor>
+     <escritor nome="Fernando Pessoa">
+          <nome_completo>Fernando António Nogueira Pessoa</nome_completo>
+          <nacionalidade>Português</nacionalidade>
+          <nascimento>13 de junho de 1888</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/3/32/Pessoa_chapeu.jpg</foto>
+          <ocupacoes>
+               <ocupacao>Poeta</ocupacao>
+               <ocupacao>escritor</ocupacao>
+               <ocupacao>tradutor</ocupacao>
+          </ocupacoes>
+     </escritor>
+     <escritor nome="J. K. Rowling">
+          <nome_completo>Joanne Rowling</nome_completo>
+          <nacionalidade>britânica</nacionalidade>
+          <nascimento>31 de julho de 1965</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/1200px-J._K._Rowling_2010.jpg</foto>
+          <ocupacoes>
+               <ocupacao>escritora</ocupacao>
+          </ocupacoes>
+     </escritor>
+     <escritor nome="António Lobo Antunes">
+          <nome_completo>António Lobo Antunes</nome_completo>
+          <nacionalidade>português</nacionalidade>
+          <nascimento>1 de setembro de 1942</nascimento>
+          <foto>https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Ant%C3%B3nio_Lobo_Antunes_%282010%29.jpg/1200px-Ant%C3%B3nio_Lobo_Antunes_%282010%29.jpg</foto>
+          <ocupacoes>
+               <ocupacao>Escritor</ocupacao>
+               <ocupacao>psiquiatra</ocupacao>
+          </ocupacoes>
+     </escritor>
+</lista>

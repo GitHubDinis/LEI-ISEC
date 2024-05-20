@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<stocks>
+     <escritor nome="Eça de Queirós" stock="45"/>
+     <escritor nome ="J. K. Rowling" stock="32"/>
+     <escritor nome ="António Lobo Antunes" stock="3"/>
+     <escritor nome ="José Saramago" stock="100" />
+     <escritor nome ="Paul Auster" stock="24"/>
+     <escritor nome ="Paulo Coelho" stock="2"/> 
+</stocks>

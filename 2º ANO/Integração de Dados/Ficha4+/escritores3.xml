@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ocupacoes>
+   <escritor nome="Fernando Pessoa">
+      <nome_completo>Fernando António Nogueira Pessoa</nome_completo>
+      <ocupacoes num="3">
+         <ocupacao>Poeta</ocupacao>
+         <ocupacao>escritor</ocupacao>
+         <ocupacao>tradutor</ocupacao>
+      </ocupacoes>
+   </escritor>
+</ocupacoes>
