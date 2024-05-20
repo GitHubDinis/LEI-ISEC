@@ -1,0 +1,18 @@
+<!ELEMENT paises (pais*)>
+
+<!ELEMENT pais (nome_oficial, continente, presidente, bandeira)>
+
+<!ATTLIST pais codigoISO CDATA #REQUIRED>
+
+<!ATTLIST pais nome CDATA #REQUIRED>
+
+<!ELEMENT nome_oficial (#PCDATA)>
+
+<!ELEMENT continente (#PCDATA)>
+
+<!ELEMENT presidente (#PCDATA)>
+
+<!ELEMENT bandeira (#PCDATA)>
+
+<!ATTLIST paises xmlns:xsi CDATA #IMPLIED>
+<!ATTLIST paises xsi:noNamespaceSchemaLocation CDATA #IMPLIED>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="factos">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pais" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="pais">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="nome_oficial"/>
+				<xs:element ref="capital"/>
+				<xs:element ref="moeda"/>
+				<xs:element ref="populacao"/>
+				<xs:element ref="area"/>
+				<xs:element ref="crescimento"/>
+				<xs:element ref="cidades_mais_populosas"/>
+				<xs:element ref="dominioInternet"/>
+				<xs:element ref="idiomas_oficiais"/>
+				<xs:element ref="paises_vizinhos"/>
+			</xs:sequence>
+			<xs:attribute name="codigoISO" type="xs:string" use="required"/>
+			<xs:attribute name="nome" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="paises_vizinhos">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pais_vizinho" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="pais_vizinho" type="xs:string"/>
+
+	<xs:element name="idiomas_oficiais">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="idioma" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="idioma" type="xs:string"/>
+
+	<xs:element name="dominioInternet" type="xs:string"/>
+		
+	<xs:element name="cidades_mais_populosas">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="cidade" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+
+	<xs:element name="cidade" type="xs:string"/>
+
+	<xs:element name="crescimento" type="xs:string"/>
+	
+	<xs:element name="area" type="xs:string"/>
+	
+	<xs:element name="populacao" type="xs:string"/>
+	
+	<xs:element name="moeda"  type="xs:string"/>
+
+	<xs:element name="capital"  type="xs:string"/>
+
+	<xs:element name="nome_oficial"  type="xs:string"/>
+</xs:schema>

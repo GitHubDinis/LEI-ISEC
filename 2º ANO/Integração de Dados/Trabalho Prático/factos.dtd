@@ -1,0 +1,35 @@
+<!ELEMENT factos (pais*)>
+
+<!ELEMENT pais (nome_oficial, capital, moeda, populacao, area, crescimento, cidades_mais_populosas?, dominioInternet, idiomas_oficiais, paises_vizinhos?)>
+
+<!ATTLIST pais codigoISO CDATA #REQUIRED>
+<!ATTLIST pais nome CDATA #REQUIRED>
+
+<!ELEMENT nome_oficial (#PCDATA)>
+
+<!ELEMENT capital (#PCDATA)>
+
+<!ELEMENT moeda (#PCDATA)>
+
+<!ELEMENT populacao (#PCDATA)>
+
+<!ELEMENT area (#PCDATA)>
+
+<!ELEMENT crescimento (#PCDATA)>
+
+<!ELEMENT cidades_mais_populosas (cidade*)>
+
+<!ELEMENT cidade (#PCDATA)>
+
+<!ELEMENT dominioInternet (#PCDATA)>
+
+<!ELEMENT idiomas_oficiais (idioma*)>
+
+<!ELEMENT idioma (#PCDATA)>
+
+<!ELEMENT paises_vizinhos (pais_vizinho*)>
+
+<!ELEMENT pais_vizinho (#PCDATA)>
+
+<!ATTLIST factos xmlns:xsi CDATA #IMPLIED>
+<!ATTLIST factos xsi:noNamespaceSchemaLocation CDATA #IMPLIED>

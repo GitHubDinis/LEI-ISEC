@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="paises">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pais" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="pais">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="nome_oficial"/>
+				<xs:element ref="continente"/>
+				<xs:element ref="presidente"/>
+				<xs:element ref="bandeira"/>
+			</xs:sequence>
+			<xs:attribute name="codigoISO" type="xs:string" use="required"/>
+			<xs:attribute name="nome" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="bandeira" type="xs:string"/>
+	
+	<xs:element name="presidente" type="xs:string"/>
+	
+	<xs:element name="continente" type="xs:string"/>
+	
+	<xs:element name="nome_oficial"  type="xs:string"/>
+	
+</xs:schema>
