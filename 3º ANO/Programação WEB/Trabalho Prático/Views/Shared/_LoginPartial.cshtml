@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+    
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+        <li class="nav-item">
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin Area</a>
+            }
+            @if (User.IsInRole("Manager"))
+            {
+                <a class="nav-link text-dark" asp-area="Manager" asp-controller="Manager" asp-action="Index">Manager Area</a>
+            }
+            @if (User.IsInRole("Employee"))
+            {
+                <a class="nav-link text-dark" asp-area="Employee" asp-controller="Employee" asp-action="Index">Employee Area</a>
+            }
+            @if (User.IsInRole("Client"))
+            {
+                <a class="nav-link text-dark" asp-area="Client" asp-controller="Client" asp-action="Index">Client Area</a>
+            }
+        </li>
+    <li class="nav-item" style="display: flex; flex-direction: row">
+        <img src="~/imagens/useracc.png" alt="Fazer o Login" class="center-block" />
+        <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+          
+            <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout">
+            <button  type="submit" class="nav-link btn btn-link">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+            <a class="btn btn" style="color: dodgerblue; border: solid 2px dodgerblue" asp-controller="Account" asp-action="Register">REGISTO</a>
+    </li>
+    <li class="nav-item">
+
+            <a class="btn btn-outline-light ms-2 me-2" asp-controller="Account" asp-action="Login">ENTRAR</a>
+    </li>
+}
+</ul>

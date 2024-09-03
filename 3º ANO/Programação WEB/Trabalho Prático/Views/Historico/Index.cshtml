@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PWEB_2324.Models.Alugado>
+
+@{
+    ViewData["Title"] = "Histórico Imoveis";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>
+    @ViewData["Title"]
+</h1>
+<hr style="border: solid dodgerblue" />
+<br />
+
+<table class="table table-bordered table-striped table-hover">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            @foreach (var item in Model)
+            {
+                @if (item.Avaliacao > 0)
+                {
+                    <td>
+                        @Html.DisplayNameFor(model => model.Avaliacao)
+                    </td>
+                }
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @if(item.State == 0)
+                    {
+                        <label style="color: goldenrod">Pendente</label>
+                    }
+                    @if (item.State == 1)
+                    {
+                        <label style="color: green">Aceite</label>
+                    }
+                    @if (item.State == 2)
+                    {
+                        <label style="color: red">Rejeitado</label>
+                    }
+                    
+                </td>
+                @if(item.State == 1)
+                {
+                    @if (item.Avaliacao > 0)
+                    {
+                        <td>
+                            <div>
+                                @for (int i = 0; i < item.Avaliacao; i++)
+                                {
+
+                                    <img style="height: 15px" src="~/imagens/star1.png" alt="avaliacao" />
+                                }
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-action="AvaliaImovel" asp-route-id="@item.Id" class="btn btn-success btn-sm">Avaliar Habitação</a>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

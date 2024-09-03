@@ -1,0 +1,57 @@
+﻿@model IEnumerable<PWEB_2324.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorias";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>
+    @ViewData["Title"]
+</h1>
+
+<div>
+    <div>
+        <small><a class="btn btn-primary btn-sm" asp-action="Create">Adicionar</a></small>
+    </div>
+    <form asp-controller="Categorias" asp-action="Index" method="get">
+
+        <label>Escolha uma categoria:</label>
+        <select name="categoriaEscolhida" asp-items="ViewBag.ListaDeCategorias">
+            <option value="">Todas</option>
+        </select>
+        <input type="submit" value="Filtrar" />
+    </form>
+</div>
+<hr style="border: solid dodgerblue" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+           
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

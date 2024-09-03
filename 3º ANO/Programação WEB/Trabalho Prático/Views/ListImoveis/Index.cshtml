@@ -1,0 +1,151 @@
+﻿@model IEnumerable<PWEB_2324.Models.Imovel>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+@{
+    ViewData["Title"] = "Imoveis";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>
+    @ViewData["Title"]
+</h1>
+<br />
+<div class="row">
+    <div class="col-6" style="width: 100%">
+        <div class="row">
+            <div class="col-6" style="width: 100%">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Filtros
+                </button>
+           
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+
+
+<hr style="border: solid dodgerblue" />
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 300px; justify-content: space-around; margin: auto; margin-top: 20px;">
+        @foreach (var item in Model)
+        {
+        <div class="card" style="width: 18rem; height: 500px; border: solid dodgerblue">
+                <img src="~/imagens/notFound.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <div style="display: flex; flex-direction: row; justify-content: space-between">
+                        <h5 class="card-title">@item.Title</h5>
+                        <h5 class="card-title">@item.Price $</h5>
+                    </div>
+                    <div style="border-bottom: padding: 0px 0px 5px 0px">
+                        <p class="card-text">@item.Localizacao</p>
+                    </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between">
+                    <p class="card-text">@item.locador.Nome</p>
+                    <div>
+                    @for(int i = 0; i < item.locador.Avaliacao; i++)
+                    {
+
+                        <img style="height: 15px" src="~/imagens/star1.png" alt="avaliacao" />
+                    }
+                    </div>
+                </div>
+                    <div style="padding: 10px">
+                    <p class="card-text">@item.Descricao</p>
+                    </div>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalhes</a>
+                </div>
+            </div>
+        }
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="column">
+                        <form method="post">
+                            <div>
+                                <label>Pesquisa por localizacao:</label>
+                                <input type="text" id="TextoAPesquisar" name="TextoAPesquisar">
+                            </div>
+
+                        <div>
+                            <select name="CategoriaId" asp-items="ViewBag.ListaDeCategorias"></select>
+                        </div>
+                        <div>
+                            <select name="LocadorId" asp-items="ViewBag.ListaDeLocadores"></select>
+                        </div>
+                        <div>
+                            <label>Indicar quantidade de meses:</label>
+                            <input type="number" id="TempoMinimo" name="TempoMinimo">
+                           
+                        </div>
+                        <div>
+                            <label>Data inicio:</label>
+                            <input type="date" id="DataInicio" name="DataInicio">
+
+                        </div>
+                        <div>
+                            <label>Data fim:</label>
+                            <input type="date" id="DataFim" name="DataFim">
+
+                        </div>
+                        <div>
+                            <label>Indicar preço minimo:</label>
+                            <input type="number" id="Preco" name="Preco">
+
+                        </div>
+                        <input type="submit" value="Pesquisar" />
+                        </form>
+                </div>
+                <br />
+                <div class="column">
+                        <a class="btn btn-primary btn-sm" asp-action="Index" asp-controller="ListImoveis" asp-route-disponivel="">Todos</a> |
+                        <a class="btn btn-primary btn-sm" asp-action="Index" asp-route-disponivel="true">Activos</a> |
+                        <a class="btn btn-primary btn-sm" asp-action="Index" asp-route-disponivel="false">Inactivos</a> |
+                        <a class="btn btn-primary btn-sm" asp-action="Index" asp-route-order="desc">Preço Descendente</a> |
+                        <a class="btn btn-primary btn-sm" asp-action="Index" asp-route-order="asc">Preço Ascendente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function setMostrarInativos(mostrar) {
+        var mostrarBtn = document.getElementById('mostrarInativosBtn');
+        var esconderBtn = document.getElementById('esconderInativosBtn');
+
+        if (mostrar) {
+            mostrarBtn.style.display = 'none';
+            esconderBtn.style.display = 'inline-block';
+        } else {
+            mostrarBtn.style.display = 'inline-block';
+            esconderBtn.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setMostrarInativos(false);
+
+        document.getElementById('mostrarInativosBtn').addEventListener('click', function () {
+            setMostrarInativos(true);
+        });
+
+        document.getElementById('esconderInativosBtn').addEventListener('click', function () {
+            setMostrarInativos(false);
+        });
+    });
+</script>
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+﻿@model PWEB_2324.Models.Locador
+
+@{
+    ViewData["Title"] = "Detalhes do Registo";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Detalhes do Registo de Locador</h1>
+
+<div>
+    <h4>Locador</h4>
+    <hr style="border: solid dodgerblue" />
+    <dl class="row">
+        <dt class="col-sm-2 fw-bold">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2 fw-bold">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2 fw-bold">
+            @Html.DisplayNameFor(model => model.Avaliacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Avaliacao)
+        </dd>
+    </dl>
+</div>
+
+<h4>Imóveis do Locador:</h4>
+@if (ViewBag.ImoveisDoLocador != null && ViewBag.ImoveisDoLocador.Count > 0)
+{
+    <ul>
+    @foreach (var imovel in ViewBag.ImoveisDoLocador)
+    {
+                <li>@imovel.Title</li>
+    }
+    </ul>
+}
+else
+{
+    <p>
+        @ViewBag.Message 
+    </p>
+}
+
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-primary">Voltar à Listagem</a>
+</div>
+<br />

@@ -1,0 +1,50 @@
+﻿@model PWEB_2324.Models.Imovel
+
+@{
+    ViewData["Title"] = "Confirmar";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Confirmar reserva</h1>
+
+<hr style="border: solid dodgerblue" />
+
+<form asp-action="Add">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Title" />
+    <input type="hidden" asp-for="Descricao" />
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DataInit" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="DataInit" class="form-control"></input>
+                <span asp-validation-for="DataInit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataEnd" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="DataEnd" class="form-control"></input>
+                <span asp-validation-for="DataEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempoMin" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="TempoMin" class="form-control"></input>
+                <span asp-validation-for="TempoMin" class="text-danger"></span>
+            </div>
+        </div>
+        
+            <div class="form-group">
+                <input type="submit" value="Gravar" class="btn btn-success" /> |
+                <a class="btn btn-primary" asp-action="Index">Voltar à Listagem</a>
+            </div>
+    </div>
+    <br />
+
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

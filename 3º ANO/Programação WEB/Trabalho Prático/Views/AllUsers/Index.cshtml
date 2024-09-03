@@ -1,0 +1,86 @@
+﻿@model IEnumerable<PWEB_2324.ViewModels.UsersViewModel>
+
+@{
+    ViewData["Title"] = "Utilizadores";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>
+    @ViewData["Title"]
+</h1>
+<div class="row">
+    <div class="col-6" style="width: 100%">
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Filtros
+        </button>
+    </div>
+</div>
+<hr style="border: solid dodgerblue" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">Editar Role</a> |
+                    <a asp-action="LockUnlock" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Estado da Conta</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="column">
+                    <form method="get" asp-action="Index" asp-controller="AllUsers">
+                        <div>
+                            <label>Filtrar por Username:</label>
+                            <input type="text" id="usernameFilter" name="UsernameFilter">
+                        </div>
+                        <div>
+                            <label>Filtrar por Role:</label>
+                            <input type="text" id="roleFilter" name="RoleFilter">
+                        </div>
+
+                        <div>
+                            <label>Ordenar por:</label>
+                            <select name="OrderBy">
+                                <option value="UsernameAsc">Username Ascendente</option>
+                                <option value="UsernameDesc">Username Descendente</option>
+                                <option value="RoleAsc">Role Ascendente</option>
+                                <option value="RoleDesc">Role Descendente</option>
+                            </select>
+                        </div>
+
+                        <input type="submit" value="Filtrar" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

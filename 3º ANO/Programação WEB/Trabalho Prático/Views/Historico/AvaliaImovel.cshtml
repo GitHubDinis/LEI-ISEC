@@ -1,0 +1,38 @@
+﻿@model PWEB_2324.Models.Alugado
+
+@{
+    ViewData["Title"] = "Avaliar Imovel";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Editar Registo de Locador</h1>
+
+<h4>Locador</h4>
+<hr style="border: solid dodgerblue" />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AvaliaImovel">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Title" />
+            <input type="hidden" asp-for="Descricao" />
+            <input type="hidden" asp-for="ClienteId" />
+            <input type="hidden" asp-for="ImovelId" />
+            <input type="hidden" asp-for="LocadorId" />
+            <input type="hidden" asp-for="State" />
+            <div class="form-group">
+                <label asp-for="Avaliacao" class="control-label fw-bold"></label>
+                <input asp-for="Avaliacao" class="form-control" />
+                <span asp-validation-for="Avaliacao" class="text-danger"></span>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Gravar" class="btn btn-success" /> |
+                <a class="btn btn-primary" asp-action="Index">Voltar à Listagem</a>
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+

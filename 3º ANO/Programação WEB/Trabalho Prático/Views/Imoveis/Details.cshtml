@@ -1,0 +1,83 @@
+﻿@model PWEB_2324.Models.Imovel
+
+@{
+    ViewData["Title"] = "Detalhes do Registo";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Detalhes do Registo de Imovel</h1>
+
+<div>
+    <h4>Imovel</h4>
+    <hr style="border: solid dodgerblue" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.categoria.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.categoria.Nome)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Localizacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Localizacao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quartos)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quartos)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataInit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataInit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataEnd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataEnd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TempoMin)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TempoMin)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Available)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Available)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id"  class="btn btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-primary" >Voltar à Listagem</a>
+</div>
+<br />

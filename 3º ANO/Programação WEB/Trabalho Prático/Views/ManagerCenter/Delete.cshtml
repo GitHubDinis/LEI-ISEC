@@ -1,0 +1,22 @@
+﻿@model PWEB_2324.Models.Employee
+
+@{
+    ViewData["Title"] = "Apagar";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Apagar utilizador do locador</h1>
+
+<h4>Tem a certeza de que quer apagar este registo de utilizador?</h4>
+<div>
+    <hr style="border: solid dodgerblue" />
+    <h4>Apagar registo</h4>
+
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Voltar à Listagem</a>
+    </form>
+</div>
+<br />

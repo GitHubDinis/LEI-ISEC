@@ -1,0 +1,43 @@
+﻿@model PWEB_2324.ViewModels.UsersViewModel
+
+@{
+    ViewData["Title"] = "Bloquear/Desbloquear Conta";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Editar Acesso do utilizador</h1>
+
+<hr style="border: solid dodgerblue" />
+
+<form asp-action="LockUnlock">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Username" />
+            <input type="hidden" asp-for="Email" />
+            <input type="hidden" asp-for="Role" />
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label fw-bold"></label>
+                <select asp-for="Estado"
+                        asp-items="ViewBag.ListaDeEstados"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+                <div class="form-group">
+                    <input type="submit" value="Gravar" class="btn btn-success" /> |
+                    <a class="btn btn-primary" asp-action="Index">Voltar à Listagem</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

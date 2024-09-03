@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PWEB_2324.Models.Alugado>
+
+@{
+    ViewData["Title"] = "Imoveis";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>
+    @ViewData["Title"]
+</h1>
+
+<hr style="border: solid dodgerblue" />
+
+<table class="table table-bordered table-striped table-hover">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuncName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @if (item.State == 0)
+                    {
+                        <label style="color: goldenrod">Pendente</label>
+                    }
+                    @if (item.State == 1)
+                    {
+                        <label style="color: green">Aceite</label>
+                    }
+                    @if (item.State == 2)
+                    {
+                        <label style="color: red">Rejeitado</label>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuncName)
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id" asp-route-state="1" class="btn btn-success btn-sm">Aceitar</a> |
+                    <a asp-action="Index" asp-route-id="@item.Id" asp-route-state="2" class="btn btn-danger btn-sm">Rejeitar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

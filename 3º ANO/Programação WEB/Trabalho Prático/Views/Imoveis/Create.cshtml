@@ -1,0 +1,103 @@
+﻿@model PWEB_2324.Models.Imovel
+
+@{
+    ViewData["Title"] = "Criar";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Criar Registo de Imovel</h1>
+
+<h4>Dados do Imovel</h4>
+<hr style="border: solid dodgerblue" />
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoriaId" class="control-label fw-bold"></label>
+                <select asp-for="CategoriaId"
+                        asp-items="ViewBag.ListaDeCategorias"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocadorId" class="control-label fw-bold"></label>
+                <select asp-for="LocadorId"
+                        asp-items="ViewBag.ListaDeLocadores"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label fw-bold"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label fw-bold"></label>
+                <textarea rows="5" cols="5" asp-for="Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <br/>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="Localizacao" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="Localizacao" class="form-control" />
+                <span asp-validation-for="Localizacao" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Quartos" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="Quartos" class="form-control" />
+                <span asp-validation-for="Quartos" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="DataInit" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="DataInit" class="form-control" />
+                <span asp-validation-for="DataInit" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="DataEnd" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="DataEnd" class="form-control" />
+                <span asp-validation-for="DataEnd" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="TempoMin" class="control-label fw-bold"></label>
+                <input rows="5" cols="5" asp-for="TempoMin" class="form-control" />
+                <span asp-validation-for="TempoMin" class="text-danger"></span>
+            </div>
+            
+            <br />
+            <div class="form-group form-check">
+                <label class="form-check-label fw-bold">
+                    <input class="form-check-input" asp-for="Available" />
+                    @Html.DisplayNameFor(model => model.Available)
+                </label>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="Gravar" /> |
+                <a class="btn btn-primary" asp-action="Index">Voltar à Listagem</a>
+            </div>
+        </div>
+    </div>            
+    <br/>
+
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

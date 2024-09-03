@@ -1,0 +1,42 @@
+﻿@model PWEB_2324.Models.Locador
+
+@{
+    ViewData["Title"] = "Apagar Registo";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Apagar Registo de Locador</h1>
+
+<h4>Tem a certeza de que quer apagar este registo de Locador?</h4>
+<div>
+    <hr style="border: solid dodgerblue" />
+    <h4>Locador</h4>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Avaliacao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Avaliacao)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Voltar à Listagem</a>
+    </form>
+</div>
+<br />

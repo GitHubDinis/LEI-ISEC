@@ -1,0 +1,40 @@
+﻿@model PWEB_2324.ViewModels.UsersViewModel
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1>Editar Role do utilizador</h1>
+
+<hr style="border: solid dodgerblue" />
+
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Username" />
+            <input type="hidden" asp-for="Email" />
+            <div class="form-group">
+                <label asp-for="Role" class="control-label fw-bold"></label>
+                <select asp-for="Role"
+                        asp-items="ViewBag.ListaDeRoles"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+             <div class="form-group">
+                <input type="submit" value="Gravar" class="btn btn-success" /> |
+                <a class="btn btn-primary" asp-action="Index">Voltar à Listagem</a>
+            </div>
+        </div>
+     </div>
+    </div>
+    <br />
+
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
