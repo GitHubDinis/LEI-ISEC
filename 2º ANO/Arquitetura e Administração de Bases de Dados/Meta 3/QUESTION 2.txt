@@ -1,0 +1,23 @@
+CREATE OR REPLACE PROCEDURE INTERNAMENTOS_CIDADE(vcidade VARCHAR2, vano NUMBER)
+IS
+	CURSOR C1 IS 
+		SELECT U.nif, I.Especialidade, U.nome
+		FROM medico M, internamento I, utente U
+		WHERE I.codMedico = M.codMedico AND I.codUtente = U.codUtente
+		AND TRIM(SUBSTR(U.morada, INSTR(U.morada,',',-1)+1)) = vcidade 
+		AND TRIM(SUBSTR(M.morada, INSTR(U.morada,',',-1)+1)) = vcidade AND TO_CHAR(data, 'YYYY') = vano
+	PRAGMA EXCEPTION_INIT(EX2022, -2022);		
+BEGIN
+	DELETE FROM temp;
+
+	FOR R IN C1
+	LOOP
+		BEGIN
+			INSERT INTO temp VALUES (vano, DURACAO_ULTIMO_INTERNAMENTO(R.nif, R.Especialidade, vano), R.nome, R.Especialidade);
+		EXCEPTION
+			WHEN EX2022 THEN
+				INSERT INTO TEMP VALUES(vano, -2022, R.nome, R.especialidade);
+			WHEN OTHERS THEN NULL;
+		END;
+	END LOOP;
+END;

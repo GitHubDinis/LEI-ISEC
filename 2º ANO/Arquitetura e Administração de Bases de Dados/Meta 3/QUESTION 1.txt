@@ -1,0 +1,40 @@
+QUESTION 1
+
+CREATE OR REPLACE FUNCTION DURACAO_ULTIMO_INTERNAMENTO(utNIF NUMBER, intEspec VARCHAR2, ano NUMBER)
+RETURN NUMBER
+IS
+	CURSOR C1 IS
+	SELECT duracao
+	FROM termino T, internamento I
+	WHERE AND I.codIntern = T.codIntern
+	AND UPPER(I.Especialidade) = UPPER(intEspec) AND TO_CHAR(T.data, 'YYYY') = ano
+	ORDER BY data DESC
+BEGIN
+	BEGIN
+		SELECT nif
+		FROM utente U
+		WHERE U.nif = utNIF
+
+	EXCEPTION
+		WHEN NO_DATA_FOUND THEN
+			RAISE_APPLICATION_ERROR(-20203, 'Utente com o nif' || utNIF || ' inexistente.');
+	END;
+
+	SELECT nif
+	FROM utente U, internamento I, termino T
+	WHERE I.codUtente = U.codUtente AND I.codIntern = T.codIntern 
+	AND TO_CHAR(T.data, 'YYYY') = ano AND UPPER(I.Especialidade) = UPPER(intEspec) AND U.nif = utNIF
+
+	FOR R IN C1
+	LOOP
+		IF R.duracao IS NULL THEN 
+			RAISE_APPLICATION_ERROR(-20202, 'O último internamento do utente com o NIF' || utNIF || ' nesse ano, na especialidade de ' || intEspec || ' ainda não terminou.');
+		END IF;
+		RETURN duracao;
+	END LOOP;
+
+	EXCEPTION 
+		WHEN NO_DATA_FOUND THEN
+			RAISE_APPLICATION_ERROR(-20201, 'utente com o nif' || utNIF || ' não esteve internado na especialidade de ' || intEspec || ' nesse ano.');
+END;
+
