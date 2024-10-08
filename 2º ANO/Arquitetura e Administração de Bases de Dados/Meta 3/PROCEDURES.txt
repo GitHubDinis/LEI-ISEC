@@ -1,0 +1,276 @@
+F)
+
+create or replace PROCEDURE cria_viagem_regular (cod_armazem_origem NUMBER, cod_armazem_destino NUMBER)
+IS
+    origem armazem.idArmazem%TYPE;
+    destino armazem.idArmazem%TYPE;
+
+    trocoID troco.idTroco%TYPE;
+    veiculoID veiculo.idVeiculo%TYPE;
+
+    EX_ARMAZEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_ARMAZEM, -20806);
+
+    EX_VEICULO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_VEICULO, -20809);
+
+BEGIN
+    SELECT A.idArmazem INTO origem
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem_origem;
+
+    SELECT A.idArmazem INTO destino
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem_destino;
+
+    SELECT idVeiculo INTO veiculoID
+    FROM veiculo V
+    WHERE V.volumeMax > 30 AND V.disponibilidadeVeiculo = 'Disponível';
+
+    IF origem IS NULL THEN
+        RAISE EX_ARMAZEM;
+    END IF;
+    IF destino IS NULL THEN
+        RAISE EX_ARMAZEM;
+    END IF;
+    IF veiculoID IS NULL THEN
+        RAISE EX_VEICULO;
+    END IF;
+
+    SELECT T.idTroco INTO trocoID
+    FROM troco T
+    WHERE T.idArmazem = cod_armazem_origem AND T.Arm_idArmazem = cod_armazem_destino;
+
+    -- Tenho o idTroco e idVeiculo, é suposto arranjar as outras ou criar apenas assim?
+    -- cria uma nova viagem regular (no próximo horário previsto)
+
+EXCEPTION
+    WHEN EX_ARMAZEM THEN 
+        DBMS_OUTPUT.PUT_LINE('Código de armazém inexistente');
+    WHEN EX_VEICULO THEN 
+        DBMS_OUTPUT.PUT_LINE('não há veículos disponíveis no armazém');
+END;
+
+___________________________________________________________________________________________
+
+G)
+
+create or replace PROCEDURE aloca_pedidos_a_viagem (cod_viagem NUMBER) 
+IS
+    viagemID viagem.idViagem%TYPE;
+
+    armazemOrigem armazem.idArmazem%TYPE;
+    
+    EX_SEMVIAGEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMVIAGEM, -20804);
+    
+    CURSOR C1 IS
+        SELECT P.idPedido
+        FROM pedido P, relationship_21 R, estadoPedido EP, estado E, servico S
+        WHERE P.idpedido = R.idPedido AND R.idArmazem = armazemOrigem AND EP.idPedido = P.idPedido AND E.idEstado = EP.idEstado
+        AND E.nomeEstado = 'Em Armazém'
+        ORDER BY S.tipoDeServico;
+BEGIN
+    SELECT V.idViagem INTO viagemID
+    FROM viagem V
+    WHERE V.idViagem = cod_viagem;
+    
+    IF viagemID IS NULL THEN
+        RAISE EX_SEMVIAGEM;
+    END IF;
+    
+    SELECT T.idArmazem INTO armazemOrigem
+    FROM troco T, viagem V
+    WHERE T.idTroco = V.idTroco AND V.idViagem = cod_viagem;
+    
+    FOR r IN C1
+    LOOP
+        INSERT INTO ALOCA VALUES (cod_viagem, r.idPedido);
+    END LOOP;
+
+EXCEPTION
+    WHEN EX_SEMVIAGEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de viagem inexistente');
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Armazém de Origem não encontrado');
+END;
+
+___________________________________________________________________________________________
+
+H)
+
+create or replace PROCEDURE cancela_pedido (cod_pedido NUMBER)
+IS
+    pedidoID pedido.idPedido%TYPE;
+
+    numeroViagens NUMBER;
+
+    EX_PEDIDO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_PEDIDO, -20805);
+
+    EX_VIAGEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_VIAGEM, -20810);
+
+BEGIN
+    SELECT P.idPedido INTO pedidoID
+    FROM pedido P
+    WHERE P.idPedido = cod_pedido;
+
+    IF pedidoID IS NULL THEN
+        RAISE EX_PEDIDO;
+    END IF;
+
+    SELECT COUNT(*) INTO numeroViagens
+    FROM aloca A
+    WHERE A.idPedido = cod_pedido;
+
+    IF numeroViagens > 0 THEN
+        RAISE EX_VIAGEM;
+    ELSE
+        DELETE FROM pedido P
+        WHERE P.idPedido = cod_pedido;
+    END IF;
+
+EXCEPTION
+    WHEN EX_PEDIDO THEN
+        DBMS_OUTPUT.PUT_LINE('Código de pedido de transporte inexistente');
+    WHEN EX_VIAGEM THEN
+        DBMS_OUTPUT.PUT_LINE('Pedido já entregue');
+END;
+
+___________________________________________________________________________________________
+
+I)
+
+create or replace PROCEDURE altera_rota (cod_viagem NUMBER, codigo_armazem_destino NUMBER) 
+IS
+    viagemID viagem.idViagem%TYPE;
+    armazemDestinoID armazem.idArmazem%TYPE;
+    armazemOrigemID armazem.idArmazem%TYPE;
+    
+    trocoID troco.idTroco%TYPE;
+    
+    EX_SEMVIAGEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMVIAGEM, -20804);
+    
+    EX_SEMARMAZEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMARMAZEM, -20806);
+
+BEGIN
+    SELECT V.idViagem INTO viagemID
+    FROM viagem V
+    WHERE V.idViagem = cod_viagem;
+
+    SELECT A.idArmazem INTO armazemDestinoID
+    FROM armazem A
+    WHERE A.idArmazem = codigo_armazem_destino;
+    
+    IF viagemID IS NULL THEN
+        RAISE EX_SEMVIAGEM;
+    END IF;
+    IF armazemDestinoID IS NULL THEN
+        RAISE EX_SEMARMAZEM;
+    END IF;
+
+    SELECT T.idArmazem INTO armazemOrigemID
+    FROM troco T, viagem V
+    WHERE T.idTroco = V.idTroco AND V.idViagem = cod_viagem;
+
+    UPDATE viagem V
+    SET V.idTroco = (SELECT T.idTroco FROM troco T WHERE t.idarmazem = armazemOrigemID)
+    WHERE V.idViagem = cod_viagem;
+
+EXCEPTION
+    WHEN EX_SEMVIAGEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de viagem inexistente');
+    WHEN EX_SEMARMAZEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de armazém inexistente');
+    WHEN NO_DATA_FOUND THEN 
+        DBMS_OUTPUT.PUT_LINE('Código de Armazém Origem ou Troço não encontrado');
+END;
+
+___________________________________________________________________________________________
+
+create or replace PROCEDURE Q_PROC_2020130403 (q_idPedido NUMBER)
+IS
+    custoTotal NUMBER;
+    kmsTotal NUMBER;
+
+    pedidoPeso pedido.pesoPedido%TYPE;
+    pedidoVolume pedido.volumePedido%TYPE;
+
+BEGIN
+    BEGIN
+        SELECT P.pesoPedido, P.volumePedido INTO pedidoPeso, pedidoVolume
+        FROM pedido P
+        WHERE P.idPedido = q_idPedido;
+
+        custoTotal := custoTotal + 1.5 * pedidoPeso;
+        custoTotal := custoTotal + 45 * pedidoVolume;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('Código de pedido de transporte inexistente');
+    END;
+
+    SELECT SUM(V.numeroKms) INTO kmsTotal
+    FROM viagem V, aloca A
+    WHERE V.idViagem = A.idViagem AND A.idPedido = q_idPedido;
+
+    custoTotal := custoTotal + 0.40 * kmsTotal;
+
+    DBMS_OUTPUT.PUT_LINE('Custo total do pedido: ' || custoTotal);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Viagem não encontrada');
+END;
+
+___________________________________________________________________________________________
+
+create or replace PROCEDURE Q_PROC_2019126344 (id_pedido IN NUMBER)
+IS
+    data_entrega DATE;
+BEGIN
+    SELECT e.dataEntrega INTO data_entrega
+    FROM entrega e, recolha r
+    WHERE r.idPedido = id_pedido AND r.idRecolha = e.idrecolha;
+
+    IF data_entrega IS NOT NULL THEN
+        UPDATE estado
+        SET nomeestado = 'Entregue';
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Pedido não encontrado ou data de entrega não preenchida.');
+END;
+
+___________________________________________________________________________________________
+
+create or replace PROCEDURE Q_PROC_2019127444 (p_id_viagem NUMBER)
+IS
+    v_id_motorista NUMBER;
+BEGIN
+    BEGIN 
+        Select IDMOTORISTA
+        into v_id_motorista
+        From MOTORISTA
+        Where DISPONIBILIDADEMOTORISTA = 'S'
+        And ROWNUM = 1;
+    EXCEPTION 
+        When NO_DATA_FOUND Then
+            RAISE_APPLICATION_ERROR(-20830, 'Nenhum motorista disponivel encontrado.');
+    END;
+
+    Update VIAGEM
+    Set IDMOTORISTA = v_id_motorista
+    Where IDVIAGEM = p_id_viagem;
+
+
+    Update MOTORISTA
+    Set DISPONIBILIDADEMOTORISTA = 'N'
+    Where IDMOTORISTA = v_id_motorista;
+
+EXCEPTION 
+    When OTHERS Then 
+        RAISE_APPLICATION_ERROR(-20831, 'Erro ao alocar motorista a viagem .');
+END;

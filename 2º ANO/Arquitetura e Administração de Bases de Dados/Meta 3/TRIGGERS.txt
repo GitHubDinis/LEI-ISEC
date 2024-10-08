@@ -1,0 +1,189 @@
+L)
+
+create or replace TRIGGER upstatus_entrega
+AFTER UPDATE ON estadoPedido
+FOR EACH ROW
+DECLARE
+    estadoID estado.idEstado%TYPE;
+BEGIN
+    SELECT E.idEstado INTO estadoID
+    FROM Estado E 
+    WHERE E.nomeEstado = 'Entregue';
+    
+    -- Como verificar se um pedido foi entregue?
+
+    IF :NEW.idEstado = estadoID THEN
+        UPDATE armazem A
+        SET A.volumeDispArmazem = A.volumeDispArmazem - (SELECT P.volumePedido FROM pedido P WHERE P.idPedido = :OLD.idPedido); 
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Estado não encontrado.');
+END;
+
+___________________________________________________________________________________________
+
+M)
+
+create or replace TRIGGER descarrega_no_armazem
+AFTER DELETE ON VIAGEM -- maneira correta de verificar se a uma viagem termina?
+FOR EACH ROW 
+DECLARE
+    volumeTotal pedido.volumePedido%TYPE;
+    armazemID troco.Arm_idArmazem%TYPE;
+    
+    CURSOR C1 IS 
+        SELECT E.nomeEstado
+        FROM estado E, estadoPedido EP, Pedido P, aloca A
+        WHERE E.idEstado = EP.idEstado AND P.idPedido = EP.idPedido AND A.idPedido = P.idPedido AND A.idViagem = :OLD.idViagem;
+BEGIN
+    SELECT SUM(P.volumePedido) INTO volumeTotal
+    FROM pedido P, aloca A
+    WHERE P.idPedido = A.idPedido AND A.idViagem = :OLD.idViagem;
+
+    SELECT T.Arm_idArmazem INTO armazemID
+    FROM Troco T
+    WHERE T.idTroco = :OLD.idTroco;
+
+    UPDATE armazem A
+    SET A.volumeDispArmazem = A.volumeDispArmazem - volumeTotal
+    WHERE A.idArmazem = armazemID;  
+    
+    FOR r IN C1
+    LOOP
+        r.nomeEstado := 'em armazém';
+    END LOOP;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Armazém ou Pedido não encontrados');
+END;
+
+___________________________________________________________________________________________
+
+N)
+
+create or replace TRIGGER descarrega_de_armazem
+AFTER INSERT ON VIAGEM -- maneira correta de verificar se a uma viagem inicia?
+FOR EACH ROW
+DECLARE
+    volumeTotal pedido.volumePedido%TYPE;
+    armazemID troco.Arm_idArmazem%TYPE;
+
+    CURSOR C1 IS 
+        SELECT E.nomeEstado
+        FROM estado E, estadoPedido EP, Pedido P, aloca A
+        WHERE E.idEstado = EP.idEstado AND P.idPedido = EP.idPedido AND A.idPedido = P.idPedido AND A.idViagem = :NEW.idViagem;
+
+BEGIN
+    SELECT SUM(P.volumePedido) INTO volumeTotal
+    FROM pedido P, aloca A
+    WHERE P.idPedido = A.idPedido AND A.idViagem = :NEW.idViagem;
+
+    SELECT T.Arm_idArmazem INTO armazemID
+    FROM Troco T
+    WHERE T.idTroco = :NEW.idTroco;
+
+    UPDATE armazem A
+    SET A.volumeDispArmazem = A.volumeDispArmazem + volumeTotal
+    WHERE A.idArmazem = armazemID;
+
+    FOR r IN C1
+    LOOP
+        r.nomeEstado := 'em trânsito';
+    END LOOP;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Armazém ou Pedido não encontrados');
+END;
+
+___________________________________________________________________________________________
+
+O)
+
+create or replace TRIGGER altera_veiculo
+AFTER UPDATE ON aloca
+FOR EACH ROW
+DECLARE
+    CURSOR C1 IS
+        SELECT V.taxaOcupacao
+        FROM viagem V 
+        WHERE V.idViagem = :NEW.idViagem;
+
+    taxa viagem.taxaOcupacao%TYPE;
+    veiculoID veiculo.idVeiculo%TYPE;
+BEGIN
+    SELECT V.taxaOcupacao INTO taxa
+    FROM viagem V
+    WHERE V.idViagem = :NEW.idViagem;
+
+    FOR r IN C1 
+    LOOP
+        WHILE r.taxaOcupacao < 80
+        LOOP
+            IF taxa > 95 THEN
+                SELECT V.idVeiculo INTO veiculoID
+                FROM veiculo V
+                WHERE V.disponibilidadeVeiculo = 'Disponível';
+
+                UPDATE viagem V
+                SET V.idVeiculo = veiculoID
+                WHERE V.idViagem = :NEW.idViagem;
+            END IF;
+        END LOOP;
+    END LOOP;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Viagem não encontrada');
+END;
+
+___________________________________________________________________________________________
+
+create or replace TRIGGER  R_TRIG_2020130403
+BEFORE INSERT ON VIAGEM
+FOR EACH ROW
+DECLARE
+
+BEGIN
+    IF TO_CHAR(:NEW.horarioPartida, 'YYYY-MM-DD HH:MM:SS') > TO_CHAR(:NEW.horarioChegada, 'YYYY-MM-DD HH:MM:SS') THEN
+        RAISE_APPLICATION_ERROR(-20820, 'O horário de partida não pode ser superior ao horário de chegada.');
+    END IF;
+END;
+
+___________________________________________________________________________________________
+
+create or replace TRIGGER R_TRIG_2019126344
+AFTER UPDATE OF taxaOcupacao ON viagem
+FOR EACH ROW
+DECLARE
+    capacidadeMax NUMBER;
+BEGIN
+    SELECT cargaMax INTO capacidadeMax
+    FROM Veiculo ve, viagem v 
+    WHERE ve.idVeiculo = v.idVeiculo;
+    IF :NEW.taxaOcupacao >= capacidadeMax THEN
+        DBMS_OUTPUT.PUT_LINE('Atenção: Capacidade máxima do veículo atingida na viagem.');
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Viagem não encontrada.');
+END;
+
+___________________________________________________________________________________________
+
+create or replace TRIGGER R_TRIG_2019127444
+AFTER UPDATE OF HORARIOPARTIDA ON VIAGEM
+FOR EACH ROW
+BEGIN
+    -- se o horario for definido , atualiza estado
+    Update ESTADOPEDIDO
+    Set IDESTADO = (Select IDESTADO From ESTADO Where NOMEESTADO = 'em transito'), DATAESTADO = SYSDATE
+    Where IDPEDIDO in (
+        Select P.IDPEDIDO
+        From PEDIDO P
+        Where P.ORIGEMPEDIDO = :NEW.IDTROCO
+    );
+EXCEPTION
+    When OTHERS Then
+        RAISE_APPLICATION_ERROR(-20844, 'Erro ao atualizar o estado do pedido: ');
+END;
