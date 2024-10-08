@@ -1,0 +1,358 @@
+A)
+
+create or replace FUNCTION proxima_viagem_com_espaco(cod_pedido NUMBER, cod_troco NUMBER) 
+RETURN NUMBER
+IS
+    CURSOR C1 IS
+        SELECT V.idViagem, V.idVeiculo
+        FROM viagem V
+        WHERE V.idTroco = cod_troco
+        ORDER BY V.horarioPartida;
+
+    pedidoID Pedido.idPedido%TYPE;
+    trocoID Troco.idTroco%TYPE;
+    viagemID Viagem.idViagem%TYPE;
+    MaxVolume Veiculo.volumeMax%TYPE;
+    MaxCarga Veiculo.cargaMax%TYPE;
+    volumeUsado Pedido.volumePedido%TYPE;
+    pesoUsado Pedido.pesoPedido%TYPE;
+
+    pedidoVolume Pedido.volumePedido%TYPE;
+    pedidoPeso Pedido.pesoPedido%TYPE;
+
+    EX_SEMPEDIDO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMPEDIDO, -20805);
+
+    EX_SEMTROCO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMTROCO, -20808);
+
+    EX_SEMVIAGENS EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMVIAGENS, -20801);
+
+    EX_SEMCAPACIDADE EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMCAPACIDADE, -20802);
+BEGIN
+    SELECT P.idPedido, P.volumePedido, P.pesoPedido INTO pedidoID, pedidoVolume, pedidoPeso
+    FROM pedido P
+    WHERE P.idPedido = cod_pedido;
+
+    SELECT T.idTroco INTO trocoID
+    FROM troco T
+    WHERE T.idTroco = cod_troco;
+
+    SELECT V.idViagem INTO viagemID
+    FROM viagem V
+    WHERE V.idTroco = cod_troco;
+
+    IF pedidoID IS NULL THEN
+        RAISE EX_SEMPEDIDO;
+    END IF;
+    IF trocoID IS NULL THEN
+        RAISE EX_SEMTROCO;
+    END IF;
+    IF viagemID IS NULL THEN
+        RAISE EX_SEMVIAGENS;
+    END IF;
+
+    FOR r IN C1
+    LOOP
+        SELECT V.volumeMax, V.cargaMax INTO MaxVolume, MaxCarga
+        FROM veiculo V
+        WHERE V.idVeiculo = r.idVeiculo;
+
+        SELECT SUM(P.volumePedido), SUM(P.pesoPedido) INTO volumeUsado, pesoUsado
+        FROM pedido P, aloca A
+        WHERE P.idPedido = A.idPedido AND A.idViagem = r.idViagem;
+
+        IF (MaxVolume - volumeUsado >= pedidoVolume) AND (MaxCarga - pesoUsado >= pedidoPeso) THEN
+            RETURN r.idViagem;
+        END IF;
+    END LOOP;
+
+    RAISE EX_SEMCAPACIDADE;
+
+EXCEPTION
+    WHEN EX_SEMPEDIDO THEN
+        DBMS_OUTPUT.PUT_LINE('Código de pedido de transporte inexistente');
+    WHEN EX_SEMTROCO THEN
+        DBMS_OUTPUT.PUT_LINE('Código de troço inexistente');
+    WHEN EX_SEMVIAGENS THEN 
+        DBMS_OUTPUT.PUT_LINE('não estão previstas viagens para esse troço');
+    WHEN EX_SEMCAPACIDADE THEN
+        DBMS_OUTPUT.PUT_LINE('não existe uma viagem para esse troço com capacidade para transportar o pedido');
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Volume Máximo Veículo e Carga Máxima Veículo ou Volume Pedido e Peso Pedido não encontrados');
+END;
+
+___________________________________________________________________________________________
+
+B)
+
+create or replace FUNCTION veiculo_disponivel (cod_armazem NUMBER, volume_minimo NUMBER) 
+RETURN NUMBER
+IS
+    CURSOR C1 IS
+        SELECT V.idVeiculo, V.volumeMax
+        FROM veiculo V, viagem VI, Troco T
+        WHERE V.idVeiculo = VI.idVeiculo AND VI.idTroco = T.idTroco AND Arm_idArmazem = cod_armazem;
+
+    armazemID armazem.idArmazem%TYPE;
+
+    EX_SEMARMAZEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMARMAZEM, -20806);
+
+    EX_SEMVEICULO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMVEICULO, -20809);
+BEGIN
+    SELECT A.idArmazem INTO armazemID
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem;
+
+    IF armazemID IS NULL THEN
+        RAISE EX_SEMARMAZEM;
+    END IF;
+
+    FOR r IN C1
+    LOOP
+        IF r.volumeMax >= volume_minimo THEN
+            RETURN r.idVeiculo;
+        END IF;
+    END LOOP;
+
+    RAISE EX_SEMVEICULO;
+
+EXCEPTION
+    WHEN EX_SEMARMAZEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de armazém inexistente');
+    WHEN EX_SEMVEICULO THEN
+        DBMS_OUTPUT.PUT_LINE('Não há veículos disponíveis no armazém com capacidade suficiente');
+END;
+
+___________________________________________________________________________________________
+
+C)
+
+create or replace FUNCTION volume_disponivel (cod_viagem NUMBER) 
+RETURN NUMBER
+IS
+    viagemID viagem.idViagem%TYPE;
+
+    volumeTotal pedido.volumePedido%TYPE;
+    volumeMaxVeiculo veiculo.volumeMax%TYPE;
+
+    volumeDisponivel NUMBER;
+
+    EX_VIAGEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_VIAGEM, -20804);
+BEGIN
+    SELECT V.idViagem INTO viagemID
+    FROM viagem V
+    WHERE V.idViagem = cod_viagem;
+
+    IF viagemID IS NULL THEN
+        RAISE EX_VIAGEM;
+    END IF;
+
+    SELECT SUM(P.volumePedido) INTO volumeTotal
+    FROM pedido P, aloca A
+    WHERE P.idPedido = A.idPedido AND A.idViagem = cod_viagem;
+
+    SELECT V.volumeMax INTO volumeMaxVeiculo
+    FROM veiculo V, viagem VI
+    WHERE V.idVeiculo = VI.idVeiculo AND VI.idViagem = cod_viagem;
+
+    volumeDisponivel := volumeMaxVeiculo - volumeTotal;
+
+    RETURN volumeDisponivel;
+
+EXCEPTION
+    WHEN EX_VIAGEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de viagem inexistente');
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Volume Pedido ou Volume Máximo Veículo não encontrados');
+END;
+
+___________________________________________________________________________________________
+
+D)
+
+create or replace FUNCTION tem_capacidade_para_armazenar (cod_pedido NUMBER, cod_armazem NUMBER) 
+RETURN NUMBER 
+IS
+    pedidoVolume pedido.volumePedido%TYPE;
+    volumeDisponivel armazem.volumeDispArmazem%TYPE;
+    
+    pedidoID pedido.idPedido%TYPE;
+    armazemID armazem.idArmazem%TYPE;
+    
+    EX_SEMPEDIDO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMPEDIDO, -20805);
+    
+    EX_SEMARMAZEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SEMARMAZEM, -20806);
+BEGIN
+    SELECT P.idPedido INTO pedidoID
+    FROM pedido P
+    WHERE P.idpedido = cod_pedido;
+    
+    SELECT A.idArmazem INTO armazemID
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem;
+    
+    IF pedidoID IS NULL THEN
+        RAISE EX_SEMPEDIDO;
+    END IF;
+    IF armazemID IS NULL THEN
+        RAISE EX_SEMARMAZEM;
+    END IF;
+
+    SELECT P.volumePedido INTO pedidoVolume
+    FROM pedido P
+    WHERE P.idpedido = cod_pedido;
+    
+    SELECT A.volumeDispArmazem INTO volumeDisponivel
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem;
+    
+    IF volumeDisponivel >= pedidoVolume THEN
+        DBMS_OUTPUT.PUT_LINE('O Armazém tem volume disponível para o Pedido');
+        RETURN 1;
+    END IF;
+
+    IF volumeDisponivel < pedidoVolume THEN
+        DBMS_OUTPUT.PUT_LINE('O Armazém não tem volume disponível para o Pedido');
+        RETURN 0;
+    END IF;
+    
+EXCEPTION
+    WHEN EX_SEMPEDIDO THEN
+        DBMS_OUTPUT.PUT_LINE('Código de pedido de transporte inexistente');
+    WHEN EX_SEMARMAZEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de armazém inexistente'); 
+END;
+
+___________________________________________________________________________________________
+
+E)
+
+create or replace FUNCTION volume_tipo_dos_pedidos (cod_viagem NUMBER, cod_tipo_servico NUMBER) 
+RETURN NUMBER
+IS
+    viagemID viagem.idViagem%TYPE;
+    servicoID servico.idServico%TYPE;
+
+    volumeTotal pedido.volumePedido%TYPE;
+
+    EX_VIAGEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_VIAGEM, -20804);
+
+    EX_SERVICO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_SERVICO, -20807);
+BEGIN
+    SELECT V.idViagem INTO viagemID
+    FROM viagem V
+    WHERE V.idViagem = cod_viagem;
+
+    SELECT S.idServico INTO servicoID
+    FROM servico S
+    WHERE S.idServico = cod_tipo_servico;
+
+    IF viagemID IS NULL THEN
+        RAISE EX_VIAGEM;
+    END IF;
+    IF servicoID IS NULL THEN
+        RAISE EX_SERVICO;
+    END IF;
+
+    SELECT SUM(P.volumePedido) INTO volumeTotal
+    FROM pedido P, aloca A
+    WHERE P.idPedido = A.idPedido AND A.idViagem = cod_viagem AND P.idServico = cod_tipo_servico;
+
+    RETURN volumeTotal;
+
+EXCEPTION
+    WHEN EX_VIAGEM THEN
+        DBMS_OUTPUT.PUT_LINE('Código de viagem inexistente');
+    WHEN EX_SERVICO THEN
+        DBMS_OUTPUT.PUT_LINE('Código de tipo de serviço inexistente');
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Volume Pedido não encontrado');
+END;
+
+___________________________________________________________________________________________
+
+create or replace FUNCTION P_FUNC_2020130403 (p_idArmazem NUMBER, p_dataInicio DATE, p_dataFim DATE)
+RETURN NUMBER
+IS
+    nDias NUMBER;
+    somaTaxas NUMBER;
+BEGIN
+    nDias := TO_CHAR(p_dataFim, 'YYYY-MM-DD') - TO_CHAR(p_dataInicio, 'YYYY-MM-DD') + 1;
+
+    SELECT SUM(A.taxaOcupacaoArmazem) INTO somaTaxas
+    FROM armazem A, recolha R
+    WHERE A.idArmazem = R.idArmazem 
+    AND TO_CHAR(R.dataRecolha, 'YYYY-MM-DD') BETWEEN TO_CHAR(p_dataInicio, 'YYYY-MM-DD') AND TO_CHAR(p_dataFim, 'YYYY-MM-DD');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Armazém não encontrado');
+END;
+
+___________________________________________________________________________________________
+
+create or replace FUNCTION P_FUNC_2019126344(tipo_mercadoria IN NUMBER)
+RETURN NUMBER
+IS
+    soma NUMBER;
+    n_entradas NUMBER;
+    entregaData DATE;
+    pedidoData DATE;
+    CURSOR C1 IS
+        SELECT dataEntrega, dataPedido INTO entregaData, pedidoData
+        FROM entrega e, mercadoria m, pedido p, recolha r
+        WHERE m.tipoMercadoria = tipo_mercadoria AND m.idMercadoria = p.idMercadoria AND p.idPedido = r.idPedido AND r.idRecolha = e.idRecolha;
+BEGIN
+    FOR r IN C1 
+    LOOP
+        soma := soma + (TO_CHAR(r.dataEntrega,'YYYY-MM-DD') - TO_CHAR(r.dataPedido,'YYYY-MM-DD'));
+        n_entradas := n_entradas + 1;
+    END LOOP;
+
+    RETURN soma/n_entradas;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Não existem entregas deste tipo de mercadoria.');
+END;
+
+___________________________________________________________________________________________
+
+create or replace PROCEDURE Q_PROC_2019127444 (p_id_viagem NUMBER)
+IS
+    v_id_motorista NUMBER;
+BEGIN
+    BEGIN 
+        Select IDMOTORISTA
+        into v_id_motorista
+        From MOTORISTA
+        Where DISPONIBILIDADEMOTORISTA = 'S'
+        And ROWNUM = 1;
+    EXCEPTION 
+        When NO_DATA_FOUND Then
+            RAISE_APPLICATION_ERROR(-20830, 'Nenhum motorista disponivel encontrado.');
+    END;
+
+    Update VIAGEM
+    Set IDMOTORISTA = v_id_motorista
+    Where IDVIAGEM = p_id_viagem;
+
+
+    Update MOTORISTA
+    Set DISPONIBILIDADEMOTORISTA = 'N'
+    Where IDMOTORISTA = v_id_motorista;
+
+EXCEPTION 
+    When OTHERS Then 
+        RAISE_APPLICATION_ERROR(-20831, 'Erro ao alocar motorista a viagem .');
+END;

@@ -1,0 +1,7 @@
+Validação de Dados (duração e valores negativos, datas inválidas, formatação dos dados);
+Datas finais inferiores a datas iniciais;
+Inexistência de valores nulos;
+Regras de negócio reais, ou seja, sem valores que não sejam reais;
+
+
+ 

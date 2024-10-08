@@ -1,0 +1,302 @@
+VIEW_A
+
+SELECT P.idpedido, R.dataRecolha, AR.nomeArmazem AS ARMAZEM_RECOLHA, AE.nomeArmazem as ARMAZEM_ENTREGA, ES.nomeEstado
+FROM pedido P, recolha R, armazem AR, armazem AE, entrega E, estado ES, estadopedido EP, servico S
+WHERE P.idpedido = R.idpedido AND R.idarmazem = AR.idarmazem 
+AND E.identrega = AE.identrega AND R.identrega = E.identrega AND P.idpedido = EP.idpedido 
+AND EP.idestado = ES.idestado AND P.idservico = S.idservico
+AND AR.cidadeArmazem = 'Lisboa' AND S.tipoDeServico != 'Urgente' AND R.dataRecolha = SYSDATE - 1
+ORDER BY R.datarecolha
+___________________________________________________________________________________________________________________
+
+VIEW_B
+
+SELECT V.idviagem, V.idveiculo, T.nometroco AS TROCO, V.horariopartida AS PARTIDA, V.horariochegada AS CHEGADA, ROUND((V.horariochegada - V.horariopartida) * 24 * 60) AS DURACAO, V.numerokms AS KMSPERCORRIDOS 
+FROM viagem V, troco T, pedido P
+WHERE V.idtroco = T.idtroco  
+AND P.idpedido = 2023041105
+    
+-- Falta fazer a ligação entre pedido e viagem.
+___________________________________________________________________________________________________________________
+
+VIEW_C
+
+SELECT P.idpedido, S.tipodeservico AS TIPOSERVICO, TO_CHAR(P.datapedido, 'DD/MM/YYYY HH24:MI') AS DATAPEDIDO, TO_CHAR(R.datarecolha, 'DD/MM/YYYY HH24:MI') AS DATARECOLHA, TO_CHAR(EP.DATAESTADO, 'DD/MM/YYYY HH24:MI') AS DATAENTRADA, ROUND((S.prazomax - EP.dataestado) * 24 * 60) AS TEMPORESTANTE   
+FROM pedido P, servico S, recolha R, estadopedido EP, armazem A
+WHERE P.idservico = S.idservico AND P.idpedido = EP.idpedido AND P.idpedido = R.idpedido
+AND R.idarmazem = A.idarmazem
+AND A.nomearmazem = 'ARM01' AND A.cidadearmazem = 'Santarém' AND EP.idestado = (
+    SELECT idestado FROM estado WHERE nomeestado = 'Em Armazém'
+) 
+AND R.datarecolha BETWEEN SYSDATE AND SYSDATE + 6
+ORDER BY TEMPORESTANTE DESC
+___________________________________________________________________________________________________________________
+
+VIEW_D
+
+SELECT A.nomearmazem AS ARMAZEM, P.idpedido, S.tipodeservico AS TIPOSERVICO, TO_CHAR(P.datapedido, 'DD/MM/YYYY HH24:MI') AS DATAPEDIDO, TO_CHAR(EP.dataestado, 'DD/MM/YYYY HH24:MI') AS DATAENTRADA, ROUND((S.prazomax - EP.dataestado) * 24 * 60) AS TEMPORESTANTE   
+FROM armazem A, pedido P, estadopedido EP, servico S, recolha R
+WHERE A.idarmazem = R.idarmazem AND P.idpedido = R.idpedido AND P.idpedido = EP.idpedido
+AND P.idservico = S.idservico
+AND EP.idestado = (SELECT idestado FROM estado WHERE nomeestado = 'Em Armazém')
+AND R.datarecolha = (SELECT MIN(datarecolha) FROM recolha WHERE idarmazem = A.idarmazem)
+ORDER BY temporestante DESC
+___________________________________________________________________________________________________________________
+
+VIEW_E
+
+SELECT A.nomearmazem AS armazem, M.tipomercadoria, AVG(A.volumemaxarmazem - A.volumedisparmazem) AS VOLUMEMEDIO 
+FROM armazem A, mercadoria M, recolha R
+WHERE A.idarmazem = R.idarmazem AND R.idpedido = M.idpedido
+AND A.cidadearmazem = 'Coimbra' AND TO_CHAR(R.datarecolha, 'YYYY') IN ('2021', '2022')
+GROUP BY A.nomearmazem, M.tipomercadoria
+ORDER BY volumemedio DESC
+___________________________________________________________________________________________________________________
+
+VIEW_F
+
+SELECT A.nomearmazem AS ARMAZEM, A.taxaOcupacaoArmazem AS TAXAOCUPACAO, COUNT(P.idpedido) AS NPEDIDOSTRANSPORTE, SUM(P.volumepedido) AS VOLUME_PEDIDOS, AVG(SYSDATE - R.datarecolha) AS MEDIA_TEMPORESTANTE
+FROM armazem A, pedido P, recolha R
+WHERE A.idarmazem = R.idarmazem AND P.idpedido = R.idpedido
+AND A.taxaocupacaoarmazem = (SELECT MAX(taxaocupacaoarmazem) FROM armazem)
+GROUP BY A.nomearmazem, A.taxaocupacaoarmazem
+___________________________________________________________________________________________________________________
+
+VIEW_G
+
+SELECT A.cidadearmazem AS CIDADE, M.tipomercadoria AS TIPO_MERCADORIA, COUNT(*) AS NTRANSPORTES, SUM(P.volumepedido) AS VOLUME_TRANSPORTADO
+FROM armazem A, mercadoria M, pedido P, recolha R, entrega E
+WHERE P.idpedido = M.idpedido AND R.idarmazem = A.idarmazem AND R.idrecolha = E.idrecolha
+AND R.idpedido = P.idpedido
+AND TO_CHAR(P.datapedido, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY') - 1
+GROUP BY A.cidadearmazem, M.tipomercadoria
+ORDER BY VOLUME_TRANSPORTADO DESC
+
+-- Como calcular nº total de transportes?
+___________________________________________________________________________________________________________________
+
+VIEW_H
+
+SELECT V.matriculaveiculo, V.marcaveiculo, V.modeloveiculo   
+FROM veiculo V, viagem VI, mercadoria M
+WHERE VI.idveiculo = V.idveiculo
+AND M.tipomercadoria = 'Animais-vivos' AND VI.numerokms > 200 AND taxaocupacao > 80
+AND TO_CHAR(VI.horariopartida, 'MM/YYYY') = TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'MM/YYYY')
+AND ROWNUM <= 5
+GROUP BY V.matriculaveiculo, V.marcaveiculo, V.modeloveiculo
+ORDER BY COUNT(VI.idviagem) DESC
+
+-- Falta ligar mercadoria com veiculo
+___________________________________________________________________________________________________________________
+
+VIEW_I
+
+SELECT A.nomearmazem AS ARMAZEM, COUNT(V.idviagem) AS NTRANSPORTES, SUM(P.volumepedido) AS VOLUMETOTAL, SUM(P.pesopedido) AS PESOTOTAL
+FROM armazem A, pedido P, viagem V, recolha R, entrega E
+WHERE R.identrega = E.identrega AND P.idpedido = R.idpedido AND R.idarmazem = A.idarmazem 
+AND TO_CHAR(V.horariochegada, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY') AND ROWNUM <= 3
+GROUP BY A.nomearmazem
+ORDER BY volumetotal DESC
+    
+-- Falta fazer a ligação com viagem
+___________________________________________________________________________________________________________________
+
+VIEW_J
+
+SELECT 
+    A.CIDADEARMAZEM AS CIDADE,
+    M.TIPOMERCADORIA AS TIPO_MERCADORIA,
+    AVG(EXTRACT(HOUR FROM NUMTODSINTERVAL(E.DATAENTREGA - R.DATARECOLHA, 'DAY'))) AS TEMPO_MEDIO
+FROM 
+    MERCADORIA M, PEDIDO P, RECOLHA R, ARMAZEM A, ENTREGA E
+WHERE 
+    M.IDPEDIDO = P.IDPEDIDO
+    AND P.IDPEDIDO = R.IDPEDIDO
+    AND R.IDARMAZEM = A.IDARMAZEM
+    AND R.IDENTREGA = E.IDENTREGA
+    AND A.DISTRITOARMAZEM = 'Lisboa'
+    AND E.DATAENTREGA >= TRUNC(SYSDATE - 7) -- há uma semana atrás
+    AND E.DATAENTREGA < TRUNC(SYSDATE) -- início do dia atual
+GROUP BY 
+    A.CIDADEARMAZEM, M.TIPOMERCADORIA
+ORDER BY 
+    AVG(EXTRACT(HOUR FROM NUMTODSINTERVAL(E.DATAENTREGA - R.DATARECOLHA, 'DAY')))
+___________________________________________________________________________________________________________________
+
+VIEW_K
+
+WITH TEMPO_MEDIO_ANTERIOR AS (
+    SELECT 
+        A.CIDADEARMAZEM AS CIDADE,
+        M.TIPOMERCADORIA AS TIPO_MERCADORIA,
+        AVG((E.DATAENTREGA - R.DATARECOLHA) * 24) AS TEMPO_MEDIO,
+        LAG(AVG((E.DATAENTREGA - R.DATARECOLHA) * 24)) OVER (PARTITION BY A.CIDADEARMAZEM, M.TIPOMERCADORIA ORDER BY E.DATAENTREGA) AS TEMPO_MEDIO_ANTERIOR
+    FROM 
+        MERCADORIA M, PEDIDO P, RECOLHA R, ARMAZEM A, ENTREGA E
+    WHERE 
+        M.IDPEDIDO = P.IDPEDIDO
+        AND P.IDPEDIDO = R.IDPEDIDO
+        AND R.IDARMAZEM = A.IDARMAZEM
+        AND R.IDENTREGA = E.IDENTREGA
+        AND E.DATAENTREGA >= TRUNC(SYSDATE) - 14 -- há duas semanas atrás
+        AND E.DATAENTREGA < TRUNC(SYSDATE) - 7 -- início da semana passada
+    GROUP BY 
+        A.CIDADEARMAZEM, M.TIPOMERCADORIA, E.DATAENTREGA, R.DATARECOLHA
+)
+SELECT 
+    CIDADE,
+    TIPO_MERCADORIA,
+    AVG(TEMPO_MEDIO) AS TEMPO_MEDIO,
+    AVG(TEMPO_MEDIO_ANTERIOR) AS TEMPO_MEDIO_ANTERIOR,
+    CASE 
+        WHEN AVG(TEMPO_MEDIO_ANTERIOR) != 0 THEN ((AVG(TEMPO_MEDIO) - AVG(TEMPO_MEDIO_ANTERIOR)) / AVG(TEMPO_MEDIO_ANTERIOR)) * 100
+        ELSE NULL
+    END AS VARIACAO
+FROM 
+    TEMPO_MEDIO_ANTERIOR
+GROUP BY 
+    CIDADE, TIPO_MERCADORIA
+ORDER BY 
+    CIDADE, TIPO_MERCADORIA
+___________________________________________________________________________________________________________________
+
+VIEW_L
+
+WITH TEMPO_MEDIO AS (
+    SELECT 
+        M.TIPOMERCADORIA AS TIPO_MERCADORIA,
+        P.IDPEDIDO,
+        COUNT(CASE WHEN E.IDENTREGA IS NOT NULL THEN 1 END) AS QTDVIAGENS,
+        AVG((E.DATAENTREGA - R.DATARECOLHA) * 24 * 60) AS TEMPO_MEDIO
+    FROM 
+        MERCADORIA M, PEDIDO P, RECOLHA R, ARMAZEM A, ENTREGA E
+    WHERE 
+        M.IDPEDIDO = P.IDPEDIDO
+        AND P.IDPEDIDO = R.IDPEDIDO
+        AND R.IDARMAZEM = A.IDARMAZEM
+        AND R.IDENTREGA = E.IDENTREGA
+    GROUP BY 
+        M.TIPOMERCADORIA, P.IDPEDIDO
+)
+SELECT 
+    TIPO_MERCADORIA,
+    ROUND(AVG(CASE WHEN QTDVIAGENS = 1 THEN TEMPO_MEDIO END) - AVG(CASE WHEN QTDVIAGENS > 1 THEN TEMPO_MEDIO END)) AS DIF_TEMPOS
+FROM 
+    TEMPO_MEDIO
+GROUP BY 
+    TIPO_MERCADORIA
+___________________________________________________________________________________________________________________
+
+VIEW_M_2020130403
+
+SELECT TO_CHAR(V.horariopartida, 'DY') AS DIADASEMANA, COUNT(V.idveiculo) AS VEICULOSDISPONIVEIS
+FROM viagem V, veiculo VE
+WHERE VE.disponibilidadeveiculo = 'Disponível'
+GROUP BY TO_CHAR(V.horariopartida, 'DY')
+___________________________________________________________________________________________________________________
+
+VIEW_N_2020130403
+
+SELECT A.nomearmazem, M.tipomercadoria, TO_CHAR(S.datarecolha, 'DY') AS DIADASEMANA, COUNT(*) AS NUMPEDIDOS
+FROM armazem A, mercadoria M, pedido P, (SELECT R.idpedido, R.idarmazem, R.datarecolha FROM recolha R) S
+WHERE P.idpedido = S.idpedido AND A.idarmazem = S.idarmazem AND P.idpedido = M.idpedido
+GROUP BY A.nomearmazem, M.tipomercadoria, TO_CHAR(S.datarecolha, 'DY')
+___________________________________________________________________________________________________________________
+
+VIEW_M_2019126344
+
+SELECT 
+    MOTORISTA,
+    DISTRITO_DESTINO,
+    NUMERO_PEDIDOS,
+    VEICULO_MAIS_UTILIZADO
+FROM (
+    SELECT 
+        M.NOMEMOTORISTA AS MOTORISTA,
+        SUBSTR(T.NOMETROCO, 1, INSTR(T.NOMETROCO, '-') - 1) AS DISTRITO_DESTINO,
+        COUNT(V.IDVIAGEM) AS NUMERO_PEDIDOS,
+        VE.MARCAVEICULO || ' ' || VE.MODELOVEICULO AS VEICULO_MAIS_UTILIZADO,
+        ROW_NUMBER() OVER (PARTITION BY M.IDMOTORISTA ORDER BY COUNT(V2.IDVIAGEM) DESC) AS RN
+    FROM 
+        MOTORISTA M, VIAGEM V, VEICULO VE, TROCO T, VIAGEM V2, VEICULO VE2
+    WHERE 
+        M.IDMOTORISTA = V.IDMOTORISTA
+        AND V.IDVEICULO = VE.IDVEICULO
+        AND V.IDTROCO = T.IDTROCO
+        AND M.IDMOTORISTA = V2.IDMOTORISTA
+        AND V2.IDVEICULO = VE2.IDVEICULO
+        AND T.NOMETROCO LIKE 'Coimbra%'
+    GROUP BY 
+        M.IDMOTORISTA, M.NOMEMOTORISTA, VE.MARCAVEICULO, VE.MODELOVEICULO, T.NOMETROCO
+)
+WHERE 
+    RN = 1
+ORDER BY 
+    NUMERO_PEDIDOS DESC
+___________________________________________________________________________________________________________________
+
+VIEW_N_2019126344
+
+SELECT 
+    A.IDMOTORISTA AS MOTORISTA,
+    A.IDVEICULO AS VEICULO,
+    TO_CHAR(R.DATARECOLHA, 'IW') AS SEMANA
+FROM 
+    (SELECT * 
+    FROM RECOLHA 
+    WHERE DATARECOLHA >= TRUNC(SYSDATE, 'MM') - INTERVAL '1' MONTH 
+    AND DATARECOLHA < TRUNC(SYSDATE, 'MM')) R,
+    ENTREGA E,
+    ARMAZEM AR,
+    ALOCA A,
+    MOTORISTA M
+WHERE 
+    A.IDPEDIDO = R.IDPEDIDO
+    AND R.IDENTREGA = E.IDENTREGA
+    AND R.IDARMAZEM = AR.IDARMAZEM
+    AND A.IDMOTORISTA = M.IDMOTORISTA
+    AND AR.DISTRITOARMAZEM = 'Coimbra'
+ORDER BY 
+    A.IDMOTORISTA, A.IDVEICULO, SEMANA
+
+-- resolvi para fazer mais sentido só me focar no ultimo mes
+___________________________________________________________________________________________________________________
+
+VIEW_M_2019127444
+
+SELECT 
+    V.tipoViagem AS "TIPOVIAGEM",
+    M.IdMotorista AS "IDMOTORISTA",
+    M.nomeMotorista AS "NOMEMOTORISTA",
+    SUM((V.horarioChegada - V.horarioPartida) * 24) AS "TEMPOTOTALCONDUCAOHORAS", 
+    SUM(V.numeroKms) AS "TOTALKMS",
+    AVG(V.taxaOcupacao) AS "TAXAOCUPACAOMEDIA"
+FROM 
+    Motorista M, Viagem V
+WHERE M.IdMotorista = V.IdMotorista
+GROUP BY 
+    V.tipoViagem, 
+    M.IdMotorista,
+    M.nomeMotorista
+___________________________________________________________________________________________________________________
+
+VIEW_N_2019127444
+
+SELECT
+    P.origemPedido AS "ORIGEM",
+    P.destinoPedido AS "DESTINO",
+    COUNT(*) AS "NUMERO_DE_PEDIDOS",
+    AVG(V.horarioChegada - V.horarioPartida) AS "TEMPO_MEDIO_DE_ENTREGA",
+    (SELECT MAX(V.horarioChegada - V.horarioPartida)
+     FROM Pedido P2
+     WHERE P2.idPedido = P.idPedido) AS "MAIOR_TEMPO_DE_ENTREGA",
+    (SELECT MIN(V.horarioChegada - V.horarioPartida)
+     FROM Pedido P2
+     WHERE P2.idPedido = P.idPedido) AS "MENOR_TEMPO_DE_ENTREGA"
+FROM 
+    Pedido P , viagem V
+GROUP BY 
+    P.origemPedido , P.destinoPedido ,V.horarioChegada - V.horarioPartida, P.idPedido
+___________________________________________________________________________________________________________________
+
+

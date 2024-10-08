@@ -1,0 +1,108 @@
+F)
+
+create or replace PROCEDURE cria_viagem_regular (cod_armazem_origem NUMBER, cod_armazem_destino NUMBER)
+IS
+    origem armazem.idArmazem%TYPE;
+    destino armazem.idArmazem%TYPE;
+
+    trocoID troco.idTroco%TYPE;
+    veiculoID veiculo.idVeiculo%TYPE;
+
+    EX_ARMAZEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_ARMAZEM, -20806);
+
+    EX_VEICULO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_VEICULO, -20809);
+
+BEGIN
+    SELECT A.idArmazem INTO origem
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem_origem;
+
+    SELECT A.idArmazem INTO destino
+    FROM armazem A
+    WHERE A.idArmazem = cod_armazem_destino;
+
+    SELECT idVeiculo INTO veiculoID
+    FROM veiculo V
+    WHERE V.volumeMax > 30 AND V.disponibilidadeVeiculo = 'Disponível';
+
+    IF origem IS NULL THEN
+        RAISE EX_ARMAZEM;
+    END IF;
+
+    IF destino IS NULL THEN
+        RAISE EX_ARMAZEM;
+    END IF;
+
+    IF veiculoID IS NULL THEN
+        RAISE EX_VEICULO;
+    END IF;
+
+    SELECT T.idTroco INTO trocoID
+    FROM troco T
+    WHERE T.idArmazem = cod_armazem_origem AND T.Arm_idArmazem = cod_armazem_destino;
+
+    -- cria uma nova viagem regular (no próximo horário previsto)
+
+EXCEPTION
+    WHEN EX_ARMAZEM THEN 
+        DBMS_OUTPUT.PUT_LINE('Código de armazém inexistente');
+    WHEN EX_VEICULO THEN 
+        DBMS_OUTPUT.PUT_LINE('não há veículos disponíveis no armazém');
+END;
+
+___________________________________________________________________________________________
+
+G)
+
+
+___________________________________________________________________________________________
+
+H)
+
+CREATE OR REPLACE PROCEDURE cancela_pedido (cod_pedido NUMBER)
+IS
+    pedidoID pedido.idPedido%TYPE;
+    
+    numeroViagens NUMBER;
+
+    EX_PEDIDO EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_PEDIDO, -20805);
+    
+    EX_VIAGEM EXCEPTION;
+    PRAGMA EXCEPTION_INIT(EX_VIAGEM, -20810);
+
+BEGIN
+    SELECT P.idPedido INTO pedidoID
+    FROM pedido P
+    WHERE P.idPedido = cod_pedido;
+    
+    IF pedidoID IS NULL THEN
+        RAISE EX_PEDIDO;
+    END IF;
+    
+    SELECT COUNT(*) INTO numeroViagens
+    FROM aloca A
+    WHERE A.idPedido = cod_pedido;
+    
+    IF numeroViagens > 0 THEN
+        RAISE EX_VIAGEM;
+    ELSE
+        DELETE FROM pedido P
+        WHERE P.idPedido = cod_pedido;
+    END IF;
+    
+EXCEPTION
+    WHEN EX_PEDIDO THEN
+        DBMS_OUTPUT.PUT_LINE('Código de pedido de transporte inexistente');
+    WHEN EX_VIAGEM THEN
+        DBMS_OUTPUT.PUT_LINE('Pedido já entregue');
+END;
+
+___________________________________________________________________________________________
+
+I)
+
+
+___________________________________________________________________________________________

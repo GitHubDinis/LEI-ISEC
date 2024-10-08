@@ -1,0 +1,357 @@
+alter table ALOCA
+   drop constraint FK_ALOCA_ALOCA_VIAGEM;
+
+alter table ALOCA
+   drop constraint FK_ALOCA_ALOCA2_PEDIDO;
+
+alter table CONDUZ
+   drop constraint FK_CONDUZ_CONDUZ_MOTORIST;
+
+alter table CONDUZ
+   drop constraint FK_CONDUZ_CONDUZ2_VEICULO;
+
+alter table ESTADO
+   drop constraint FK_ESTADO_CONTEM_PEDIDO;
+
+alter table MERCADORIA
+   drop constraint FK_MERCADOR_ENGLOBA_PEDIDO;
+
+alter table PEDIDO
+   drop constraint FK_PEDIDO_ARMAZENA_ARMAZEM;
+
+alter table PEDIDO
+   drop constraint FK_PEDIDO_POSSUI2_SERVICO;
+
+alter table PEDIDO
+   drop constraint FK_PEDIDO_REGISTA_CLIENTE;
+
+alter table VEICULO
+   drop constraint FK_VEICULO_POSSUI_EMPRESA;
+
+alter table VEICULO
+   drop constraint FK_VEICULO_TEM_ARMAZEM;
+
+drop index ALOCA2_FK;
+
+drop index ALOCA_FK;
+
+drop table ALOCA cascade constraints;
+
+drop table ARMAZEM cascade constraints;
+
+drop table CLIENTE cascade constraints;
+
+drop index CONDUZ2_FK;
+
+drop index CONDUZ_FK;
+
+drop table CONDUZ cascade constraints;
+
+drop table EMPRESA cascade constraints;
+
+drop index CONTEM_FK;
+
+drop table ESTADO cascade constraints;
+
+drop index ENGLOBA_FK;
+
+drop table MERCADORIA cascade constraints;
+
+drop table MOTORISTA cascade constraints;
+
+drop index POSSUI2_FK;
+
+drop index ARMAZENA_FK;
+
+drop index REGISTA_FK;
+
+drop table PEDIDO cascade constraints;
+
+drop table SERVICO cascade constraints;
+
+drop index TEM_FK;
+
+drop index POSSUI_FK;
+
+drop table VEICULO cascade constraints;
+
+drop table VIAGEM cascade constraints;
+
+/*==============================================================*/
+/* Table: ALOCA                                                 */
+/*==============================================================*/
+create table ALOCA 
+(
+   IDVIAGEM             NUMBER(4,0)          not null,
+   IDPEDIDO             NUMBER(4,0)          not null,
+   constraint PK_ALOCA primary key (IDVIAGEM, IDPEDIDO)
+);
+
+/*==============================================================*/
+/* Index: ALOCA_FK                                              */
+/*==============================================================*/
+create index ALOCA_FK on ALOCA (
+   IDVIAGEM ASC
+);
+
+/*==============================================================*/
+/* Index: ALOCA2_FK                                             */
+/*==============================================================*/
+create index ALOCA2_FK on ALOCA (
+   IDPEDIDO ASC
+);
+
+/*==============================================================*/
+/* Table: ARMAZEM                                               */
+/*==============================================================*/
+create table ARMAZEM 
+(
+   IDARMAZEM            NUMBER(4,0)          not null,
+   TIPOARMAZEM          VARCHAR2(25),
+   NOMEARMAZEM          VARCHAR2(25),
+   INSTANTEARMAZEM      DATE,
+   TAXAOCUPACAOARMAZEM  FLOAT(2),
+   CIDADEARMAZEM        VARCHAR2(25),
+   DISTRITOARMAZEM      VARCHAR2(25),
+   VOLUMEMAXARMAZEM     NUMBER(8,0),
+   constraint PK_ARMAZEM primary key (IDARMAZEM)
+);
+
+/*==============================================================*/
+/* Table: CLIENTE                                               */
+/*==============================================================*/
+create table CLIENTE 
+(
+   IDCLIENTE            NUMBER(4,0)          not null,
+   NOMECLIENTE          VARCHAR2(25),
+   TELEFONECLIENTE      NUMBER(9,0),
+   MORADA               VARCHAR2(50),
+   NIFCLIENTE           NUMBER(9,0),
+   constraint PK_CLIENTE primary key (IDCLIENTE)
+);
+
+/*==============================================================*/
+/* Table: CONDUZ                                                */
+/*==============================================================*/
+create table CONDUZ 
+(
+   IDMOTORISTA          NUMBER(4,0)          not null,
+   IDVEICULO            NUMBER(4,0)          not null,
+   constraint PK_CONDUZ primary key (IDMOTORISTA, IDVEICULO)
+);
+
+/*==============================================================*/
+/* Index: CONDUZ_FK                                             */
+/*==============================================================*/
+create index CONDUZ_FK on CONDUZ (
+   IDMOTORISTA ASC
+);
+
+/*==============================================================*/
+/* Index: CONDUZ2_FK                                            */
+/*==============================================================*/
+create index CONDUZ2_FK on CONDUZ (
+   IDVEICULO ASC
+);
+
+/*==============================================================*/
+/* Table: EMPRESA                                               */
+/*==============================================================*/
+create table EMPRESA 
+(
+   IDEMPRESA            NUMBER(4,0)          not null,
+   NOMEEMPRESA          VARCHAR2(25),
+   NIFEMPRESA           NUMBER(9,0),
+   constraint PK_EMPRESA primary key (IDEMPRESA)
+);
+
+/*==============================================================*/
+/* Table: ESTADO                                                */
+/*==============================================================*/
+create table ESTADO 
+(
+   IDESTADO             NUMBER(4,0)          not null,
+   IDPEDIDO             NUMBER(4,0)          not null,
+   NOMEESTADO           VARCHAR2(25),
+   HORARIOESTADO        DATE,
+   constraint PK_ESTADO primary key (IDESTADO)
+);
+
+/*==============================================================*/
+/* Index: CONTEM_FK                                             */
+/*==============================================================*/
+create index CONTEM_FK on ESTADO (
+   IDPEDIDO ASC
+);
+
+/*==============================================================*/
+/* Table: MERCADORIA                                            */
+/*==============================================================*/
+create table MERCADORIA 
+(
+   IDMERCADORIA         NUMBER(4,0)          not null,
+   IDPEDIDO             NUMBER(4,0)          not null,
+   TIPOMERCADORIA       VARCHAR2(25),
+   VOLUMEMERCADORIA     NUMBER(8,0),
+   PESOMERCADORIA       NUMBER(8,0),
+   constraint PK_MERCADORIA primary key (IDMERCADORIA)
+);
+
+/*==============================================================*/
+/* Index: ENGLOBA_FK                                            */
+/*==============================================================*/
+create index ENGLOBA_FK on MERCADORIA (
+   IDPEDIDO ASC
+);
+
+/*==============================================================*/
+/* Table: MOTORISTA                                             */
+/*==============================================================*/
+create table MOTORISTA 
+(
+   IDMOTORISTA          NUMBER(4,0)          not null,
+   NOMEMOTORISTA        VARCHAR2(25),
+   DISPONIBILIDADEMOTORISTA SMALLINT,
+   constraint PK_MOTORISTA primary key (IDMOTORISTA)
+);
+
+/*==============================================================*/
+/* Table: PEDIDO                                                */
+/*==============================================================*/
+create table PEDIDO 
+(
+   IDPEDIDO             NUMBER(4,0)          not null,
+   IDSERVICO            NUMBER(4,0)          not null,
+   IDARMAZEM            NUMBER(4,0)          not null,
+   IDCLIENTE            NUMBER(4,0)          not null,
+   ORIGEMPEDIDO         VARCHAR2(25),
+   DESTINOPEDIDO        VARCHAR2(25),
+   DATAPEDIDO           DATE,
+   QUANTIDADE           NUMBER(4,0),
+   constraint PK_PEDIDO primary key (IDPEDIDO)
+);
+
+/*==============================================================*/
+/* Index: REGISTA_FK                                            */
+/*==============================================================*/
+create index REGISTA_FK on PEDIDO (
+   IDCLIENTE ASC
+);
+
+/*==============================================================*/
+/* Index: ARMAZENA_FK                                           */
+/*==============================================================*/
+create index ARMAZENA_FK on PEDIDO (
+   IDARMAZEM ASC
+);
+
+/*==============================================================*/
+/* Index: POSSUI2_FK                                            */
+/*==============================================================*/
+create index POSSUI2_FK on PEDIDO (
+   IDSERVICO ASC
+);
+
+/*==============================================================*/
+/* Table: SERVICO                                               */
+/*==============================================================*/
+create table SERVICO 
+(
+   IDSERVICO            NUMBER(4,0)          not null,
+   TIPODESERVICO        VARCHAR2(25),
+   PRAZOMAX             NUMBER(4,0),
+   constraint PK_SERVICO primary key (IDSERVICO)
+);
+
+/*==============================================================*/
+/* Table: VEICULO                                               */
+/*==============================================================*/
+create table VEICULO 
+(
+   IDVEICULO            NUMBER(4,0)          not null,
+   IDEMPRESA            NUMBER(4,0)          not null,
+   IDARMAZEM            NUMBER(4,0)          not null,
+   DISPONIBILIDADEVEICULO SMALLINT,
+   TAXAOCUPACAOVEICULO  FLOAT(2),
+   TIPOVEICULO          VARCHAR2(25),
+   CARGAMAX             NUMBER(8,0),
+   VOLUMEMAX            NUMBER(8,0),
+   MARCAVEICULO         VARCHAR2(25),
+   MODELOVEICULO        VARCHAR2(25),
+   MATRICULAVEICULO     VARCHAR2(25),
+   constraint PK_VEICULO primary key (IDVEICULO)
+);
+
+/*==============================================================*/
+/* Index: POSSUI_FK                                             */
+/*==============================================================*/
+create index POSSUI_FK on VEICULO (
+   IDEMPRESA ASC
+);
+
+/*==============================================================*/
+/* Index: TEM_FK                                                */
+/*==============================================================*/
+create index TEM_FK on VEICULO (
+   IDARMAZEM ASC
+);
+
+/*==============================================================*/
+/* Table: VIAGEM                                                */
+/*==============================================================*/
+create table VIAGEM 
+(
+   IDVIAGEM             NUMBER(4,0)          not null,
+   NUMEROKMS            NUMBER(8,0),
+   TEMPOMEDIO           NUMBER(8,0),
+   TEMPOMAX             NUMBER(8,0),
+   NOMEVIAGEM           VARCHAR2(25),
+   HORARIOPARTIDA       DATE,
+   HORARIOCHEGADA       DATE,
+   TIPOVIAGEM           VARCHAR2(25),
+   constraint PK_VIAGEM primary key (IDVIAGEM)
+);
+
+alter table ALOCA
+   add constraint FK_ALOCA_ALOCA_VIAGEM foreign key (IDVIAGEM)
+      references VIAGEM (IDVIAGEM);
+
+alter table ALOCA
+   add constraint FK_ALOCA_ALOCA2_PEDIDO foreign key (IDPEDIDO)
+      references PEDIDO (IDPEDIDO);
+
+alter table CONDUZ
+   add constraint FK_CONDUZ_CONDUZ_MOTORIST foreign key (IDMOTORISTA)
+      references MOTORISTA (IDMOTORISTA);
+
+alter table CONDUZ
+   add constraint FK_CONDUZ_CONDUZ2_VEICULO foreign key (IDVEICULO)
+      references VEICULO (IDVEICULO);
+
+alter table ESTADO
+   add constraint FK_ESTADO_CONTEM_PEDIDO foreign key (IDPEDIDO)
+      references PEDIDO (IDPEDIDO);
+
+alter table MERCADORIA
+   add constraint FK_MERCADOR_ENGLOBA_PEDIDO foreign key (IDPEDIDO)
+      references PEDIDO (IDPEDIDO);
+
+alter table PEDIDO
+   add constraint FK_PEDIDO_ARMAZENA_ARMAZEM foreign key (IDARMAZEM)
+      references ARMAZEM (IDARMAZEM);
+
+alter table PEDIDO
+   add constraint FK_PEDIDO_POSSUI2_SERVICO foreign key (IDSERVICO)
+      references SERVICO (IDSERVICO);
+
+alter table PEDIDO
+   add constraint FK_PEDIDO_REGISTA_CLIENTE foreign key (IDCLIENTE)
+      references CLIENTE (IDCLIENTE);
+
+alter table VEICULO
+   add constraint FK_VEICULO_POSSUI_EMPRESA foreign key (IDEMPRESA)
+      references EMPRESA (IDEMPRESA);
+
+alter table VEICULO
+   add constraint FK_VEICULO_TEM_ARMAZEM foreign key (IDARMAZEM)
+      references ARMAZEM (IDARMAZEM);

@@ -1,0 +1,224 @@
+Dados para Motorista:
+
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (1, 'Hershel Fratson', 'Indisponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (2, 'Sophie Birnie', 'Disponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (3, 'Jonie Barnhill', 'Disponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (4, 'Edgardo Drake', 'Indisponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (5, 'Liuka Berrecloth', 'Disponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (6, 'Briny Koppel', 'Indisponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (7, 'Birk Gleadle', 'Indisponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (8, 'Phip Futty', 'Disponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (9, 'Cory Bisseker', 'Indisponível');
+insert into motorista (idMotorista, nomeMotorista, disponibilidadeMotorista) values (10, 'Codi Wormleighton', 'Disponível');
+
+Dados para Veiculo:
+
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (1, 'Disponível', 'Carrinha', 2433, 4482, 'Land Rover', 'Discovery Series II', 'AA-11-22');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (2, 'Disponível', 'Camião', 8620, 4052, 'Buick', 'LaCrosse', 'CC-55-66');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (3, 'Indisponível', 'Camião', 9140, 55, 'Volkswagen', 'Golf', 'FF-32-57');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (4, 'Indisponível', 'Camião', 4655, 4610, 'Mazda', 'MX-5', 'EE-34-34');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (5, 'Disponível', 'Camião', 846, 5972, 'Audi', 'S4', 'AA-11-22');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (6, 'Disponível', 'Carrinha', 8640, 4826, 'Mercury', 'Mountaineer', 'EE-34-34');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (7, 'Disponível', 'Camião', 5852, 9930, 'Pontiac', 'Grand Am', 'CC-55-66');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (8, 'Indisponível', 'Camião', 3237, 378, 'Lexus', 'GS', 'BB-33-44');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (9, 'Disponível', 'Carro', 540, 7780, 'Chevrolet', 'Cavalier', 'FF-32-57');
+insert into veiculo (idVeiculo, disponibilidadeVeiculo, tipoVeiculo, cargaMax, volumeMax, marcaVeiculo, modeloVeiculo, matriculaVeiculo) values (10, 'Disponível', 'Carro', 7404, 492, 'Mercedes-Benz', 'E-Class', 'DD-54-21');
+
+Dados para Mercadoria:
+
+insert into mercadoria (idMercadoria, tipoMercadoria) values (1, 'Fruta');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (2, 'Talho');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (3, 'Líquidos');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (4, 'Tecnologia');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (5, 'Legumes');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (6, 'Peixaria');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (7, 'Vegetais');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (8, 'Congelados');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (9, 'Perigoso');
+insert into mercadoria (idMercadoria, tipoMercadoria) values (10, 'Outros');
+
+Dados para Servico:
+
+insert into servico (idServico, tipoDeServico, prazoMax) values (1, 'Económico', TO_DATE('2023-10-31 02:42:32', 'YYYY-MM-DD HH24:MI:SS'));
+insert into servico (idServico, tipoDeServico, prazoMax) values (2, 'Normal', TO_DATE('2024-03-13 15:21:15', 'YYYY-MM-DD HH24:MI:SS'));
+insert into servico (idServico, tipoDeServico, prazoMax) values (3, 'Urgente', TO_DATE('2023-06-28 00:36:03', 'YYYY-MM-DD HH24:MI:SS'));
+insert into servico (idServico, tipoDeServico, prazoMax) values (4, 'SuperEconómico', TO_DATE('2023-05-15 16:45:31', 'YYYY-MM-DD HH24:MI:SS'));
+
+Dados para Cliente:
+
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (1, 'Stern Dewes', 335575103, '3702 Dorton Parkway', 627374859);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (2, 'Alasdair Karlicek', 505840784, '59838 Dakota Pass', 820783324);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (3, 'Anna-diana Viel', 864613022, '20 Shasta Avenue', 379598278);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (4, 'Felike Stebbin', 235980605, '054 Goodland Way', 264574356);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (5, 'Neall Bostick', 133805952, '0 Merrick Plaza', 633440758);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (6, 'Rickey Srawley', 607569462, '5581 Carpenter Junction', 352717371);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (7, 'Bliss Goodoune', 454260198, '806 Lake View Avenue', 276315035);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (8, 'Jamey Petrollo', 167185890, '1476 Johnson Road', 170275725);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (9, 'Bartie Faull', 957642550, '2 Ramsey Center', 647890570);
+insert into cliente (idCliente, nomeCliente, telefoneCliente, morada, NIFcliente) values (10, 'Bellanca Branno', 261368094, '125 International Point', 768208206);
+
+Dados para Estado:
+
+insert into estado (idEstado, nomeEstado) values (1, 'Em Armazém');
+insert into estado (idEstado, nomeEstado) values (2, 'A Aguardar Entrega');
+insert into estado (idEstado, nomeEstado) values (3, 'Entregue');
+insert into estado (idEstado, nomeEstado) values (4, 'Em Trânsito');
+insert into estado (idEstado, nomeEstado) values (5, 'A Aguardar Recolha');
+insert into estado (idEstado, nomeEstado) values (6, 'Devolvido');
+
+
+Dados para EstadoPedido:
+
+insert into estadopedido (idPedido, idEstado, dataEstado) values (1, 1, TO_DATE('2024-03-30 23:39:47', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (2, 2, TO_DATE('2023-06-14 06:55:57', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (3, 3, TO_DATE('2023-12-17 21:37:45', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (4, 4, TO_DATE('2023-04-18 08:15:29', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (5, 3, TO_DATE('2024-01-01 23:17:39', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (6, 1, TO_DATE('2023-06-22 01:54:06', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (7, 2, TO_DATE('2024-02-09 18:16:22', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (8, 3, TO_DATE('2023-09-06 12:26:49', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (9, 4, TO_DATE('2023-05-14 21:46:11', 'YYYY-MM-DD HH24:MI:SS'));
+insert into estadopedido (idPedido, idEstado, dataEstado) values (10, 1, TO_DATE('2024-01-17 19:18:16', 'YYYY-MM-DD HH24:MI:SS'));
+
+Dados para Pedido:
+
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (1, 1, 1, 'Åstorp', 'Usatove', TO_DATE('2023-12-18 12:19:14', 'YYYY-MM-DD HH24:MI:SS'), 24, 574, 6850);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (2, 2, 2, 'Reshetikha', 'Sơn Hà', TO_DATE('2024-04-01 05:18:40', 'YYYY-MM-DD HH24:MI:SS'), 5, 6731, 9884);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (3, 3, 3, 'Narutochō-mitsuishi', 'Suzdal’', TO_DATE('2023-10-27 13:12:42', 'YYYY-MM-DD HH24:MI:SS'), 57, 3646, 2877);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (4, 4, 4, 'Jinghai', 'Pingdu', TO_DATE('2024-04-13 13:36:24', 'YYYY-MM-DD HH24:MI:SS'), 41, 1065, 6068);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (5, 2, 5, 'Butiama', 'São João dos Patos', TO_DATE('2023-11-16 23:26:28', 'YYYY-MM-DD HH24:MI:SS'), 23, 9488, 7127);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (6, 1, 6, 'Soito', 'Magumeri', TO_DATE('2023-05-24 22:15:10', 'YYYY-MM-DD HH24:MI:SS'), 43, 760, 7083);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (7, 3, 7, 'Ngromo', 'Zhouji', TO_DATE('2024-04-03 06:25:59', 'YYYY-MM-DD HH24:MI:SS'), 96, 3308, 7074);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (8, 2, 8, 'Yuanmou', 'Gujiadian', TO_DATE('2024-01-22 02:46:29', 'YYYY-MM-DD HH24:MI:SS'), 81, 9407, 3590);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (9, 4, 9, 'Bujanovac', 'Síkinos', TO_DATE('2023-11-11 18:12:08', 'YYYY-MM-DD HH24:MI:SS'), 85, 6853, 3990);
+insert into pedido (idPedido, idServico, idCliente, origemPedido, destinoPedido, dataPedido, quantidade, volumePedido, pesoPedido) values (10, 3, 10, 'Tawan tawan', 'Fangxiang', TO_DATE('2023-05-13 03:15:33', 'YYYY-MM-DD HH24:MI:SS'), 80, 3172, 8732);
+
+Dados para PodeConduzir:
+
+insert into podeconduzir (idMotorista, idVeiculo) values (1, 1);
+insert into podeconduzir (idMotorista, idVeiculo) values (2, 2);
+insert into podeconduzir (idMotorista, idVeiculo) values (3, 3);
+insert into podeconduzir (idMotorista, idVeiculo) values (4, 4);
+insert into podeconduzir (idMotorista, idVeiculo) values (5, 5);
+insert into podeconduzir (idMotorista, idVeiculo) values (6, 6);
+insert into podeconduzir (idMotorista, idVeiculo) values (7, 7);
+insert into podeconduzir (idMotorista, idVeiculo) values (8, 8);
+insert into podeconduzir (idMotorista, idVeiculo) values (9, 9);
+insert into podeconduzir (idMotorista, idVeiculo) values (10, 10);
+
+Dados para Permite:
+
+insert into permite (idVeiculo, idMercadoria) values (1, 1);
+insert into permite (idVeiculo, idMercadoria) values (2, 2);
+insert into permite (idVeiculo, idMercadoria) values (3, 3);
+insert into permite (idVeiculo, idMercadoria) values (4, 4);
+insert into permite (idVeiculo, idMercadoria) values (5, 5);
+insert into permite (idVeiculo, idMercadoria) values (6, 6);
+insert into permite (idVeiculo, idMercadoria) values (7, 7);
+insert into permite (idVeiculo, idMercadoria) values (8, 8);
+insert into permite (idVeiculo, idMercadoria) values (9, 9);
+insert into permite (idVeiculo, idMercadoria) values (10, 10);
+
+Dados para Viagem:
+
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (1, 1, 1, 1, 1, 8341, TO_DATE('2023-04-21 21:30:17', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-09-02 17:16:39', 'YYYY-MM-DD HH24:MI:SS'), 'Regular', 5);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (2, 2, 2, 2, 2, 8422, TO_DATE('2023-08-06 03:21:24', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-09-20 22:23:51', 'YYYY-MM-DD HH24:MI:SS'), 'Regular', 75);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (3, 3, 3, 3, 3, 4177, TO_DATE('2023-02-08 04:27:05', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-04-28 02:04:58', 'YYYY-MM-DD HH24:MI:SS'), 'Regular', 53);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (4, 4, 4, 4, 4, 8188, TO_DATE('2023-12-26 00:11:48', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2024-01-22 04:52:31', 'YYYY-MM-DD HH24:MI:SS'), 'Pontual', 96);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (5, 5, 5, 5, 5, 3526, TO_DATE('2023-02-17 05:09:31', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-08-09 11:04:13', 'YYYY-MM-DD HH24:MI:SS'), 'Pontual', 12);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (6, 6, 6, 6, 6, 6046, TO_DATE('2023-06-23 00:06:24', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-09-13 16:25:04', 'YYYY-MM-DD HH24:MI:SS'), 'Regular', 17);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (7, 7, 7, 7, 7, 3193, TO_DATE('2023-06-02 10:02:23', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-06-13 11:50:58', 'YYYY-MM-DD HH24:MI:SS'), 'Pontual', 15);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (8, 8, 8, 8, 8, 5980, TO_DATE('2023-06-30 06:19:14', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2024-05-14 06:22:55', 'YYYY-MM-DD HH24:MI:SS'), 'Regular', 78);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (9, 9, 9, 9, 9, 6518, TO_DATE('2023-05-21 14:16:53', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2024-02-25 08:20:03', 'YYYY-MM-DD HH24:MI:SS'), 'Pontual', 48);
+insert into viagem (idmotorista, idveiculo, idviagem, idtroco, idhorario, numeroKms, horarioPartida, horarioChegada, tipoViagem, taxaOcupacao) values (10, 10, 10, 10, 10, 6679, TO_DATE('2023-08-02 00:22:28', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-10-22 16:45:46', 'YYYY-MM-DD HH24:MI:SS'), 'Regular', 3);
+
+Dados para Troco:
+
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (1, 1, 1, 'Coimbra - Porto', 83, 30);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (2, 2, 2, 'Coimbra - Lisboa', 38, 74);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (3, 3, 3, 'Lisboa - Coimbra', 53, 26);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (4, 4, 4, 'Porto - Coimbra', 55, 64);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (5, 5, 5, 'Coimbra - Lisboa', 1, 76);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (6, 6, 6, 'Porto - Coimbra', 46, 20);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (7, 7, 7, 'Coimbra - Porto', 97, 60);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (8, 8, 8, 'Porto - Lisboa', 85, 71);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (9, 9, 9, 'Lisboa - Porto', 43, 62);
+insert into troco (idTroco, idArmazem, arm_idArmazem, nomeTroco, tempoMedio, tempoMaximo) values (10, 10, 10, 'Lisboa - Coimbra', 31, 92);
+
+Dados para Horario:
+
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (1, 1, 'Quinta-Feira', TO_DATE('2024-03-30 09:25:11', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (2, 2, 'Quinta-Feira', TO_DATE('2023-08-25 03:57:27', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (3, 3, 'Sexta-Feira', TO_DATE('2023-06-01 16:46:00', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (4, 4, 'Domingo', TO_DATE('2023-06-09 01:52:58', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (5, 5, 'Quarta-Feira', TO_DATE('2023-09-30 12:44:38', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (6, 6, 'Terça-Feira', TO_DATE('2023-12-22 13:10:58', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (7, 7, 'Sexta-Feira', TO_DATE('2023-04-19 23:41:47', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (8, 8, 'Terça-Feira', TO_DATE('2024-01-07 00:04:23', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (9, 9, 'Quarta-Feira', TO_DATE('2024-04-02 14:31:18', 'YYYY-MM-DD HH24:MI:SS'));
+insert into horario (idHorario, idTroco, diaDaSemana, horaPartida) values (10, 10, 'Segunda-Feira', TO_DATE('2024-02-12 01:37:29', 'YYYY-MM-DD HH24:MI:SS'));
+
+Dados para Armazem:
+
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (1, 'Entrega', 'ARM01', 63.14, 'São Pedro do Estoril', 'Lisboa', 138, 4322);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (2, 'Entrega', 'ARM02', 4.59, 'Junqueiro', 'Lisboa', 8013, 4491);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (3, 'Recolha', 'ARM03', 75.7, 'Valinhos', 'Porto', 2466, 4005);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (4, 'Entrega', 'ARM04', 48.56, 'Baganha', 'Aveiro', 554, 7809);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (5, 'Recolha', 'ARM05', 17.59, 'Penedo', 'Porto', 3768, 955);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (6, 'Recolha', 'ARM06', 63.21, 'Vila Fria', 'Lisboa', 2601, 7340);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (7, 'Recolha', 'ARM07', 30.5, 'Pinheiral', 'Porto', 8478, 353);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (8, 'Entrega', 'ARM08', 17.71, 'Casal', 'Porto', 3663, 6579);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (9, 'Entrega', 'ARM09', 56.45, 'Pardelhas', 'Aveiro', 2861, 4371);
+insert into armazem (idArmazem, tipoArmazem, nomeArmazem, taxaOcupacaoArmazem, cidadeArmazem, distritoArmazem, volumeMaxArmazem, volumeDispArmazem) values (10, 'Recolha', 'ARM10', 96.34, 'Mozelos', 'Aveiro', 5272, 9901);
+
+Dados para Recolha:
+
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (1, 1, 1, TO_DATE('2024-01-16 19:27:43', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (2, 2, 2, TO_DATE('2023-07-17 19:08:43', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (3, 3, 3, TO_DATE('2023-09-13 14:06:36', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (4, 4, 4, TO_DATE('2023-07-25 14:39:12', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (5, 5, 5, TO_DATE('2023-08-15 22:53:38', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (6, 6, 6, TO_DATE('2023-08-14 15:02:47', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (7, 7, 7, TO_DATE('2023-09-13 05:59:24', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (8, 8, 8, TO_DATE('2024-01-01 13:40:43', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (9, 9, 9, TO_DATE('2023-07-23 05:19:27', 'YYYY-MM-DD HH24:MI:SS'));
+insert into recolha (idRecolha, idArmazem, idPedido, dataRecolha) values (10, 10, 10, TO_DATE('2023-12-14 05:24:53', 'YYYY-MM-DD HH24:MI:SS'));
+
+Dados para Entrega:
+
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (1, 1, 1, TO_DATE('2023-07-07 18:10:34', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (2, 2, 2, TO_DATE('2023-12-25 16:17:30', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (3, 3, 3, TO_DATE('2023-05-31 04:10:30', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (4, 4, 4, TO_DATE('2023-05-27 03:04:24', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (5, 5, 5, TO_DATE('2024-04-06 12:38:49', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (6, 6, 6, TO_DATE('2024-01-16 15:31:03', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (7, 7, 7, TO_DATE('2023-07-14 12:54:06', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (8, 8, 8, TO_DATE('2023-12-30 16:28:18', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (9, 9, 9, TO_DATE('2023-10-17 05:01:41', 'YYYY-MM-DD HH24:MI:SS'));
+insert into entrega (idEntrega, idArmazem, idRecolha, dataEntrega) values (10, 10, 10, TO_DATE('2023-05-24 20:02:47', 'YYYY-MM-DD HH24:MI:SS'));
+
+Dados para Relationship_21:
+
+insert into relationship_21 (idPedido, idArmazem) values (1, 1);
+insert into relationship_21 (idPedido, idArmazem) values (2, 2);
+insert into relationship_21 (idPedido, idArmazem) values (3, 3);
+insert into relationship_21 (idPedido, idArmazem) values (4, 4);
+insert into relationship_21 (idPedido, idArmazem) values (5, 5);
+insert into relationship_21 (idPedido, idArmazem) values (6, 6);
+insert into relationship_21 (idPedido, idArmazem) values (7, 7);
+insert into relationship_21 (idPedido, idArmazem) values (8, 8);
+insert into relationship_21 (idPedido, idArmazem) values (9, 9);
+insert into relationship_21 (idPedido, idArmazem) values (10, 10);
+
+Dados para Aloca:
+
+insert into aloca (idViagem, idPedido) values (1, 1);
+insert into aloca (idViagem, idPedido) values (2, 2);
+insert into aloca (idViagem, idPedido) values (3, 3);
+insert into aloca (idViagem, idPedido) values (4, 4);
+insert into aloca (idViagem, idPedido) values (5, 5);
+insert into aloca (idViagem, idPedido) values (6, 6);
+insert into aloca (idViagem, idPedido) values (7, 7);
+insert into aloca (idViagem, idPedido) values (8, 8);
+insert into aloca (idViagem, idPedido) values (9, 9);
+insert into aloca (idViagem, idPedido) values (10, 10);
