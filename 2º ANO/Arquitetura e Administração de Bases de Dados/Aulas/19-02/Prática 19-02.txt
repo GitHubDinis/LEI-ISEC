@@ -1,0 +1,130 @@
+CREATE PROCEDURE F03_EX2 (GEN livros.genero%type, PERCENT number, TOTAL number)
+IS 
+    SOMA NUMBER;
+    CURSOR C1 IS
+        SELECT PRECO_TABELA, CODIGO_LIVRO 
+        FROM LIVROS
+        WHERE UPPER(GENERO) = UPPER(GEN)
+        ORDER BY 2 DESC;
+BEGIN
+    SELECT SUM(PRECO_TABELA) INTO SOMA 
+    FROM LIVROS
+    WHERE UPPER(GENERO) = UPPER(GEN);
+    IF SOMA < TOTAL THEN
+        FOR R IN C1
+        LOOP 
+            SOMA := SOMA + R.PRECO_TABELA * PRCENT;
+            EXIT WHEN SOMA >= TOTAL;
+            
+            UPDATE LIVROS SET PRECO_TABELA = PRECO_TABELA * (1 + PRCENT)
+            WHERE CODIGO_LIVRO = R.CODIGO_LIVRO;
+        END LOOP;        
+    END IF;
+END;
+
+CALL F03_EX2('Aventura', 0.10, 160);
+___________________________________________________________________
+
+F03_EX3
+
+CREATE TABLE ERROS(
+    cod_error number(10),
+    message varchar(250),
+    data_erro date
+);
+___________________________________________________________________
+
+F03_EX4
+
+CREATE OR REPLACE PROCEDURE F03_EX04(codL NUMBER)
+IS
+    CODA NUMBER;
+    CODIGO NUMBER;
+    MENSAGEM ERROS.MESSAGE%TYPE;
+BEGIN
+    SELECT CODIGO_AUTOR INTO CODA
+    FROM LIVROS WHERE CODIGO_LIVRO = codL;
+    -- TESTAR SE O LIVRO EXISTE
+    IF CODA = 17 THEN 
+        BEGIN
+        -- TESTAR SE O 80 JÁ EXISTIA
+        INSERT INTO AUTORES VALUES (80, 'Luis Moreno Campos', 23432432, 'Lisboa', NULL, 'M', 'Portuguesa', 'Informatica');
+        EXCEPTION
+            WHEN DUP_VAL_ON_INDEX THEN 
+                CODIGO := SQLCODE; MENSAGEM := SQLERRM;
+                INSERT INTO ERROS VALUES (CODIGO, MENSAGEM, SYSDATE); 
+        END;
+        UPDATE LIVROS SET CODIGO_AUTOR = 80
+        WHERE CODIGO_LIVRO = codL;
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN 
+        CODIGO := SQLCODE; MENSAGEM := SQLERRM;
+        INSERT INTO ERROS VALUES(CODIGO, MENSAGEM, SYSDATE);
+    WHEN OTHERS THEN 
+        CODIGO := SQLCODE; MENSAGEM := SQLERRM;
+        INSERT INTO ERROS VALUES(CODIGO, MENSAGEM, SYSDATE);
+
+END;
+/
+CALL F03_EX04(100);
+SELECT * FROM ERROS;
+____________________________________________________________________
+
+F03_EX5
+
+
+_____________________________________________________________________
+
+F03_EX6
+
+CREATE PROCEDURE F03_EX06 (quant NUMBER)
+IS 
+    CURSOR C1 IS 
+        SELECT PRECO_TABELA, QUANT_EM_STOCK, TITULO
+        FROM LIVROS WHERE QUANT_EM_STOCK > QUANT;
+BEGIN
+    FOR R IN C1
+    LOOP
+        INSERT INTO TEMP VALUES(R.PRECO_TABELA, R.QUANT_EM_STOCK, R.TITULO);
+    END LOOP;
+END;
+____________________________________________________________________
+
+F03_EX7
+
+CREATE FUNCTION F03_EX7 (codL NUMBER)
+    RETURN NUMBER
+IS
+    CURSOR C1 IS
+        SELECT PRECO_TABELA FROM LIVROS WHERE CODIGO_LIVRO = codL;
+BEGIN
+    FOR R IN C1
+    LOOP
+        RETURN R.PRECO_TABELA;
+    END LOOP;
+    RAISE_APPLICATION_ERROR(-20301, 'Cóidgo de livro inexistente');    
+END;
+
+OU
+
+CREATE FUNCTION F03_EX7 (codL NUMBER)
+    RETURN NUMBER
+IS
+    PRECO NUMBER;
+BEGIN
+    SELECT PRECO_TABELA INTO PRECO
+    FROM LIVROS WHERE CODIGO_LIVRO = codL;
+    RETURN PRECO;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN    
+        RAISE_APPLICATION_ERROR(-20301, 'Cóidgo de livro inexistente');    
+END;
+______________________________________________________________________
+
+F03_EX8
+
+
+
+
+

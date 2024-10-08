@@ -1,0 +1,15 @@
+CREATE TRIGGER update_internamentos
+AFTER INSERT ON termino
+FOR EACH ROW 
+DECLARE
+	duracaoInternamento NUMBER;
+BEGIN
+	UPDATE TEMP
+	SET col2 = :NEW.duracao
+	WHERE col2 < 0 AND (message1, message2) IN (
+		SELECT especialidade, nome
+		FROM utente U, internamento I
+		WHERE U.codUtente = I.codUtente
+		AND I.codIntern = :NEW.codIntern
+	)
+END;

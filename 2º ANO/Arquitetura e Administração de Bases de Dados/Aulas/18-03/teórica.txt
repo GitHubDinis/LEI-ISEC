@@ -1,0 +1,33 @@
+DBWR:
+
+- escreve páginas inteiras;
+
+SMON:
+
+- garante a consistência da informação;
+
+PMON:
+
+- responsável pelos processos;
+
+ARCH:
+
+- caso hajam ataques, permite recuperação de dados;
+____________________________________________________________________________
+
+order by é um processo lento;
+ 
+Falha de energia Antes do commit: perder tudo;
+
+Falha de energia Durante o commit: não existe este caso;
+
+Falha de energia Depois do commit: as instruções ficam guardadas nos logs, e estes ficam salva guardados;
+
+Onde ficam guardados os dados, fisicamente?
+
+	- Tablespace, 
+
+Extent: 
+
+- Unidade minima de alocação numa tabela;
+

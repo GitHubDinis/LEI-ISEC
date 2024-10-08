@@ -1,0 +1,64 @@
+CREATE SEQUENCE seq_vendas
+    START WITH 43;
+
+CREATE OR REPLACE TRIGGER F05_EX10
+BEFORE INSERT ON vendas
+FOR EACH ROW 
+BEGIN
+    :NEW.data_venda := SYSDATE;
+    SELECT seq_vendas.NEXTVAL INTO :NEW.codigo_venda FROM dual;
+    SELECT preco_tabela INTO :NEW.preco_unitario FROM livros WHERE codigo_livro = :NEW.codigo_livro;
+    -- saldos 28 DEZ a 28 FEV
+    IF to_char(SYSDATE + 3, 'DDD') < to_char(to_date('28-02', 'DD-MM') + 3, 'DDD') THEN
+        :NEW.preco_unitario := :NEW.preco_unitario * 0.6; 
+    END IF;
+    :NEW.total_venda := :NEW.quantidade * :NEW.preco_unitario;
+END;
+
+CREATE TABLE stock_minimo(
+    codigo_livro NUMBER,
+    quant_minima NUMBER, 
+    quant_a_encomenda NUMBER
+);
+
+INSERT INTO stock_minimo
+SELECT codigo_livro, 2,4 FROM livros;
+
+UPDATE stock_minimo SET quant_minima = (
+    SELECT NVL(SUM(quantidade), 2)
+    FROM vendas
+    WHERE data_venda > SYSDATE - 7
+    AND vendas.codigo_livro = stock_minimo.codigo_livro
+);
+
+SELECT * FROM STOCK_MINIMO;
+
+CREATE TABLE encomenda(
+    codigo_enc NUMBER,
+    codigo_livro NUMBER,
+    data DATE,
+    quant_encomenda NUMBER
+);
+
+CREATE SEQUENCE seq_encomenda;
+
+CREATE OR REPLACE TRIGGER F06_EX25
+AFTER UPDATE OF quant_em_stock 
+ON livros
+FOR EACH ROW
+DECLARE
+    quant_a_encomendar NUMBER;
+BEGIN
+    SELECT quant_minima INTO quant_a_encomendar
+    FROM stock_minimo
+    WHERE codigo_livro = :NEW.codigo_livro
+    AND quant_minima > :NEW.quant_em_stock;
+    IF ... THEN 
+        UPDATE ...
+    END IF;
+    INSERT INTO encomenda VALUES (seq_encomenda.NEXTVAL, :NEW.codigo_livro, SYSDATE, quant_a_encomendar * 2);
+    
+    EXCEPTION
+    WHEN no_data_found THEN null;
+END;
+

@@ -1,0 +1,129 @@
+aula prática
+
+CREATE TABLE livros_removidos( 
+	CODIGO_LIVRO NUMBER(4,0) NOT NULL ENABLE, 
+    TITULO VARCHAR2(50 BYTE) NOT NULL ENABLE, 
+	ISBN VARCHAR2(13 BYTE) NOT NULL ENABLE, 
+	GENERO VARCHAR2(20 BYTE), 
+    PRECO_TABELA NUMBER(8,2), 
+	PAGINAS NUMBER(6,0), 
+	QUANT_EM_STOCK NUMBER(9,0), 
+	UNIDADES_VENDIDAS NUMBER(9,0), 
+	DATA_EDICAO DATE
+);
+    
+CREATE TRIGGER F05_EX03 
+AFTER DELETE ON livros
+FOR EACH ROW
+BEGIN
+    INSERT INTO livros_removidos (codigo_livro, titulo, isbn, genero, preco_tabela, paginas, quant_em_stock, unidades_vendidas, data_edicao)
+    VALUES (:OLD.codigo_livro, :OLD.titulo, :OLD.isbn, :OLD.genero, :OLD.preco_tabela, :OLD.paginas, :OLD.quant_em_stock, :OLD.unidades_vendidas, :OLD.data_edicao);
+END;
+
+ALTER TABLE livros_removidos
+ADD (utilizador VARCHAR2(40), data DATE);
+
+CREATE OR REPLACE TRIGGER F05_EX03 
+AFTER DELETE ON livros
+FOR EACH ROW
+BEGIN
+    INSERT INTO livros_removidos (codigo_livro, titulo, isbn, genero, preco_tabela, paginas, quant_em_stock, unidades_vendidas, data_edicao, utilizador, data)
+    VALUES (:OLD.codigo_livro, :OLD.titulo, :OLD.isbn, :OLD.genero, :OLD.preco_tabela, :OLD.paginas, :OLD.quant_em_stock, :OLD.unidades_vendidas, :OLD.data_edicao, USER, SYSDATE);
+END;
+
+CREATE TRIGGER F04_EX07
+BEFORE DELETE ON autores
+FOR EACH ROW
+BEGIN
+    DELETE FROM livros WHERE codigo_autor = :OLD.codigo_autor;
+END;
+
+CREATE TRIGGER F04_EX07_1
+BEFORE DELETE ON livros
+FOR EACH ROW
+BEGIN
+    DELETE FROM vendas WHERE codigo_livro = :OLD.codigo_livro;
+END;
+
+DELETE FROM autores
+WHERE nome = 'Cláudio Tereso';
+
+SELECT * FROM livros_removidos;
+
+ALTER TABLE editoras
+ADD (nlivros_editados NUMBER(5));
+
+UPDATE editoras
+SET nlivros_editados = (
+    SELECT COUNT(*)
+    FROM livros 
+    WHERE livros.codigo_editora = editoras.codigo_editora
+);
+
+CREATE TRIGGER F05_EX07
+AFTER UPDATE ON livros
+BEGIN
+UPDATE editoras 
+SET nlivros_editados = (
+    SELECT COUNT(*)
+    FROM livros 
+    WHERE livros.codigo_editora = editoras.codigo_editora
+);
+END;
+
+CREATE OR REPLACE TRIGGER F05_EX07
+AFTER INSERT OR DELETE OR UPDATE OF codigo_editora
+ON livros
+FOR EACH ROW
+BEGIN
+    IF INSERTING OR UPDATING THEN
+        UPDATE editoras SET nlivros_editados = NVL(nlivros_editados, 0) + 1
+        WHERE codigo_editora = :NEW.codigo_editora;
+    END IF;
+    IF DELETING OR UPDATING THEN
+        UPDATE editoras SET nlivros_editados = NVL(nlivros_editados, 0) - 1
+        WHERE codigo_editora = :OLD.codigo_editora;
+    END IF;
+END;
+    
+
+CREATE TABLE ficha5(
+    num1 NUMBER,
+    num2 NUMBER,
+    num3 NUMBER,
+    num4 NUMBER, 
+    string1 VARCHAR2(100),
+    string2 VARCHAR2(1000)
+);
+
+CREATE PROCEDURE F05_EX09 IS
+BEGIN
+    DELETE FROM ficha5;
+    INSERT INTO ficha5(string1, num1, num2, num3, num4)
+    SELECT l.titulo, l.quant_em_stock, COUNT(v.quantidade), COUNT(TO_CHAR(SYSDATE, 'YYYY-MM'))
+    FROM livros l, vendas v, (SELECT codigo_livro, SUM(quantidade) SOMA_MES
+                                FROM vendas
+                                WHERE TO_CHAR(ADD_MONYHS(SYSDATE, -1), 'YYYY-MM') = TO_CHAR(data_venda, 'YYYY-MM')
+                                GROUP BY codigo_livro)
+    WHERE l.codigo_livro = v.codigo_livro
+    GROUP BY 
+END;
+
+
+CREATE PROCEDURE F05_EX09 IS
+BEGIN
+    DELETE FROM ficha5;
+    INSERT INTO ficha5(string1, string2, num1, num2, num3, num4)
+    SELECT titulo, NULL, quant_em_stock, SOMA, NVL(SOMA_MES, 0) ULT_MES
+    FROM livros L,
+        (SELECT codigo_livro, SUM(quantidade) SOMA
+        FROM vendas
+        GROUP BY codigo_livro) T,
+        (SELECT codigo_livro, SUM(quantidade) SOMA_MES
+        FROM vendas
+        WHERE TO_CHAR(ADD_MONTHS(SYSDATE, -1), 'YYYY-MM') = TO_CHAR(data_venda, 'YYYY-MM')
+        GROUP BY codigo_livro) U
+    WHERE T.codigo_livro = U.codigo_livro (+)
+    AND L.codigo_livro = T.codigo_livro;
+END;
+

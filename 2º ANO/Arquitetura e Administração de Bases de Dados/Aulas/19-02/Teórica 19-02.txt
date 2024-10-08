@@ -1,0 +1,99 @@
+Aula Teórica 19/02
+
+PROCEDIMENTOS:
+
+Os procedimentos são tipo funções void.
+
+Na linha de comandos:
+
+EXEC test, EXECUTE test, CALL test() -> para chamar os procedimentos, CALL tem de meter ();
+
+Dentro de um bloco de código, chamar apenas o nome do procedimento:
+
+	BEGIN
+		test; // colocar () se tiver parâmetros
+	END;
+
+QUANT => 12 -> implicação, nome que quero para determinada variável; Permite colocar os parâmetros/argumentos dos procedimentos por ordens diferentes;
+
+DESCRIBE para listar os parâmetros de um programa
+
+DROP tipodeobjeto nome -> apagar
+
+
+
+Exercícios:
+
+A)
+	CREATE PROCEDURE devolveDias (codL IN number, nDias OUT number)
+	IS
+	BEGIN
+		SELECT sysdate - data_edicao INTO nDias
+		FROM livros WHERE codigo_livro = codL;
+
+		EXCEPTION NO_DATA_FOUND THEN
+			NULL;
+	END;
+
+B)
+	CREATE PROCEDURE atualizaGenero (codA IN autores.codigo_autor%type)
+	IS
+		CURSOR C1 IS
+			SELECT genero INTO G
+			FROM livros
+			WHERE codigo_autor = codA
+			ORDER BY data_edicao DESC;
+	BEGIN
+		FOR R IN C1
+		LOOP
+			UPDATE autores SET genero_preferido = R.genero WHERE codigo_autor = codA;
+		EXIT;
+		END LOOP;
+	END;
+
+FUNÇÕES:
+
+Têm return;
+
+Exercícios:
+
+A)
+	CREATE FUNCTION devolvePreco(preco IN number)
+		RETURN number
+	IS 
+	BEGIN
+		RETURN round(preco * 1.06, 2);
+	END;
+
+B)
+	CREATE FUNCTION devolvePrimeiraPalavra(text VARCHAR)
+		RETURN VARCHAR
+	IS
+	BEGIN	
+		IF instr(text, ' ') > 0 THEN
+			RETURN trim(substr(trim(text, 1, instr(trim(tesxt), ' '))))
+		END IF;
+		RETURN trim(text);	
+	END;
+
+C)
+
+
+D)
+	CREATE FUNCTION devolveNome(codLivro IN number)
+		RETURN varchar
+	IS
+		N autores.nome%type; 
+	BEGIN
+		SELECT nome INTO N
+		FROM livros l, autores a WHERE l.codigo_autor = a.codigo_autor AND codigo_livro = codLivro;
+		RETURN N;
+	END;	
+
+E)
+
+ER - POWER DESIGNER
+Diagrama de Tabelas
+Criar Tabelas
+Professor vai criar conta Oracle para cada grupo para trabalhar, com o formato AABD XX, em que XX é o número do grupo. 
+Password = bd, depois colocamos "password" na linha de comandos para alterar

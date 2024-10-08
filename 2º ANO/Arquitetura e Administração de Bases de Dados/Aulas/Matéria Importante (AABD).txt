@@ -1,0 +1,261 @@
+Matéria Importante:
+
+- Base de Dados: conjunto de ficheiros físicos que guardam informação.
+
+- Instância: 
+	
+	- Conjunto de processos em execução e memória utilizada para gestão de uma base de dados Oracle;
+	- Constituída por SGA (System Global Area) e Background Processes.
+
+- Data Buffer Cache:
+
+	- Guarda blocos com informação vinda do disco;
+	- Algoritmo Last Recently Used: liberta espaço dos blocos.
+
+- Redo Log Buffer:
+	
+	- Regista toda a atividade da Base de Dados num log;
+	
+	- Vantagens:
+
+		- tamanho bastante menor do que as outras estruturas de memória;
+		- entradas do log estão constantemente a ser escritas;
+
+- Processos:
+
+	- Um processo é um programa que executa numa atividade específica;
+
+	- Tipos de Processos:
+
+		- User Process: encaminha os pedidos do utilizador ao Servidor;
+
+		- Server Process: encaminha os pedidos de User Process ao Oracle Server;
+
+		- Background Process:
+
+			- DBWR (Database Writer): 
+			
+				- responsável pela escrita dos dados nos ficheiros;
+				- quando escreve os blocos modificados coloca um lock nos blocos da Database Buffer Cache;
+				
+				- escreve quando não há blocos livres ou quando ocorre um checkpoint. 	
+
+			- LGWR (Log Writer):
+
+				- regista a atividade da Base de Dados como entradas no Redo Log Buffer;
+				- salvaguarda a informação, permitindo as DBWR atrasar as suas operações de escrita.
+					
+				- escreve quando o Redo Log Buffer atinge 1/3 da sua capacidade;
+				- COMMIT;
+				- parâmetro TIMEOUT, de 3 em 3 segundos.
+
+- Controlfiles: contêm a informação básica e vital da Base de Dados (localização dos datafiles e logfiles).
+
+- Datafiles: ficheiros onde se registam os dados;
+
+- Redo Logfiles: criados e dimensionados no momento de criação da base de dados.
+
+- Archived Logs: Redo Logfiles arquivados, quando a base de dados se encontra em modo ARCHIVE.
+
+_______________________________________________________________________________________________________________________________
+
+Quando há um SELECT:
+
+	- Server Process procura os dados na Database Buffer Cache;
+	- Se não encontrar, procura-os nos datafiles e coloca-os na Database Buffer Cache;
+	- Se não houver espaço, sinaliza o DBWR para libertar espaço;
+	- DBWR escreve-os nos datafiles;
+	- Envio dos Dados ao User Process.
+
+Quando há alterações dos dados:
+
+	- Server Process procura os dados no Databse Buffer Cache;
+	- Se não encontrar, procura-os nos datafiles e coloca-os na Database Buffer Cache;
+	- Se não houver espaço, sinaliza o DBWR para libertar espaço;
+	- Server Process verifica o lock dos dados que vai alterar e regista no Data Dictionary Cache;
+	- São registadas 2 entradas no Redo Log Buffer;
+	- Cópia dos dados a alterar como blocos do segmento de Rollback (dirty).
+
+Quando há um COMMIT:
+
+	- Server Process regista no Redo Log Buffer;
+	- LGWR escreve o conteúdo do Redo Log Buffer nos logfiles;
+	- o User Process é informado do sucesso do COMMIT;
+	- Libertação dos locks efectuados pela transacção.
+
+_______________________________________________________________________________________________________________________________
+
+- PCTFREE: significa Percentage Free e permite especificar a percentagem do bloco guardada para atualizações.
+
+- PCTUSED: significa Percentage Used e permite especificar a percentagem mínima de ocupação do bloco.
+
+- Como calcular o INTIAL?
+
+	- Calcular Soma Total dos Atributos (STA): 5 + (1 por cada coluna) + bytes dos atributos
+	- Calcular Espaço Livre no Bloco (ELB): TB (enunciado) x (100 - PCTFREE) - HF (enunciado ou 84) 
+	- Calcular Número de Registos por bloco (NRB): ELB / STA  
+	
+	- Número de Blocos (NB): NRI (enunciado) / NRB
+
+	- Espaço Inicial Tabela (INTIAL): NB x TB (enunciado)
+
+- Como calcular o NEXT:
+
+	- IGUAL ao anterior.
+
+	- Número de Blocos (NB): NRE (enunciado) / NRB
+
+	- Espaço Tabela (NEXT): NB x TB (enunciado)
+
+_______________________________________________________________________________________________________________________________
+
+- Particionamento de dados:
+
+	- Processo de segmentação lógica e física de dados em porções mais pequenas;
+	- Permmite operações de manipulação de dados no nível da partição, em vez de na tabela toda;
+
+	- Tipos de Particionamento:
+
+		- Range (intervalo):
+
+			- Mapeia dados para partições com base em intervalos de partição estabelecidos para cada uma;
+			- Registos identificados por uma chave de partição;
+
+			- Tipo mais comum, frequentemente usado com datas.
+
+		- List (Lista):
+
+			- Mapeoa ps dados para partições numa lista numerada;
+			
+			- Pode agrupar e organizar conjuntos de dados desordenados e não relacionados de uma maneira natural.
+
+		- Hash:
+
+			- Aplica uma função HASH à chve de particionamentos e coloca os dados em partições;
+
+			- Útil para aplicações que processam grandes volumes de dados e utilizam processos paralelos.
+
+		- Composto (RANGE + HASH):
+
+			- dados particionados usando RANGE e subparticionados usando HASH. 
+
+_______________________________________________________________________________________________________________________________
+
+- Índice: 
+
+	- Estrutura facultativa associada a colunas de tabelas e agrupamento de tabelas que aceleram o acesso aos dados;
+	- Podem ser cntruídos sobre uma ou mais colunas;
+	- Estruturas lógica e fisicamente independentes dos dados da tabela a que estão associados;
+
+	- Geridos automaticamente pelo sistema (decide se usa ou não).
+
+	- Tipos de Índices:
+
+		- B*Tree: 
+		
+			- Dados encontram-se nas folhas, mesma profundidade;
+			- Pesquisas demoram sempre o mesmo tempo;
+			- Índices sempre ordenados;
+		
+		- BITMAP:
+
+			- Para cada ROWID distinto é adicionado N bits que representam cada um dos estados possíveis.
+
+			- Para colunas com pouca cardinalidade, pesquisas mais rápidas e ocupam menos espaço;
+			- Rapidez na combinação de valores (AND e OR).
+
+		- Function-Bases Index:
+	
+			- Eficaz para condições complexas;
+			- Pré-computa as condições e guarda o resultado no índice.
+
+- Clusters:
+
+	- Forma alternatica de armazenar os dados de 2 ou mais tabelas dentro do mesmo segmento e do mesmos blocos de dados;
+	- Tabelas têm de ter uma ou mais colunas em comum (cluster key);
+	
+	- Rapidez no acesso aos dados;
+	- Menos informação a registar;
+
+	- Decidido e contruído pelo programador e alteração do modo de guardar a informação.
+
+	- Tipos de Clusters:
+
+		- Cluster Indexados:
+
+			- mais habituais;
+			- o acesso aos dados é efetuado por índices.
+
+		- Hash Clusters:
+
+			- Gera uma distribuição de valores numéricos com base em valores concretos da cluster key;
+			- Uso da função de hash para localizar o registo;
+
+			- Vantajoso em tabelas que são estáticas em tamanho e restrições de igualdade da cluster key.
+ 
+_______________________________________________________________________________________________________________________________
+
+Backup e Recuperação:
+
+	- refere-se às estratégias e procedimentos encolvidos na Proteção da base de dados da perda de dados e Reparação da base de dados depois de qualquer perda de dados.
+
+	- Media recovery consiste nas várias operações envolvidas na reposição de
+	um backup de ficheiros da base de dados, tais como:
+	
+		- Reparação
+
+		- Rolling Forward:
+
+			- Processo de aplicar registos de Redo (reexecução de operações) para trazer a base de dados para um estado consistente após uma falha.
+
+		- Rolling Back:
+
+			- Processo de reverter uma transação para o seu estado anterior;
+		
+			- Segmentos de Rollback: registam os dados antes de serem actualizados.
+
+	- Backup:
+	
+		- cópia de dados da BD que pode ser usada para reconrtruir os mesmos;
+
+		- Tipos de Backups:
+
+			- Backups físicos:
+			
+				- Backup dos ficheiros físicos (datafiles, control files e redo logs).
+
+				- Tipos de Backup Físicos:
+
+					- Backup Consistente:
+
+						- os ficheiros no backup contém todos os dados num dado instante;
+						- um backup da totalidade da base de dados consistente não requer a
+						recuperação depois da reparação/reposição dos ficheiros de backup.
+
+						- Todos os datafiles read/write e control files têm o
+						checkpoint com o mesmo SCN.
+
+					- Backup Inconsistente:
+
+						- backup de um ou mais ficheiros da base de dados feito enquanto a base de dados está aberta ou depois da base de dados ter feito o shutdown anormal;
+
+						- backup em que os ficheiros a fazer o backup não contém todas as alterações feitas em todos os SCN's.
+
+			- Backups Lógicos:
+	
+				- contém os dados lógicos (tabelas e stored procedures) exportados de uma BD Oracle;
+				- armazenados num ficheiro binário;
+
+				- permite extrair todos os objetos dos utilizadores.
+				
+
+	- Oracle Falchback:
+
+		- permite corrigir problemas causados por dados lógicos corrompidos ou erros do utilizador;
+		- permite rapidamente recuperar uma BD para um instante anterior;
+
+		- usando o RMAN e o comando SQL FlashBack Database;
+
+		- Para fazer, o Oracle usa block images passadas;
+
+_______________________________________________________________________________________________________________________________

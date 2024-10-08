@@ -1,0 +1,39 @@
+
+Fazer trabalho antes do teste;
+
+Packages:
+
+ - overloading apenas dentro de packages;
+
+Exercicíos:
+
+	CREATE OR REPLACE PACKAGE promocoes 
+	IS
+		CURSOR livros_da_semana RETURN livros%rowtype;
+		taxa_de_iva CONTANT NUMBER := 0.06;
+		PROCEDURE desconto_da_semana(percent IN NUNMBER);
+		FUNCTION pvp(preco IN NUMBER) RETURN NUMBER;
+	END;
+	/ 
+	CREATE OR REPLACE PACKAGE promocoes 
+	IS
+		CURSOR livros_da_semana RETURN livros%rowtype
+		IS SELECT * FROM livros
+		WHERE TO_CHAR(data_edicao, 'YYYY-WW') = TO_CHAR(SYSDATE, 'YYYY-WW');
+		
+		PROCEDURE desconto_da_semana(percent IN NUNBER)
+		IS
+		BEGIN
+			FOR R IN livros_da_semana
+			LOOP
+				UPDATE livros SET preco_tabela = preco_tabela * (1 + percent)
+				WHERE codigo_livro = r.codigo_livro; 
+			END LOOP;
+		END;
+
+		FUNCTION pvp(preco IN NUMBER) RETURN NUMBER
+		IS
+		BEGIN
+			RETURN 	preco * (1 + taxa_de_iva);
+		END;
+	END;
