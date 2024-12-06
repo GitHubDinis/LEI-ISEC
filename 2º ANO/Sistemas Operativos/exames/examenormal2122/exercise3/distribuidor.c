@@ -94,7 +94,7 @@ int main(int argc, char **argv){
                 	unlink(NONPRIOR_FIFO);
 			unlink(CAIXA_FIFO);
 			return 0;
-		} else{
+		} else if(readP > 0){
 			clientesP[countP++] = cliente;
 		}
 
@@ -108,7 +108,7 @@ int main(int argc, char **argv){
                         unlink(NONPRIOR_FIFO);
 			unlink(CAIXA_FIFO);
                         return 0;
-		} else {
+		} else if(readNP > 0){
 			clientesNP[countNP++] = cliente;
 		}
 
@@ -137,7 +137,7 @@ int main(int argc, char **argv){
                         	unlink(NONPRIOR_FIFO);
                         	unlink(CAIXA_FIFO);
                         	return 0;
-			} else{
+			} else if(readCaixa > 0){
 				countCaixas--;
 			}
 		}
