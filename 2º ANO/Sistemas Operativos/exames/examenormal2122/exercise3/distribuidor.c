@@ -137,6 +137,8 @@ int main(int argc, char **argv){
                         	unlink(NONPRIOR_FIFO);
                         	unlink(CAIXA_FIFO);
                         	return 0;
+			} else{
+				countCaixas--;
 			}
 		}
 	}
