@@ -32,7 +32,7 @@ int main(int argc, char **argv){
 
 	tempo_inicial = getSegundos();
 
-	for (int i = 0; i < nComandos; i++) {
+	for (int i = 0; i < nComandos - 1; i++) {
         	pid_t pid = fork();
 		if(pid == 0){
 			close(STDIN_FILENO);
@@ -40,7 +40,7 @@ int main(int argc, char **argv){
 			close(STDOUT_FILENO);
 			dup(FDPF[i][1]);
 
-			for(int j = 0; j < nComandos; j++){
+			for(int j = 0; j < nComandos - 1; j++){
 				close(FDPF[j][0]);
 				close(FDPF[j][1]);
 			}
@@ -52,12 +52,12 @@ int main(int argc, char **argv){
 		}
 	}
 
-	for(int i = 0; i < nComandos; i++){
+	for(int i = 0; i < nComandos - 1; i++){
                 close(FDPF[i][0]);
                 close(FDPF[i][1]);
 	}
 
-	for(int i = 0; i < nComandos; i++){
+	for(int i = 0; i < nComandos - 1; i++){
 		wait(&status);
 	}
 
