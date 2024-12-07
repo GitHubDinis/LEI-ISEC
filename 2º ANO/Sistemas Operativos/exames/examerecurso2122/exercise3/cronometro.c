@@ -36,9 +36,9 @@ int main(int argc, char **argv){
         	pid_t pid = fork();
 		if(pid == 0){
 			close(STDIN_FILENO);
-			dup(FDPF[i - 1][0]);
+			dup(FDPF[i][0]);
 			close(STDOUT_FILENO);
-			dup(FDPF[i - 1][1]);
+			dup(FDPF[i][1]);
 
 			for(int j = 0; j < nComandos; j++){
 				close(FDPF[j][0]);
