@@ -123,6 +123,14 @@ int main(int argc, char **argv){
 
 	pthread_mutex_init(&mutex, NULL);
 
+	struct sigaction sa;
+	sa.sa_handler = handler_signal;
+	sigaction(SIGINT, &sa, NULL);
+
+	signal(SIGALRM, handler_signal);
+
+	alarm(5000);
+
 	tdata.lock = &mutex;
 	tdata.tArray = array;
 	tdata.nLembretesMax = atoi(getenv("NMAX"));
