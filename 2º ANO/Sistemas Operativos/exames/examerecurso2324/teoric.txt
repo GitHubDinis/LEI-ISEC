@@ -1,0 +1,63 @@
+1. A característica mais saliente e vantajosa dos sistemas operativos com arquitetura micro-kernel (cliente-servidor) é a divisão lógica do sistema operativo em unidades funcionais, ou seja, o microkernel algumas funcionalidades e as restantes são implementadas no espaço do utilizador. Como cada serviço é executado separadamente, isto permite que, caso um serviço seja executado incorretamente, os restantes não serão afetados. Podemos considerar como clientes as componentes ou processos que solicitam serviços ou recursos ao sistema, e como servidores as componentes ou processos que fornecem esses serviços. Um exemplo pode ser uma aplicação que lê um arquivo de disco a solicitar serviços do servidor de sistema de arquivos. Utiliza um mecanismo de troca de mensagens para implementar chamadas ao sistema.
+
+2. De maneira a evitar a ocorrência de Deadlock, devemos padronizar a ordem dos Mutex. Ou seja, primeiro MA e depois MB, ou vice-versa.
+
+	- Na Thread A:
+
+	char temp[50];
+	strcpy(temp, ...etc...);
+	pthread_mutex_lock(MA);
+	strcpy(pedido, ...etc...);
+	pthread_mutex_unlock(MA);
+	imprimeNoEcran(temp);
+
+	- Na Thread B:
+
+	char local[200];
+	pthread_mutex_lock(MA);
+	strcpy(local, pedido);
+	pthread_mutex_lock(MB);
+	strcat(local, fatura);
+	pthread_mutex_unlock(MB);
+	transforma(local);
+	strcpy(pedido, local);
+	pthread_mutex_unlock(MA);
+
+	- Na Thread C:
+
+	char local[200];
+	pthread_mutex_lock(MB); 
+	pthread_mutex_lock(MA);
+	strcpy(local, pedido);
+	strcat(local, fatura);
+	pthread_mutex_unlock(MA);
+	transforma(local);
+	strcpy(pedido, local);
+	pthread_mutex_unlock(MB);
+
+	- Na Thread D:
+
+	char local[200];
+	pthread_mutex_lock(MB);
+	strcpy(local, fatura);
+	pthread_mutex_lock(MA);
+	strcat(local, " relativo a: ");
+	strcat(local, pedido);
+	pthread_mutex_unlock(MA);
+	atualiza(local);
+	strcpy(fatura, local);
+	pthread_mutex_unlock(MB);
+
+3.
+	a)
+
+		Segmento	Endereço Virtual (V)	Endereço Real (R)
+	
+		Pilha		0,300 			1324
+		Código		1,100			2148
+		Dados		2,1000			Excedente
+		Dados		3,200			No disk
+
+	b) O sistema operativo deteta quando um processo tenta acessar uma área de memória que não foi alocada para ele (ponto iii), ocorrendo um erro de Segmentation Fault. Além disto, quando o sistema tenta aceder a um endereço mapeado para o disco, mas não está carregado na RAM, ocorre uma Page Fault. Então este solicita que a página seja carregada da memória virtual para a RAM, completando a traduçõ do endereço virtual para real.
+
+   
