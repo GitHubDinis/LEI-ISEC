@@ -1,0 +1,27 @@
+1. A característica mais saliente e vantajosa dos sistemas operativos com arquitetura micro-kernel (cliente-servidor) é a divisão lógica do sistema operativo em unidades funcionais, ou seja, o microkernel algumas funcionalidades e as restantes são implementadas no espaço do utilizador. Como cada serviço é executado separadamente, isto permite que, caso um serviço seja executado incorretamente, os restantes não serão afetados.
+
+2. Não, os sistemas modernos são projetados para garantir segurança, eficiência e estabilidade. Algumas características que não seriam possíveis de alcançar seria: o Endereçamento Virtual, visto que os programas no 8086 acedem diretamente aos endereços fisícos; modos de execução privilegiados, visto que todos têm o mesmo privilégio; e as interrupções e exceções, apesar da exitência de Traps no 8086.
+
+3. 
+	a) Seria a página 3, mas como a página não esstá carregada (P = 0), ocorre page fault. A sequência seria: o SO interrompe o processo, gerando uma exceção; identifica que a página virtual 3 precisa ser carregada na memória e seleciona a página para remoção através do algoritmo NRU.
+
+	b) O algoritmo NRU classifica as páginas com base nos bits R e M. A escolha da página para remoção é escolhida através de R = 0 e M = 0, R = 0 e M = 1, e assim sucessivamente. A página para remoção seria a 1.
+
+4. As variáveis globais <poe> e <tira> é acedida por múltiplas threads, o que pode levar a inconsistências quando esta não é protegida. Isto pode ser corrigido através de Mutex.
+
+	- Eliminar os 2 mutexes e criar apenas 1 (mutex);
+	- Na thread FAZ:
+
+	faz = produzInfo();
+	pthread_mutex_lock(&mutex);
+        buffer[poe] = faz;
+        poe++;
+        pthread_mutex_unlock(&mutex);
+
+	- Na thread USA: 
+
+	pthread_mutex_lock(&mutex);
+        usa = buffer[tira]; 
+        tira++;
+        pthread_mutex_unlock(&mutex);
+
