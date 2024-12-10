@@ -1,0 +1,33 @@
+1.
+
+2. O endereçamento virtual resolve garante o isolamento de processos, sendo que um programa não pode ver os dados dos outros processos e interferir com a sua execução. Isto acontece porque cada processo tem os seus blocos mapeados em zonas não sobrepostas na RAM, impossibilitando os processos de verem a memória uns dos outros.
+
+3. 
+	a) Tendo em conta que ambas as Threads acedem e alteram o valor da variável partilhada letra, poderão ocorrer inconsistências devido ao facto de tentarem alterar o valor em simultâneo. Isto pode ser corrigido através da implementação de Mutex. Além disto temos um problema de espera ativa (while(letra == '\0')), que pode ser resolvida através de uma variável condicional.
+
+	- Na Thread traduz:
+
+	int aux;
+	while(...){
+		aux = recebeProxSim();
+		if(aux != '\0'){
+			pthread_mutex_lock(&mutex);
+			letra = aux;
+			pthread_cond_wait(&cond, &mutex);
+			pthread_mutex_unlock(&mutex);
+		}
+	}
+
+	- Na Thread imprime:
+
+	while(...){
+		pthread_mutex_lock(&mutex);
+		while(letra == '\0'){
+			pthread_cond_wait(&cond, &mutex);
+		}
+		printf("nova letra %c, letra");
+		letra = '\0';
+		pthread_mutex_unlock(&mutex);	
+	}
+
+	b) Tal como está o código, não se poderia duplicar a thread recebeProxSimb sem que isso introduzisse ainda mais possíveis inconsistências no mesmo.
