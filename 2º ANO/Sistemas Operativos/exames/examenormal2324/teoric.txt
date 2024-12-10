@@ -1,0 +1,5 @@
+1. Considerando a arquitetura de sistemas operativos cliente-servidor (ou micro-kernel), podemos considerar como clientes as componentes ou processos que solicitam serviços ou recursos ao sistema, e como servidores as componentes ou processos que fornecem esses serviços. Um exemplo pode ser uma aplicação que lê um arquivo de disco a solicitar serviços do servidor de sistema de arquivos.
+
+2. Um possível problema com a chamada desta função a partir de 3 threads é a existência da variável global buffer[30]. Isto pode ser resolvido através da passagem da mesma a variável local ou, se for necessário manter a variável como global, poderemos implementar um Mutex.
+
+3. Dois dos problemas do endereçamento real são a <limitação da memória> e a <falta de segurança e estabilidade>, sendo que qualquer programa pode ver os dados dos outros processos e interferir com a sua execução. O endereçamento virtual resolve ambos os problemas, pois consegue simular a existência de mais memória do que a que realmente existe e cada processo tem os seus blocos mapeados em zonas não sobrepostas na RAM, impossibilitando os processos de verem a memória uns dos outros.
