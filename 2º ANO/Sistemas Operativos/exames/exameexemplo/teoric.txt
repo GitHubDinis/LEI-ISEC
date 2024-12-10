@@ -1,0 +1,46 @@
+1. A arquitetura micro-kernel (cliente-servidor) é muito estável. Isto é graças à divisão lógica do sistema operativo em unidades funcionais, ou seja, o micro-kernel produz algumas funcionalidades e as restantes são implementadas no espaço do utilizador. Como cada serviço é executado separadamente, isto permite que, caso um serviço seja executado incorretamente, os restantes não serão afetados.
+
+2. 
+	a) Existência de variáveis globais acedidas e alteradas por múltiplas threads, sem qualquer proteção, como Mutex.
+
+	b) 
+
+	- Na Thread Procura
+
+	for (int i = 0; i < 100000; i++){
+		pthread_mutex_lock(&mutex);
+		if(ePrime(i)){
+			novo = 1;
+			primo = i;
+		}
+		pthread_mutex_unlock(&mutex);
+		pthread_cond_signal(&cond);
+	}
+	pthread_mutex_lock(&mutex); 
+	novo = 1;
+	primo = 1;
+	pthread_mutex_unlock(&mutex);
+
+	- Na Thread Mostra
+
+	while(1){
+		pthread_mutex_lock(&mutex);
+		while(novo == 0){
+			pthread_cond_wait(&cond, &mutex);
+		}
+		if(primo == 1){
+			pthread_mutex_unlock(&mutex);
+			break;
+		}
+		printf("%d", primo);
+		novo = 0;
+		pthread_mutex_unlock(&mutex);
+	}
+
+3. 
+
+	- 1º pedido para encaixar uma nova página: o sistema verifica se há espaço. Se houver espaço, mete a nova página. Senão, entra o algoritmo NRU;
+	- 2º escolhe a página a ser escolhida (de 0 a 3), começando pelas de classe 0. Os bits de referência R levam reset para 0;
+	- 3º atualiza a tabela de páginas: a página é substituída e os dados são atualizados. Os bits de referência R e modificação M são inicializados.
+	- 4º a página está pronta.
+
