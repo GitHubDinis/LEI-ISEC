@@ -58,7 +58,6 @@ int main(int argc, char **argv){
 
             execlp(argv[i + 1], argv[i + 1], NULL);
         } else if(pid == -1){
-            perror("[ERROR] fork failed");
             return 1;
         }
     }
