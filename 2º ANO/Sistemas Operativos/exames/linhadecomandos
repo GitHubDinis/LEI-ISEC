@@ -6,7 +6,7 @@ Exame Época Normal 21/22
 
 	a) cat /etc/passwd | cut -d ":" -f1,3 | sort -k2 -n | tail -2 | head -1 
 
-	b) ls -l /etc | cut -d " " -f5,9 | sort -k1 -n | tail -5 > ~/ficheiros.txt
+	b) ls -l /etc | tr -s " " | cut -d " " -f5,9 | sort -k1 -n | tail -5 > ~/ficheiros.txt
 ______________________________________________________________________________________________________________________________________________________________________________________
 
 Exame Época de Recurso 21/22
