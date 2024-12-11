@@ -147,6 +147,22 @@ void *routineControladores(void *arg){
 	}
 }
 
+void *printAvioesAtivos(void *arg){
+	struct tdados *tdata = (struct tdados*) arg;
+	struct controlador *array = tdata->arrayControladores;
+
+	while(1){
+		sleep(60); // Espera 60 segundos
+
+		pthread_mutex_lock(&mutex);
+		printf("\nNúmero de aviões ativos em cada controlador:\n");
+		for(int i = 0; i < tdata->nControladores; i++){
+			printf("Controlador %s: %d aviões ativos\n", array[i].nome, array[i].nAvioesAtivos);
+		}
+		pthread_mutex_unlock(&mutex);
+	}
+}
+
 int main(int argc, char **argv){
 
 	if(getenv("NPA2TORRE") == NULL){
@@ -162,7 +178,7 @@ int main(int argc, char **argv){
 	struct tdados tdata;
 	tdata.nControladores = nControladores;
 
-	pthread_t threads[2];
+	pthread_t threads[3];
 
 	fd_fifo_torre = open(fifo_name, O_RDONLY | O_NONBLOCK);
 	if(fd_fifo_torre == -1){
@@ -174,10 +190,12 @@ int main(int argc, char **argv){
 
 	pthread_create(&threads[0], NULL, &routineAvioes, &tdata);
 	pthread_create(&threads[1], NULL, &routineControladores, &tdata);
-
+	pthread_create(&threads[2], NULL, &printAvioesAtivos, &tdata);
+	
 	pthread_join(threads[0], NULL);
 	pthread_join(threads[1], NULL);
-
+	pthread_join(threads[2], NULL);
+	
 	pthread_mutex_destroy(&mutex);
 
 	return 0;
