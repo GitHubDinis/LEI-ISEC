@@ -14,18 +14,6 @@
 	- Na Thread B:
 
 	char local[200];
-	pthread_mutex_lock(MA);
-	strcpy(local, pedido);
-	pthread_mutex_lock(MB);
-	strcat(local, fatura);
-	pthread_mutex_unlock(MB);
-	transforma(local);
-	strcpy(pedido, local);
-	pthread_mutex_unlock(MA);
-
-	- Na Thread C:
-
-	char local[200];
 	pthread_mutex_lock(MB); 
 	pthread_mutex_lock(MA);
 	strcpy(local, pedido);
@@ -35,18 +23,26 @@
 	strcpy(pedido, local);
 	pthread_mutex_unlock(MB);
 
-	- Na Thread D:
+	- Na Thread C:
 
 	char local[200];
+	pthread_mutex_lock(MA); 
 	pthread_mutex_lock(MB);
 	strcpy(local, fatura);
-	pthread_mutex_lock(MA);
 	strcat(local, " relativo a: ");
 	strcat(local, pedido);
-	pthread_mutex_unlock(MA);
+	pthread_mutex_unlock(MB);
 	atualiza(local);
 	strcpy(fatura, local);
-	pthread_mutex_unlock(MB);
+	pthread_mutex_unlock(MA);
+
+	- Na Thread D:
+
+	char temp[50];
+	pthread_mutex_lock(MA); 
+	strcpy(pedido, temp);
+	pthread_mutex_unlock(MA);
+	gravaEmDisco(aux);
 
 3.
 	a)
