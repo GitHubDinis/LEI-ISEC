@@ -13,8 +13,8 @@
 			novo = 1;
 			primo = i;
 		}
-		pthread_mutex_unlock(&mutex);
 		pthread_cond_signal(&cond);
+		pthread_mutex_unlock(&mutex);
 	}
 	pthread_mutex_lock(&mutex); 
 	novo = 1;
