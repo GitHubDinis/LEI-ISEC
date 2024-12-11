@@ -39,9 +39,9 @@
 	- Na Thread D:
 
 	char temp[50];
-	pthread_mutex_lock(MA); 
+	pthread_mutex_lock(MB); 
 	strcpy(pedido, temp);
-	pthread_mutex_unlock(MA);
+	pthread_mutex_unlock(MB);
 	gravaEmDisco(aux);
 
 3.
