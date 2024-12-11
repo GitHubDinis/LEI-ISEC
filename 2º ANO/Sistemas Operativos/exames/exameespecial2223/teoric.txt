@@ -13,7 +13,7 @@
 		if(aux != '\0'){
 			pthread_mutex_lock(&mutex);
 			letra = aux;
-			pthread_cond_wait(&cond, &mutex);
+			pthread_cond_signal(&cond);
 			pthread_mutex_unlock(&mutex);
 		}
 	}
