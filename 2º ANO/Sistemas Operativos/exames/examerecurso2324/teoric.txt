@@ -54,6 +54,6 @@
 		Dados		2,1000			Excedente
 		Dados		3,200			No disk
 
-	b) O sistema operativo deteta quando um processo tenta acessar uma área de memória que não foi alocada para ele (ponto iii), ocorrendo um erro de Segmentation Fault. Além disto, quando o sistema tenta aceder a um endereço mapeado para o disco, mas não está carregado na RAM, ocorre uma Page Fault. Então este solicita que a página seja carregada da memória virtual para a RAM, completando a traduçõ do endereço virtual para real.
+	b) O sistema operativo deteta quando um processo tenta acessar uma área de memória que não foi alocada para ele (ponto iii), ocorrendo um erro de Segmentation Fault. Além disto, quando o sistema tenta aceder a um endereço mapeado para o disco, mas não está carregado na RAM, ocorre uma Page Fault. Então este solicita que a página seja carregada da memória virtual para a RAM, completando a tradução do endereço virtual para real.
 
    
