@@ -1,0 +1,420 @@
+Resumos da Unidade Curricular de Sistemas Operativos
+____________________________________________________
+
+____________________________________________________
+
+Capítulo 2 - Introdução ao Unix
+____________________________________________________
+
+O sistema operativo tem como objetivo:
+
+	- proporcionar serviços às aplicações;
+	- virtualizar a interação com periféricos;
+	- garantir que as aplicações e utilizadores cumprem as regras;
+	- gerir os recursos.
+
+Esquema: Utilizador - Aplicações Utilizador (App1, App2, UI/Shell) - Sistema Operativo - Hardware
+ 
+O sistema operativo é constituído por: 
+
+	- Núcleo (kernel): parte central do sistema que controla todos os aspetos da máquina e corre em modo mais privilegiado;
+	- Device Drivers: componentes autónomos que correm normalmente com privilégios elevados e passam a fazer parte do núcleo quando estão em execução;
+	- Outros programas: correm em modo não privilegiado, por exemplo, comandos do utilizador.
+
+Existem 2 modos de execução:
+
+	- Modo privilegiado:
+			
+		- permite executar determinadas instruções necessárias para aceder e manipular recursos da máquina, como por exemplo, interromper outros programas, modificar o próprio sistema, aceder diretamente aos periféricos,...;
+	
+	- Modo não privilegiado ("modo utilizador"):
+
+		- não reconhece a existência das instruções necessárias para aceder a outras zonas de memória, periféricos,...
+		- as aplicações do utilizador (inclusive o "root") e os componentes não-núcleo do sistema correm neste modo.
+
+Processo de bootstraping:
+
+	- O código em memória não volátil inicia o processo, localizando o local (disco e partição) onde está o sistema operativo e dando inicio à colocação de kernel em memória;
+	- Tendo o kernel em memória, este executa-se traz para memória os restantes componentes do sistema;
+	- O sistema controlará a partir daqui a execução de outros programas.
+ 
+Processo de login:
+	
+	- Executado no final do processo de Bootstrap;
+	- Aguarda por credenciais (username e password);	
+	- Se as credenciais forem válidas, é lançada uma Shell (programa que interage com o utilizador e com o sistema operativo, consola ou gráfica) em nome do utilizador.
+
+	
+____________________________________________________
+
+Capítulo 3 - Comandos Unix
+____________________________________________________
+
+Diretoria Raiz (root): diretoria base.
+
+Os comandos Unix são programas que são executados de forma independente da shell;
+
+	- Forma geral dos comandos Unix: command option(s) target(s).
+
+As variáveis de ambiente definem aspetos do funcionamento do ambiente do utilizador e do próprio sistema;
+
+	- Criar e definir variável: set MyVar = 10;
+	- Obter valor da variável: echo $MyVar.
+
+Redirecionamento: a entrada e saída dos comandos pode ser redirecionada de uns para os outros e para ficheiros, o que significa que a saída de um comando pode servir para alimentar a entrada de outro comando;
+
+	- redirecionamento de comando para outro comando: pipe. 
+
+____________________________________________________
+
+Capítulo 4 - Processos e sinais
+____________________________________________________
+
+Programa: conjunto de instruções que descreve como o computador deve proceder para cumprir um determinado algoritmo.
+
+	- ficheiro executável em disco;
+	- para ser executado é necessário um processo;
+	- o mesmo programa pode ser executado por diversos processos.
+
+Processo: ambiente de trabalho que contém recursos necessários à execução de um programa. Cada processo tem 1 programa, que pode ser substituído.
+
+	- conjunto de atributos e recursos;
+	- pode executar vários programas, um de cada vez.
+
+	- espaço de memória de um processo: código, dados iniciais, heap, pilha;
+	- as zonas de memória do processo adaptam-se ao programa que foi carregado para o processo, marcadas com tipos de acesso específico (leitura, execução, ...);
+	- a zonas de memória heap e pilha são dinâmicas, expandem-se consoante o necessário, na direção uma da outra.
+
+	- cada processo tem uma zona de memória de uso exclusivo.
+	
+Endereços virtuais: vistos pelas instruções dentro do processo.
+Endereços reais: endereços que estão realmente a ser usados na memória. 
+
+A criação de um processo é feito com base na duplicação de um processo já existente.
+	
+	- Mecanismo fork(void): <0 se erro, 0 se filho, >0 se pai;
+	- o novo processo fica com uma cópia do conteúdo do original (pai -> filho).
+	
+	- getpid(void): obtém identificação do processo.
+
+Os sinais correspondem a um mecanismo de comunicação.
+
+	- permitem a um processo assinalar a outro algo que correu mal;
+
+Existem duas formas de funcionamento de sinais: 
+
+	1 - signal(int signum, sghandler_t hanfler) / kill(pid_t pid, int sig) - mais simples, menos poderosGa;
+
+		- signal associa uma função handler ao sinal signum;		
+		- kill envia o sinal sig a um processo pid.
+		
+	2 - sigaction / sigqueue - menos simples, mais poderosa.	
+
+		- sigaction para ver/modificar comportamento associado a um sinal;
+		- sigqueue enviar um sinal.
+
+	- os sinais desbloqueiam a execução do processo que os recebe.
+
+	- Solução para quando se quer fazer mais do que uma coisa ao mesmo tempo:
+
+		- O processo A, ao receber o sinal do processo B, executa uma função (previamente associada ao sinal) que lê a mensagem no named pipe, e volta ao que estava a fazer (interagir com o utilizador).
+
+	- pause(): aguarda que o processo receba um sinal;
+	- alarm(): envia um sinal SIGALARM ao processo que invoca a função;
+	- sleep(): faz com que o processo adormeça até que um sinal chegue ou seconds;
+ 
+	A flag de um sinal é colocada a 1 quando o sinal é enviado ao processo, e colocada a 0 quando o sinal é atendido.
+
+Posições standard:
+
+	- 0 para stdin (operações de read);
+	- 1 para stdout (operações de write);
+	- 2 para stderr.
+	- VER SLIDE 30.
+
+No redirecionamento entre dois programas usa-se um mecanismo de comunicação entre processos: o Pipe Anónimo.
+
+	- comporta-se como 2 ficheiros, produz 2 descritores (um para escrita e outro para leitura);
+	- Num processo redireciona-se o output (stdout) para a extremidade de escrita do pipe e no outro processo redireciona-se o input (stdin) para a extremidade de leitura.
+
+
+____________________________________________________
+
+Capítulo 5 - Named pipes
+____________________________________________________
+	
+Existem diferentes Flags:
+
+	- Tipo de operação: O_RDONLY, O_WRONLY, O_RDWR;
+
+	- Acesso ao ficheiro: O_CREAT, O_EXCL;
+
+	- Comportamento no exec: O_CLOEXEC.
+
+Os named pipes ou FIFO's (First in First Out) são um mecanismo de comunicação de utilização análoga aos pipes anónimos mas em que existe um nome que pode ser utilizado por processos não relacionados para obtenção de acesso ao FIFO.
+
+	- permite a sua aplicação numa gama mais vasta de situações, por terem nome;
+
+	- manipulados através dos mesmos mecanismos que os ficheiros normais;
+
+		- open(const char * filename, int flags)
+		- write(int fd, const void * buffer, size_t size)
+		- read(int fd, void * buf, size_t size)
+
+		- mkfifo(const char * filename, int flags): cria um FIFO
+		- unlink(const char * filename): remove um FIFO/ficheiro
+		- fcntl(int fd, int command, long arg): manipula as propriedades de um FIFO/ficheiro
+
+	- duas categorias de utilização de FIFO: bloqueante e não-bloqueante.
+		
+		- O_NONBLOCK
+
+DeadLock: problema de espera mútua, ou seja, os processos ficam mutuamente à espera uns dos outros e nenhum avança.
+
+____________________________________________________
+
+Capítulo 6 - Mecanismo Select
+____________________________________________________
+
+Mecanismo que permite aguardar por mais do que uma operação de entrada/saída sem ser necessário saber qual delas se completa em primeiro lugar, sem recorrer à utilização de sinais e threads.
+
+	- int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+
+____________________________________________________
+
+Capítulo 7 - Threads
+____________________________________________________
+
+As Threads são tarefas a correr em simultâneo dentro do mesmo processo. A sua utilização permite, por exemplo, que façamos qualquer tipo de ação em paralelo com outras dentro do mesmo programa.
+
+
+
+____________________________________________________
+
+Capítulo 8 - Sincronização Simples - Exclusão Mútua
+____________________________________________________
+
+A Exclusão Mútua pode ser vista como um caso particular de competição: competição pelo acesso exclusivo de código. O problema que se pretende resolver é, normalmente, o acesso concorrente aos dados.
+
+	- competição por acesso a uma secção de código (dados), pois o número de unidade disponíveis desse recurso é 1. 
+
+Secção crítica: conjunto de operações que deve ser efetuado de forma atómica, normalmente relacionadas com dados partilhados;
+
+	- Esta secção tem a ver com os dados que são manipulados, não com as instruções.
+
+Soluções para a Exclusão Mútua:
+
+(1)
+	- Semáforos: semelhante a um semáforo real, mas com a capacidade de ter um número de autorizações (número de processos/threads que o podem ter em simultâneo);
+
+		- generalização do conceito Mutex, mas em que se permite N processos/threads em simultâneo.
+
+	- estrutura de dados que inclui:
+
+		- variável de controlo (int) = número de autorizações restantes;
+		- fila de espera (de processos bloqueados).
+	
+	- as operações do semáforo são: esperar (pede acesso a uma secção crítica) e assinalar (liberta uma secção crítica).
+
+	- objetivo: informar o sistema de que o processo está à espera de acesso a um recurso, podendo o Sistema Operativo bloquear a execução do processo até que o recurso esteja livre. 
+
+	- a utilização de semáforos: 
+
+		- bloqueia o processo e não ocupa processador;
+		- elimina a espera ativa: principal vantagem sobre os trincos lógicos.
+
+(2)
+	- Mutex: resolve diretamente o problema da exclusão mútua;
+
+		- mais simples do que o Semáforo;
+		- disponível nos sistemas multithreaded, como o Unix;
+	
+____________________________________________________
+
+Capítulo 9 - Variáveis Condicionais
+____________________________________________________
+	
+As Variáveis Condicionais permitem eliminar um teste de espera ativa em situações onde uma thread aguarda um dado acontecimento.
+
+	- O uso da variável condicional é feito em associação com um mutex;
+
+Tipo de dados para variável condicional:
+
+	- pthread_cond_t MyCondVar;
+
+Inicialização: 
+
+	- pthread_cond_init (pthread_cond_t *);
+
+____________________________________________________
+
+Capítulo 10 - Conceitos Fundamentais de SO
+____________________________________________________
+	
+PARTE 1:
+_________
+
+Um sistema operativo é:
+
+	- Um programa ou conjunto de programas;
+	- Serve de intermediário entre o equipamento físico e o "utilizador";
+	- Efetua a gestão de tudo o que há na máquina.
+	
+A UI é uma aplicação a correr por cima do sistema operativo, que tem como objetivo facilitar a utilização da máquina de uma forma consistente e fácil;
+
+Tipos de Sistemas operativos:
+
+	- Segundo a relação entre o tempo da máquina e o tempo real:
+	
+		- Sistemas de tempo virtual: 
+
+			- O tempo real não é importante para a atividade do PC;
+
+		- Sistemas de tempo real:
+
+			- O tempo real é relevante;
+			- Tem como objetivo garantir que as tarefas sejam cumpridas em intervalos de tempo real predeterminados;
+
+	- Segundo o número de processadores e natureza da sua utilização:
+
+		- Sistemas paralelos:
+	
+			- Memória e relógio partilhados por todos os µP (micro-processadores);
+
+		- Sistemas distribuídos:
+	
+			- Memória e relógio independentes para cada µP; 
+
+PARTE 2:
+_________
+
+Arquitetura dos sistemas operativos:
+
+	- Sistemas monolíticos:
+
+		- "Big Mess";
+		- Caracterizados pela ausência de uma estrutura molecular;
+		- Constituído por um conjunto de procedimentos ou funções que se podem chamar uns aos outros indiscriminadamente;
+		- Não existe encapsulamento funcional.
+
+		- Mais rápidos porque comunica entre funções;
+		- Dificuldade de implementação (falta de estrutura), muito código;
+		- Dificuldade em isolar responsabilidades no sistema.
+
+		- O núcleo do SO inclui as funções mais importantes e privilegiadas da máquina, sendo executado sempre no modo mais privilegiado. 
+
+		- Funções do Núcleo:
+	
+			- Gestão de Processos:
+				- Controlo das interrupções;
+				- Escalonamento;
+				- Despacho e Mecanismos de sincronização;
+			- Gestão de Memória.
+
+	- Sistemas em camadas:
+
+		- Manutenção facilitada, pois tem as tarefas e as responsabilidades atribuídas a camadas específicas;
+		- Camadas: (Gestão de processos, Gestão de memória, Comunicação E/S, Sistemas de Ficheiros, Interface do Sistema (funções e interpretador de comandos) e Aplicações).
+
+		- Se o hardware suportar este sistema, cada camada terá o seu próprio modo de execução. Mas nem sempre é fácil determinar a hierarquia das camadas!
+
+		- O Unix é o resultado do sistemas em camadas.
+		
+	- Máquinas Virtuais:
+
+		- Torna possível "ter" várias máquinas numa só;
+		- A instabilidade do sistema em desenvolvimento não afeta o resto da máquina (VM não afeta o Windows, por exemplo);
+		
+		- Difícil de implementar em algumas plataformas (hardware).
+
+		- Hypervisor:	
+
+			- SO não genérico, pois têm uma funcionalidade específica;
+			- Focado na funcionalidade de virtualização e não inclui outro tipo de funcionalidade.
+
+			- Hypervisor Tipo 1 ("nativos"):
+
+				- sistema que fica totalmente abaixo das máquinas virtuais, em que o hardware é totalmente gerido pelo hypervisor.
+		
+				- Melhor gestão do hardware;
+				- Independência de um sistema operativo genérico.
+
+				- Menor interação do user (acesso remoto);
+
+				- Verdadeiro conceito de Máquinas Virtuais.
+	
+			- Hypervisor Tipo 2 ("hóspedes"):
+
+				- corre em cima ou no mesmo nível que o sistema, sendo que o hypervisor já não gere diretamente o hardware.
+
+				- menor investimento;
+				- facilidade de integração (apenas mais um programa a correr);
+
+				- dependência de um sistema genérico no qual corre;
+				- menos performance.
+
+				- Virtual Box, por exemplo.
+
+	- Cliente-Servidor (Micro-Kernel):
+
+		- Divisão lógica do SO em unidades funcionais.
+		- Núcleo reduzido e simples (micro-kernel)
+		
+		- Sistema mais estável;
+		- Adaptável a sistemas distribuídos;
+	 	- Portabilidade melhorada.
+
+		- O Windows está organizado como micro-kernel.
+
+PARTE 3:
+_________
+
+O SO precisa de um mecanismo que o possa notificar de forma assíncrona da ocorrência de muitas situações (fim de operação de E/S, utilização de endereço inválido, etc). 
+
+Existem 3 tipos de interrupções:
+	
+	- Interrupções:
+
+		- geradas por periféricos;
+		- Operações de E/S.
+
+	- Traps:
+
+		- causadas pelo próprio sistema;
+		- útil para chamadas ao sistema.
+
+	- Exceções:
+
+		- causadas pelo próprio processador;
+		- essencial para tratamento de erros (endereços e operações inválidos). 
+
+PARTE 4:
+_________
+
+Um programa é uma sequência de instruções armazenadas de uma forma passiva sem qualquer concretização. As entidade ativas que partilham o processador são os processos. Alguns sistemas subdividem um processo em THREADS, que corresponde à ideia de ter processos dentro de processos.
+
+Programa - entidade passiva (ficheiro fica em memória secundária);
+Processo - entidade ativa em execução, através da qual o conjunto de ações de um programa é executado.
+
+Um processo inclui: 
+
+	- Um conjunto de operações (operações elementares proporcionadas pelo hardware);
+	- Um espaço de endereçamento (memória endereçável pelo programa);
+	- Um contexto de execução (informação relativa ao processo).
+
+Pode executar-se em dois modos:
+
+	- Modo Utilizador:
+		
+		- Intruções definidas pelo programador;
+		- sistema encontra-se protegido e ações são limitadas.
+
+	- Modo núcleo:
+
+		- execução decorre dentro de funções sistema invocadas pelo processo ou de outro código invocado por estas;
+		- sistema encontra-se protegido porque as instruções em execução não são determinadas pelo programador.
+
+
+
+
+
